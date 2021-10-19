@@ -23,6 +23,7 @@ class TravaApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme:  ColorScheme.light(
             primary: const Color(0XFF17123B),
+            primaryVariant: const Color(0XFF8B889D),
             secondary: const Color(0xFFFBFCFF),
             secondaryVariant: const Color(0xffD0D1D4).withOpacity(0.5),
           ),

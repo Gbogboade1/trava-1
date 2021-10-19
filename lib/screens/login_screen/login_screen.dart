@@ -100,6 +100,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 56.h),
                     DefaultButton(
+                        isActive: true,
                         buttonLabel: "Log In",
                         onTap: () {
                           //TODO: Implement login

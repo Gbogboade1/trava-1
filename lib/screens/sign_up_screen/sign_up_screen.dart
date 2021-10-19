@@ -101,6 +101,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 40.h),
                     DefaultButton(
+                        isActive: true,
                         buttonLabel: "Sign Up",
                         onTap: () {
                           //TODO: Implement sign up
@@ -127,12 +128,11 @@ class SignUpScreen extends StatelessWidget {
                                   ),
                             ),
                           ],
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(
-                                  fontWeight: FontWeight.w300,
-                                  color: const Color(0xff646465),),
+                          style:
+                              Theme.of(context).textTheme.bodyText2!.copyWith(
+                                    fontWeight: FontWeight.w300,
+                                    color: const Color(0xff646465),
+                                  ),
                         ),
                       ),
                     ),

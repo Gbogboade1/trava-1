@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,11 +5,13 @@ class DefaultButton extends StatelessWidget {
   const DefaultButton({
     Key? key,
     required this.buttonLabel,
+    required this.isActive,
     this.onTap,
   }) : super(key: key);
 
-  final String? buttonLabel;
+  final String buttonLabel;
   final VoidCallback? onTap;
+  final bool isActive;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -18,7 +19,7 @@ class DefaultButton extends StatelessWidget {
       child: Container(
           padding: EdgeInsets.symmetric(vertical: 15.h),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
+            color: isActive? Theme.of(context).colorScheme.primary:Theme.of(context).colorScheme.primaryVariant,
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
@@ -29,7 +30,7 @@ class DefaultButton extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              buttonLabel!,
+              buttonLabel,
               style: Theme.of(context).textTheme.button,
             ),
           )),
