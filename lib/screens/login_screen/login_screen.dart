@@ -7,6 +7,7 @@ import 'package:trava/screens/forget_password_screen/forget_password_screen.dart
 import 'package:trava/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:trava/utilities/constants.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
+import 'package:trava/widgets/custom_scaffold.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = "/login_screen";
@@ -14,13 +15,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: 24.w,
-            vertical: 27.h,
-          ),
+    return CustomScaffold(
+     
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,8 +136,7 @@ class LoginScreen extends StatelessWidget {
               )
             ],
           ),
-        ),
-      ),
+      
     );
   }
 }

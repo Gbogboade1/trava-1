@@ -2,12 +2,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/screens/forget_password_screen/new_password_screen.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
+import 'package:trava/widgets/custom_scaffold.dart';
 
 import 'components/back_button.dart';
 import 'components/otp_field.dart';
 
-class ResetCodeScreen extends StatelessWidget {
+class ResetCodeScreen extends HookWidget {
   static const String routeName = "/reset_code";
   const ResetCodeScreen({Key? key}) : super(key: key);
 
@@ -17,13 +19,8 @@ class ResetCodeScreen extends StatelessWidget {
         useAnimationController(duration: const Duration(seconds: 30));
     final animation = useAnimation(
         Tween<double>(begin: 30, end: 0).animate(animationController));
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: 24.w,
-            vertical: 27.h,
-          ),
+    return CustomScaffold(
+  
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -63,10 +60,21 @@ class ResetCodeScreen extends StatelessWidget {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 //TODO: Implement resend code
-                                animationController.forward();
+                                if (!animationController.isAnimating ||
+                                    animationController.isCompleted) {
+                                  animationController.forward();
+                                }
                               },
                             style:
                                 Theme.of(context).textTheme.headline3!.copyWith(
+                                      color: animationController.isAnimating
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .secondaryVariant
+                                          : Theme.of(context)
+                                              .textTheme
+                                              .headline3!
+                                              .color,
                                       fontSize: 12.sp,
                                       decoration: TextDecoration.underline,
                                     ),
@@ -78,7 +86,10 @@ class ResetCodeScreen extends StatelessWidget {
                             ),
                       ),
                     ),
-                    Text("in 00:${animation.toInt()}")
+                    Offstage(
+                        offstage:
+                            animationController.isAnimating ? false : true,
+                        child: Text(" in 00:${animation.toInt()}"))
                   ],
                 ),
               ),
@@ -88,12 +99,12 @@ class ResetCodeScreen extends StatelessWidget {
                 buttonLabel: "Submit",
                 onTap: () {
                   //TODO: implement otp check.
+                  Navigator.pushNamed(context, NewPasswordScreen.routeName);
                 },
               ),
             ],
           ),
-        ),
-      ),
+      
     );
   }
 }

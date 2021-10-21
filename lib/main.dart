@@ -21,9 +21,28 @@ class TravaApp extends StatelessWidget {
       builder: () => MaterialApp(
         title: "TRAVA",
         theme: ThemeData(
-          colorScheme:  ColorScheme.light(
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            selectedIconTheme: const IconThemeData(
+              color: Color(0XFF17123B),
+            ),
+            unselectedIconTheme: const IconThemeData(
+              color: Color(0XFFBDBDBD),
+            ),
+            selectedLabelStyle: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+              color: const Color(0XFF17123B),
+            ),
+            unselectedLabelStyle: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+              color: const Color(0XFFBDBDBD),
+            ),
+          ),
+          colorScheme: ColorScheme.light(
             primary: const Color(0XFF17123B),
             primaryVariant: const Color(0XFF8B889D),
+            onPrimary: const Color(0XFFFFFDFD),
             secondary: const Color(0xFFFBFCFF),
             secondaryVariant: const Color(0xffD0D1D4).withOpacity(0.5),
           ),
@@ -32,27 +51,38 @@ class TravaApp extends StatelessWidget {
               headline1: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 24.sp,
-                color: Colors.black,
+                color: const Color(0xff171718),
               ),
               headline2: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 16.sp,
-                color: Colors.black,
+                color: const Color(0xff171718),
               ),
               headline3: TextStyle(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
-                color: Colors.black,
+                color: const Color(0xff171718),
+              ),
+              
+              headline4: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+              headline5: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xff171718),
               ),
               bodyText1: TextStyle(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,
-                color: Colors.black,
+                color: Colors.white,
               ),
               bodyText2: TextStyle(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w400,
-                color: Colors.black,
+                color: const Color(0xff171718),
               ),
               button: TextStyle(
                 fontSize: 16.sp,

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/forget_password_screen/reset_code_screen.dart';
 import 'package:trava/utilities/constants.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
+import 'package:trava/widgets/custom_scaffold.dart';
 
 import 'components/back_button.dart';
 
@@ -12,13 +13,8 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: 24.w,
-            vertical: 27.h,
-          ),
+    return CustomScaffold(
+     
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -60,8 +56,6 @@ class ForgetPasswordScreen extends StatelessWidget {
               )
             ],
           ),
-        ),
-      ),
     );
   }
 }
