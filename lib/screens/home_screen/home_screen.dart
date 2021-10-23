@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/home_screen/components/buttons/home_screen_button.dart';
+import 'package:trava/screens/home_screen/components/tab_views/transactions_list_view.dart';
 import 'package:trava/widgets/custom_scaffold.dart';
 
 import 'components/buttons/request_to_deliver_button.dart';
 import 'components/buttons/send_payment_button.dart';
+import 'components/tab_views/operations_list_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -76,6 +78,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Expanded(
               child: Container(
+                width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.vertical(
@@ -88,9 +91,10 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       TabBar(
-                        isScrollable: true,
+                        // isScrollable: true,
                         indicatorColor: Colors.black,
                         indicatorSize: TabBarIndicatorSize.label,
+                        labelColor: const Color(0xff171718),
                         labelStyle:
                             Theme.of(context).textTheme.headline5!.copyWith(
                                   decorationStyle: TextDecorationStyle.solid,
@@ -107,11 +111,14 @@ class HomeScreen extends StatelessWidget {
                           Text("Transactions"),
                         ],
                       ),
-                      TabBarView(
-                        children: [
-                          Container(),
-                          Container(),
-                        ],
+                      SizedBox(height: 24.0.h),
+                      const Expanded(
+                        child: TabBarView(
+                          children: [
+                            OperationsListView(),
+                            TransactionsListView(),
+                          ],
+                        ),
                       ),
                     ],
                   ),
