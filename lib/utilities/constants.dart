@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+const Color kBlack = Color(0xff171718);
+
 final InputDecoration kTextFieldDecoration = InputDecoration(
   isDense: true,
   filled: true,

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/screens/fund_wallet_screen/fund_wallet_screen.dart';
 import 'package:trava/screens/home_screen/components/buttons/home_screen_button.dart';
 import 'package:trava/screens/home_screen/components/tab_views/transactions_list_view.dart';
 import 'components/buttons/request_to_deliver_button.dart';
@@ -70,8 +71,9 @@ class HomeScreen extends StatelessWidget {
                         buttonLabel: "Withdrawal",
                       ),
                       SizedBox(width: 30.w),
-                      const HomeScreenButton(
-                        color: Color(0xffCFAE00),
+                      HomeScreenButton(
+                        onTap: () => Navigator.of(context).pushNamed(FundWalletScreen.routeName),
+                        color: const Color(0xffCFAE00),
                         buttonLabel: "Fund Wallet",
                       ),
                     ],

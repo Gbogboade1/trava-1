@@ -6,7 +6,7 @@ import 'package:trava/screens/forget_password_screen/new_password_screen.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/custom_scaffold.dart';
 
-import 'components/back_button.dart';
+import '../../widgets/buttons/back_button.dart';
 import 'components/otp_field.dart';
 
 class ResetCodeScreen extends HookWidget {

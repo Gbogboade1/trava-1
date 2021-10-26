@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trava/screens/history_screen/history_screen.dart';
 import 'package:trava/screens/home_screen/home_screen.dart';
+import 'package:trava/screens/more_screen/more_screen.dart';
+import 'package:trava/screens/transaction_screen/transaction_screen.dart';
 
 class Navigation extends StatefulWidget {
   static const String routeName = "/navigation";
@@ -15,8 +17,8 @@ class _NavigationState extends State<Navigation> {
   List<Widget> screens = const [
     HomeScreen(),
     HistoryScreen(),
-    HomeScreen(),
-    HistoryScreen(),
+    TransactionScreen(),
+    MoreScreen(),
   ];
   @override
   Widget build(BuildContext context) {
