@@ -2,8 +2,6 @@ import "package:flutter/material.dart";
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/home_screen/components/buttons/home_screen_button.dart';
 import 'package:trava/screens/home_screen/components/tab_views/transactions_list_view.dart';
-import 'package:trava/widgets/custom_scaffold.dart';
-
 import 'components/buttons/request_to_deliver_button.dart';
 import 'components/buttons/send_payment_button.dart';
 import 'components/tab_views/operations_list_view.dart';
@@ -14,6 +12,19 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: Container(
+        height: 25.h,
+        color: Colors.white,
+        child: Center(
+          child: Text(
+            "See all",
+            style: Theme.of(context).textTheme.headline4!.copyWith(
+                  decoration: TextDecoration.underline,
+                  color: const Color(0xff171718),
+                ),
+          ),
+        ),
+      ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Column(
