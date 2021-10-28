@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/history_screen/components/tabviews/delivered_tabview.dart';
 import 'package:trava/screens/history_screen/components/tabviews/sent_tabview.dart';
 import 'package:trava/screens/history_screen/components/tabviews/to_be_delivered_tabview.dart';
-import 'package:trava/widgets/custom_scaffold.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);

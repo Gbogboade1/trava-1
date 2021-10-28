@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/screens/fund_wallet_screen/components/add_new_card_button.dart';
+import 'package:trava/screens/fund_wallet_screen/components/credit_card_tile.dart';
+import 'package:trava/utilities/constants.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
+import 'package:trava/widgets/buttons/default_button.dart';
 
 class FundWalletScreen extends StatefulWidget {
   static const String routeName = "/fund_wallet";
@@ -11,97 +15,98 @@ class FundWalletScreen extends StatefulWidget {
 }
 
 class _FundWalletScreenState extends State<FundWalletScreen> {
+  String? groupValue;
+  final TextEditingController fundWalletController = TextEditingController();
+
+  @override
+  void dispose() {
+    fundWalletController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final availableHeight = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 24.w,
-            vertical: 27.h,
-          ),
-          child: Column(
-            children: [
-              Row(
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: availableHeight,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 24.w,
+                vertical: 27.h,
+              ),
+              child: Column(
                 children: [
-                  const CustomBackButton(),
+                  Row(
+                    children: [
+                      const CustomBackButton(),
+                      const Spacer(),
+                      Text("Fund Wallet",
+                          style: Theme.of(context).textTheme.headline2),
+                      const Spacer()
+                    ],
+                  ),
+                  SizedBox(height: 21.5.h),
+                  Text("Select the card you want to fund your Wallet with",
+                      style: Theme.of(context).textTheme.bodyText2),
+                  SizedBox(height: 24.h),
+                  ...List.generate(4, (index) {
+                    return CreditCardTile(
+                      selectorValue: "$index",
+                      groupValue: groupValue,
+                      onChanged: (value) {
+                        setState(() {
+                          groupValue = value!;
+                        });
+                      },
+                    );
+                  }),
+                  groupValue != null
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 32.h),
+                            Text(
+                              "Fund my Trava wallet with",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .button!
+                                  .copyWith(color: kBlack),
+                            ),
+                            SizedBox(height: 8.h),
+                            TextFormField(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(color: kGray1),
+                              controller: fundWalletController,
+                              keyboardType: TextInputType.number,
+                              decoration: kTextFieldDecoration.copyWith(
+                                hintText: "e.g ₦3,200",
+                              ),
+                            ),
+                          ],
+                        )
+                      : const SizedBox(),
+                  SizedBox(height: 43.h),
+                  const AddNewCardButton(),
                   const Spacer(),
-                  Text("Fund Wallet",
-                      style: Theme.of(context).textTheme.headline2),
-                  const Spacer()
+                  groupValue != null
+                      ? DefaultButton(
+                          buttonLabel: "Fund my wallet",
+                          isActive:
+                              fundWalletController.text.isEmpty ? false : true,
+                        )
+                      : const SizedBox(),
                 ],
               ),
-              SizedBox(height: 21.5.h),
-              Text("Select the card you want to fund your Wallet with",
-                  style: Theme.of(context).textTheme.bodyText2),
-              SizedBox(height: 24.h),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    width: 0.5,
-                    color: const Color(0xffE0E0E0),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(1, 2),
-                      blurRadius: 4.0,
-                      color: const Color(0xff221A1A).withOpacity(0.04),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    const Selector(),
-                    SizedBox(width: 24.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        //card number
-                        Text(
-                          "**** **** **** 2378",
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                        //expiry date of card
-                        Text(
-                          "Expires: 03/21",
-                          style:
-                              Theme.of(context).textTheme.bodyText2!.copyWith(
-                                    color: const Color(0xff828282),
-                                  ),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class Selector extends StatelessWidget {
-  const Selector({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 20.w,
-      height: 20.w,
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 0.8,
-          color: const Color(0xff828282),
-        ),
-        shape: BoxShape.circle,
       ),
     );
   }

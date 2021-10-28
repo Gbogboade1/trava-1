@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const Color kBlack = Color(0xff171718);
-
+const Color kGray2 = Color(0xff4f4f4f);
+const Color kGray1 = Color(0xff333333);
+const Color kGray3 = Color(0xff828282);
+const Color kGray4 = Color(0xffBDBDBD);
 final InputDecoration kTextFieldDecoration = InputDecoration(
   isDense: true,
   filled: true,
