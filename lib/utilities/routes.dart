@@ -3,7 +3,7 @@ import 'package:trava/navigation.dart';
 import 'package:trava/screens/forget_password_screen/forget_password_screen.dart';
 import 'package:trava/screens/forget_password_screen/new_password_screen.dart';
 import 'package:trava/screens/forget_password_screen/reset_code_screen.dart';
-import 'package:trava/screens/fund_wallet_screen/fund_wallet_screen.dart';
+import 'package:trava/screens/home_screen/fund_wallet_screen/fund_wallet_screen.dart';
 import 'package:trava/screens/login_screen/login_screen.dart';
 import 'package:trava/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:trava/screens/splash_screen/splash_screen.dart';

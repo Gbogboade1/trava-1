@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trava/screens/fund_wallet_screen/components/add_new_card_button.dart';
-import 'package:trava/screens/fund_wallet_screen/components/credit_card_tile.dart';
+import 'package:trava/screens/home_screen/fund_wallet_screen/components/add_new_card_button.dart';
+import 'package:trava/screens/home_screen/fund_wallet_screen/components/credit_card_tile.dart';
 import 'package:trava/utilities/constants.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
