@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/widgets/buttons/selector.dart';
 
-class CreditCardTile extends StatelessWidget {
-  const CreditCardTile({
+class BankTile extends StatelessWidget {
+  const BankTile({
     Key? key,
     required this.selectorValue,
     required this.groupValue,
@@ -51,15 +51,15 @@ class CreditCardTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                //card number
+                //account number
                 Text(
-                  "**** **** **** 2378",
+                  "0237834098",
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 SizedBox(height: 5.h),
-                //expiry date of card
+                //account name
                 Text(
-                  "Expires: 03/21",
+                  "Boluwatife Akinlabi",
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         color: const Color(0xff828282),
                       ),
@@ -73,3 +73,4 @@ class CreditCardTile extends StatelessWidget {
     );
   }
 }
+
