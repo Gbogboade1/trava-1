@@ -5,7 +5,7 @@ import 'package:trava/screens/home_screen/components/tab_views/transactions_list
 import 'package:trava/screens/home_screen/fund_wallet_screen/fund_wallet_screen.dart';
 import 'package:trava/screens/home_screen/withdrawal_screen/withdrawal_screen.dart';
 import 'components/buttons/request_to_deliver_button.dart';
-import 'components/buttons/send_payment_button.dart';
+import 'components/buttons/send_packages_button.dart';
 import 'components/tab_views/operations_list_view.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                   Text("How can we help you earn and save money today?",
                       style: Theme.of(context).textTheme.headline4),
                   SizedBox(height: 16.h),
-                  const SendPaymentButton(),
+                  const SendPackagesButton(),
                   SizedBox(height: 12.h),
                   const RequestToDeliverButton(),
                   SizedBox(height: 22.h),

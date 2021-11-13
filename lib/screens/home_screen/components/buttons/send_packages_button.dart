@@ -1,16 +1,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/screens/home_screen/send_packages_screen/send_packages_screen.dart';
 
-class SendPaymentButton extends StatelessWidget {
-  const SendPaymentButton({
+class SendPackagesButton extends StatelessWidget {
+  const SendPackagesButton({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+       onTap: () => Navigator.of(context)
+                            .pushNamed(SendPackagesScreen.routeName),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 12.h),
         decoration: BoxDecoration(
@@ -23,7 +25,7 @@ class SendPaymentButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            "Send Payment(s)",
+            "Send Package(s)",
             style: Theme.of(context)
                 .textTheme
                 .headline3!
