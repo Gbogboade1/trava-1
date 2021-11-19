@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/screens/home_screen/request_to_deliver_screen/request_to_deliver_screen.dart';
 
 class RequestToDeliverButton extends StatelessWidget {
   const RequestToDeliverButton({
@@ -9,7 +10,7 @@ class RequestToDeliverButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => Navigator.pushNamed(context, RequestToDeliverScreen.routeName),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 12.h),
         decoration: BoxDecoration(
