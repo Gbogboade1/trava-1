@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/forget_password_screen/reset_code_screen.dart';
-import 'package:trava/utilities/constants.dart';
+import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/custom_scaffold.dart';
 

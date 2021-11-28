@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trava/utilities/constants.dart';
+import 'package:trava/utils/constants.dart';
 
 class TravaDropdown extends StatelessWidget {
   const TravaDropdown({

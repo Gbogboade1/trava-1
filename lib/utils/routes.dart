@@ -13,7 +13,7 @@ import 'package:trava/screens/splash_screen/splash_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => const SplashScreen(),
-  LoginScreen.routeName: (context) => const LoginScreen(),
+  LoginScreen.routeName: (context) => LoginScreen(),
   ForgetPasswordScreen.routeName: (context) => const ForgetPasswordScreen(),
   NewPasswordScreen.routeName: (context) => const NewPasswordScreen(),
   SignUpScreen.routeName: (context) => const SignUpScreen(),
