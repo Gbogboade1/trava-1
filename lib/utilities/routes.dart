@@ -4,6 +4,7 @@ import 'package:trava/screens/forget_password_screen/forget_password_screen.dart
 import 'package:trava/screens/forget_password_screen/new_password_screen.dart';
 import 'package:trava/screens/forget_password_screen/reset_code_screen.dart';
 import 'package:trava/screens/home_screen/fund_wallet_screen/fund_wallet_screen.dart';
+import 'package:trava/screens/home_screen/notifications_screen/notifications_screen.dart';
 import 'package:trava/screens/home_screen/request_to_deliver_screen/request_to_deliver_screen.dart';
 import 'package:trava/screens/home_screen/send_packages_screen/send_packages_screen.dart';
 import 'package:trava/screens/home_screen/withdrawal_screen/withdrawal_screen.dart';
@@ -23,4 +24,5 @@ final Map<String, WidgetBuilder> routes = {
   WithdrawalScreen.routeName: (context) => const WithdrawalScreen(),
   SendPackagesScreen.routeName: (context) => const SendPackagesScreen(),
   RequestToDeliverScreen.routeName: (context) => const RequestToDeliverScreen(),
+  NotificationsScreen.routeName: (context) => const NotificationsScreen(),
 };

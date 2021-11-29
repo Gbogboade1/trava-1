@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/home_screen/components/buttons/home_screen_button.dart';
 import 'package:trava/screens/home_screen/components/tab_views/transactions_list_view.dart';
 import 'package:trava/screens/home_screen/fund_wallet_screen/fund_wallet_screen.dart';
+import 'package:trava/screens/home_screen/notifications_screen/notifications_screen.dart';
 import 'package:trava/screens/home_screen/withdrawal_screen/withdrawal_screen.dart';
 import 'components/buttons/request_to_deliver_button.dart';
 import 'components/buttons/send_packages_button.dart';
@@ -45,9 +46,12 @@ class HomeScreen extends StatelessWidget {
                               color: Theme.of(context).colorScheme.onPrimary,
                             ),
                       ),
-                      const Icon(
-                        Icons.notifications_active_rounded,
-                        color: Colors.white,
+                      InkWell(
+                        onTap: ()=> Navigator.pushNamed(context, NotificationsScreen.routeName),
+                        child: const Icon(
+                          Icons.notifications_active_rounded,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),

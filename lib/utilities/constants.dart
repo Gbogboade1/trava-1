@@ -6,6 +6,8 @@ const Color kGray2 = Color(0xff4f4f4f);
 const Color kGray1 = Color(0xff333333);
 const Color kGray3 = Color(0xff828282);
 const Color kGray4 = Color(0xffBDBDBD);
+const Color kRed = Color(0xffF43232);
+
 final InputDecoration kTextFieldDecoration = InputDecoration(
   isDense: true,
   filled: true,
