@@ -2,7 +2,7 @@ import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/home_screen/send_packages_screen/components/add_new_package.dart';
-import 'package:trava/utilities/constants.dart';
+import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
 
 class SendPackageInfoPage extends StatefulWidget {

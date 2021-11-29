@@ -4,7 +4,9 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trava/navigation.dart';
-import 'package:trava/utilities/routes.dart';
+import 'package:trava/screens/login_screen/login_screen.dart';
+import 'package:trava/screens/splash_screen/splash_screen.dart';
+import 'package:trava/utils/routes.dart';
 
 void main() {
   runApp(const TravaApp());
@@ -18,6 +20,7 @@ class TravaApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: () => MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "TRAVA",
         theme: ThemeData(
           
@@ -93,7 +96,7 @@ class TravaApp extends StatelessWidget {
           ),
         ),
         routes: routes,
-        initialRoute: Navigation.routeName,
+        initialRoute: LoginScreen.routeName,
       ),
     );
   }
