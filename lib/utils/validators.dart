@@ -18,8 +18,8 @@ class TravaValidators {
     return text.replaceAll(regExp, '');
   }
 
-  static String? emailValidator(String email) {
-    if (email.isEmpty) return "Email field cannot be empty";
+  static String? emailValidator(String? email) {
+    if (email == null || email.isEmpty) return "Email field cannot be empty";
 
     if (!_validateEmail(email)) return "Please enter valid email address";
 
