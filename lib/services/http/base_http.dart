@@ -1,8 +1,6 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:trava/utils/helpers.dart';
-import 'package:trava/utils/locator.dart';
-import 'package:trava/utils/token_manager.dart';
 
 class Transformer extends DefaultTransformer {
   Transformer() : super(jsonDecodeCallback: parseJson);
@@ -12,7 +10,7 @@ const baseUrl = "https://travaapp.herokuapp.com/";
 
 class HttpService {
   // final NavigationService _navigationService = locator<NavigationService>();
-  final collectionUrl;
+  final String collectionUrl;
   late Dio http;
   late CancelToken cancelToken;
   final tokenHandler = Dio(
@@ -24,7 +22,7 @@ class HttpService {
   );
 
   HttpService({required this.collectionUrl}) {
-    cancelToken = new CancelToken();
+    cancelToken = CancelToken();
     http = Dio(
       BaseOptions(
         baseUrl: "$baseUrl$collectionUrl",

@@ -14,13 +14,13 @@ class AddWithdrawalResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
-    data['token'] = this.token;
+    data['token'] = token;
     return data;
   }
 }
@@ -35,8 +35,8 @@ class User {
   String? phone;
   String? password;
   String? profileImg;
-  List<Null>? packages;
-  List<Null>? deliveries;
+  List<dynamic>? packages;
+  List<dynamic>? deliveries;
   String? joinDate;
   String? createdAt;
   String? updatedAt;
@@ -44,7 +44,7 @@ class User {
   String? otp;
   String? otpTime;
   List<Banks>? banks;
-  List<Null>? cards;
+  List<dynamic>? cards;
 
   User(
       {this.sId,
@@ -98,7 +98,7 @@ class User {
     if (json['banks'] != null) {
       banks =[];
       json['banks'].forEach((v) {
-        banks!.add(new Banks.fromJson(v));
+        banks!.add(Banks.fromJson(v));
       });
     }
     if (json['cards'] != null) {
@@ -110,33 +110,33 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['isVerified'] = this.isVerified;
-    data['method'] = this.method;
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['profileImg'] = this.profileImg;
-    data['password'] = this.password;
-    if (this.packages != null) {
-      data['packages'] = this.packages!.map((v) => v).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['isVerified'] = isVerified;
+    data['method'] = method;
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['profileImg'] = profileImg;
+    data['password'] = password;
+    if (packages != null) {
+      data['packages'] = packages!.map((v) => v).toList();
     }
-    if (this.deliveries != null) {
-      data['deliveries'] = this.deliveries!.map((v) => v).toList();
+    if (deliveries != null) {
+      data['deliveries'] = deliveries!.map((v) => v).toList();
     }
-    data['joinDate'] = this.joinDate;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    data['otp'] = this.otp;
-    data['otpTime'] = this.otpTime;
-    if (this.banks != null) {
-      data['banks'] = this.banks!.map((v) => v.toJson()).toList();
+    data['joinDate'] = joinDate;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
+    data['otp'] = otp;
+    data['otpTime'] = otpTime;
+    if (banks != null) {
+      data['banks'] = banks!.map((v) => v.toJson()).toList();
     }
-    if (this.cards != null) {
-      data['cards'] = this.cards!.map((v) => v).toList();
+    if (cards != null) {
+      data['cards'] = cards!.map((v) => v).toList();
     }
     return data;
   }
@@ -165,12 +165,12 @@ class Banks {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['bankId'] = this.bankId;
-    data['accountNumber'] = this.accountNumber;
-    data['accountName'] = this.accountName;
-    data['bankName'] = this.bankName;
-    data['_id'] = this.sId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['bankId'] = bankId;
+    data['accountNumber'] = accountNumber;
+    data['accountName'] = accountName;
+    data['bankName'] = bankName;
+    data['_id'] = sId;
     return data;
   }
 }

@@ -8,15 +8,15 @@ class ProfileData {
   ProfileData.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     return data;
   }
@@ -32,8 +32,8 @@ class User {
   String? phone;
   String? profileImg;
   String? password;
-  List<Null>? packages;
-  List<Null>? deliveries;
+  List<dynamic>? packages;
+  List<dynamic>? deliveries;
   String? joinDate;
   String? createdAt;
   String? updatedAt;
@@ -85,26 +85,26 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['isVerified'] = this.isVerified;
-    data['method'] = this.method;
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['profileImg'] = this.profileImg;
-    data['password'] = this.password;
-    if (this.packages != null) {
-      data['packages'] = this.packages!.map((v) => v).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['isVerified'] = isVerified;
+    data['method'] = method;
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['profileImg'] = profileImg;
+    data['password'] = password;
+    if (packages != null) {
+      data['packages'] = packages!.map((v) => v).toList();
     }
-    if (this.deliveries != null) {
-      data['deliveries'] = this.deliveries!.map((v) => v).toList();
+    if (deliveries != null) {
+      data['deliveries'] = deliveries!.map((v) => v).toList();
     }
-    data['joinDate'] = this.joinDate;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    data['joinDate'] = joinDate;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
     return data;
   }
 }

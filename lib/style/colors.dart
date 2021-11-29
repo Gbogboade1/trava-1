@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
 
 class TravaColors {
-  static const MaterialColor primary = const MaterialColor(
+  static const MaterialColor primary = MaterialColor(
     0xFF982C31,
-    const <int, Color>{
-      50: const Color(0xFFFFFFFF),
-      100: const Color(0xFFFFFFFF),
-      200: const Color(0xFFFFFFFF),
-      300: const Color(0xFFFFFFFF),
-      400: const Color(0xFFFFFFFF),
-      500: const Color(0xFFFFFFFF),
-      600: const Color(0xFFFFFFFF),
-      700: const Color(0xFFFFFFFF),
-      800: const Color(0xFFFFFFFF),
-      900: const Color(0xFFFFFFFF),
+    <int, Color>{
+      50: Color(0xFFFFFFFF),
+      100: Color(0xFFFFFFFF),
+      200: Color(0xFFFFFFFF),
+      300: Color(0xFFFFFFFF),
+      400: Color(0xFFFFFFFF),
+      500: Color(0xFFFFFFFF),
+      600: Color(0xFFFFFFFF),
+      700: Color(0xFFFFFFFF),
+      800: Color(0xFFFFFFFF),
+      900: Color(0xFFFFFFFF),
     },
   );
 
-  static const MaterialColor secondary = const MaterialColor(
+  static const MaterialColor secondary = MaterialColor(
     0xFF051C3F,
-    const <int, Color>{
-      50: const Color.fromRGBO(77, 59, 145, 0.1),
-      100: const Color.fromRGBO(77, 59, 145, 0.2),
-      200: const Color.fromRGBO(77, 59, 145, 0.3),
-      300: const Color.fromRGBO(77, 59, 145, 0.4),
-      400: const Color.fromRGBO(77, 59, 145, 0.5),
-      500: const Color.fromRGBO(77, 59, 145, 0.6),
-      600: const Color.fromRGBO(77, 59, 145, 0.7),
-      700: const Color.fromRGBO(77, 59, 145, 0.8),
-      800: const Color.fromRGBO(77, 59, 145, 0.9),
-      900: const Color.fromRGBO(77, 59, 145, 1),
+    <int, Color>{
+      50: Color.fromRGBO(77, 59, 145, 0.1),
+      100: Color.fromRGBO(77, 59, 145, 0.2),
+      200: Color.fromRGBO(77, 59, 145, 0.3),
+      300: Color.fromRGBO(77, 59, 145, 0.4),
+      400: Color.fromRGBO(77, 59, 145, 0.5),
+      500: Color.fromRGBO(77, 59, 145, 0.6),
+      600: Color.fromRGBO(77, 59, 145, 0.7),
+      700: Color.fromRGBO(77, 59, 145, 0.8),
+      800: Color.fromRGBO(77, 59, 145, 0.9),
+      900: Color.fromRGBO(77, 59, 145, 1),
     },
   );
 
-  static const Color transparent = Color(0x00);
+  static const Color transparent = Color(0x00000000);
   static const Color bg = Color(0xFFF1C37E);
   static const Color purple = Color(0xFF4D3B91);
   static const Color purpleLight = Color(0xFF5166FF);

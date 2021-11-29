@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trava/navigation.dart';
 import 'package:trava/screens/login_screen/login_screen.dart';
-import 'package:trava/screens/splash_screen/splash_screen.dart';
 import 'package:trava/utils/routes.dart';
 
 void main() {
@@ -96,7 +95,7 @@ class TravaApp extends StatelessWidget {
           ),
         ),
         routes: routes,
-        initialRoute: LoginScreen.routeName,
+        initialRoute: Navigation.routeName,
       ),
     );
   }

@@ -15,12 +15,12 @@ class FadeIn extends StatefulWidget {
   /// Fade-in curve. Defaults to [Curves.easeIn]
   final Curve curve;
 
-  const FadeIn({
+  const FadeIn({Key? key,
     this.controller,
     this.child,
     this.duration = const Duration(milliseconds: 250),
     this.curve = Curves.easeIn,
-  });
+  }): super(key: key);
 
   @override
   _FadeInState createState() => _FadeInState();

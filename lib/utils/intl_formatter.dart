@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:trava/utils/regex.dart';
 
-
-
 class TravaFormatter {
   static String formatPhone(String tel) {
     if (tel.length == 10) {
@@ -33,7 +31,7 @@ class TravaFormatter {
   static String formatDate(String date, {String? format}) {
     DateFormat formatter =
         format == null ? DateFormat("d-MM-yyyy") : DateFormat(format);
-    if (date == null || date.isEmpty) {
+    if (date.isEmpty) {
       return formatter.format(DateTime.now());
     }
     final datetime = DateTime.tryParse(date);
@@ -43,10 +41,10 @@ class TravaFormatter {
     return formatter.format(datetime);
   }
 
-  static DateTime formatString(String date, {String?format}) {
-    DateFormat formatter =
-        format == null ? DateFormat("d-MM-yyyy") : DateFormat(format);
-    if (date == null || date.isEmpty) {
+  static DateTime formatString(String date, {String? format}) {
+    // DateFormat formatter =
+    //     format == null ? DateFormat("d-MM-yyyy") : DateFormat(format);
+    if (date.isEmpty) {
       return DateTime.now();
     }
     final datetime = DateTime.tryParse(date);
@@ -86,8 +84,8 @@ class TravaFormatter {
 
   static String capitalise(String text) {
     try {
-      if (text == null || text.isEmpty) {
-        return text ;
+      if (text.isEmpty) {
+        return text;
       } else if (text.length == 1) {
         return text.toUpperCase();
       } else {
@@ -110,18 +108,18 @@ class TravaFormatter {
 
   static String formatCurrency(String amount,
       {bool spaceIcon = true, bool ignoreSymbol = false, String symbol = 'N'}) {
-    final formatter = NumberFormat .currency(
+    final formatter = NumberFormat.currency(
       locale: "en_NG",
-      name: ignoreSymbol ? '' : symbol ,//?? '\$',
+      name: ignoreSymbol ? '' : symbol, //?? '\$',
       symbol: ignoreSymbol ? "" : "$symbol${spaceIcon ? " " : ""}",
       decimalDigits: 2,
     );
-    if (amount == null || amount.isEmpty || amount == "null") {
+    if (amount.isEmpty || amount == "null") {
       return "$symbol-.--";
     }
     amount = amount.replaceAll(RegExp(r'[^0-9\.]'), "");
     final amountDouble = double.tryParse(amount);
-    if (amount == null || amountDouble == null) {
+    if (amountDouble == null) {
       return amount;
     }
     if (amountDouble == 0) {
@@ -144,7 +142,7 @@ class TravaFormatter {
     );
     amount = amount.replaceAll(RegExp(r'[^0-9\.]'), "");
     final amountDouble = double.tryParse(amount);
-    if (amount == null || amountDouble == null) {
+    if (amountDouble == null) {
       return "";
     }
     return formatter.format(amountDouble);
@@ -163,9 +161,8 @@ class AmountFormatter extends TextInputFormatter {
           composing: TextRange.empty,
         );
       }
-      final amount = newValue.text != null
-          ? newValue.text.replaceAll(RegExp(r'[^0-9\.]'), "")
-          : "";
+      final amount = newValue.text.replaceAll(RegExp(r'[^0-9\.]'), "");
+
       final isValidNum = amount.isNotEmpty && int.tryParse(amount) != null;
       if (isValidNum) {
         final formattedText = TravaFormatter.formatCurrencyInput(amount);

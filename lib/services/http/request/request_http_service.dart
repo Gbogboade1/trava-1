@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/models/https/users/sign_in_request.dart';
 import 'package:trava/models/https/users/sign_in_response.dart';
 import 'package:trava/models/https/users/sign_out_response.dart';

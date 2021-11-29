@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:trava/components/fragments/spacers/app_sized_box.dart';
 import 'package:trava/style/colors.dart';
@@ -7,11 +6,11 @@ import 'package:trava/widgets/buttons/default_button.dart';
 import 'app_loader.dart';
 
 enum MessageType {
-  Error,
-  Warning,
-  Success,
-  Info,
-  Pending,
+  error,
+  warning,
+  success,
+  info,
+  pending,
 }
 
 class DialogMessage extends StatelessWidget {
@@ -22,28 +21,36 @@ class DialogMessage extends StatelessWidget {
   final bool _isConfirm;
   final bool _isAction;
 
-  DialogMessage({
+  const DialogMessage({
+    Key? key,
     required this.message,
-    this.messageType = MessageType.Info,
+    this.messageType = MessageType.info,
     this.textAlign = TextAlign.center,
     this.route,
   })  : _isConfirm = false,
-        _isAction = false;
+        _isAction = false,
+        super(key: key);
 
-  DialogMessage.confirm({
+  const DialogMessage.confirm({
+    Key? key,
     required this.message,
-    this.messageType = MessageType.Info,
+    this.messageType = MessageType.info,
     this.textAlign = TextAlign.center,
     required this.route,
   })  : _isConfirm = true,
-        _isAction = false;
-  DialogMessage.action({
+        _isAction = false,
+        super(key: key);
+
+  const DialogMessage.action({
+    Key? key,
     required this.message,
-    this.messageType = MessageType.Warning,
+    this.messageType = MessageType.warning,
     this.textAlign = TextAlign.center,
     required this.route,
   })  : _isAction = true,
-        _isConfirm = false;
+        _isConfirm = false,
+        super(key: key);
+
   String _parsedMessage() {
     if (message is String) {
       return message;
@@ -59,32 +66,32 @@ class DialogMessage extends StatelessWidget {
 
   Widget _messageIcon() {
     switch (messageType) {
-      case MessageType.Error:
-        return Icon(
+      case MessageType.error:
+        return const Icon(
           Icons.error_outline,
           size: 30,
           color: TravaColors.red,
         );
-        break;
-      case MessageType.Success:
-        return Icon(
+
+      case MessageType.success:
+        return const Icon(
           Icons.sentiment_satisfied,
           size: 30,
           color: TravaColors.green,
         );
-        break;
-      case MessageType.Warning:
+
+      case MessageType.warning:
         return Icon(
           Icons.warning,
           size: 30,
           color: TravaColors.red.withGreen(100),
         );
-        break;
-      case MessageType.Pending:
+
+      case MessageType.pending:
         return const Apploader();
-        break;
+
       default:
-        return Icon(
+        return const Icon(
           Icons.notifications,
           size: 30,
           color: TravaColors.black,

@@ -6,8 +6,9 @@ class TravaValidators {
   static String? passwordValidator(String? password) {
     if (password != null && password.length >= 8) return null;
 
-    if (password == null || password.isEmpty)
+    if (password == null || password.isEmpty) {
       return "Password field cannot be empty";
+    }
 
     return "Password cannot be less than eight characters";
   }
@@ -26,7 +27,7 @@ class TravaValidators {
   }
 
   static String? validateCardNum(String input) {
-    if (input == null || input.isEmpty) {
+    if (input.isEmpty) {
       return fieldReq;
     }
 
@@ -71,8 +72,9 @@ class TravaValidators {
   static String? nameValidator(String? name) {
     if (name != null && name.isEmpty) return "Name field cannot be empty";
 
-    if (name != null && name.length < 2)
+    if (name != null && name.length < 2) {
       return "Name cannot be less than two characters";
+    }
 
     return null;
   }
@@ -86,7 +88,7 @@ class TravaValidators {
   }
 
   static String? phoneValidator(String? value) {
-    if (value != null && value.length == 0) {
+    if (value != null && value.isEmpty) {
       return 'Phone field cannot be left empty';
     }
     if (value != null && value.length < 10) {
@@ -107,8 +109,8 @@ class TravaValidators {
     } else if (amount == null || amount < minAmount) {
       return 'Please enter valid amount';
     }
-    if (check) if (maxAmount == null || amount > maxAmount) {
-      return 'Please enter valid amount';
+    if (check && (maxAmount == null || amount > maxAmount)) {
+    return 'Please enter valid amount';
     }
     return null;
   }
@@ -124,7 +126,7 @@ class TravaValidators {
   }
 
   static String? minMaxLength(String value, {int length = 1, int height = 10}) {
-    if (value == null || (value.isEmpty)) {
+    if ((value.isEmpty)) {
       return 'This field is required';
     }
     if (value.length < length) {
@@ -141,7 +143,7 @@ class TravaValidators {
   }
 
   static String? validateCVV(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return fieldReq;
     }
 
@@ -152,7 +154,7 @@ class TravaValidators {
   }
 
   static String? validatePIN(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return fieldReq;
     }
 
@@ -181,8 +183,8 @@ class TravaValidators {
     int month;
     // The value contains a forward slash if the month and year has been
     // entered.
-    if (value.contains(new RegExp(r'(/)'))) {
-      var split = value.split(new RegExp(r'(/)'));
+    if (value.contains(RegExp(r'(/)'))) {
+      var split = value.split(RegExp(r'(/)'));
       // The value before the slash is the month while the value to right of
       // it is the year.
       month = int.parse(split[0]);
@@ -221,7 +223,7 @@ class TravaValidators {
   }
 
   static List<int> getExpiryDate(String value) {
-    var split = value.split(new RegExp(r'(/)'));
+    var split = value.split(RegExp(r'(/)'));
     return [int.parse(split[0]), int.parse(split[1])];
   }
 
