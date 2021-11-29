@@ -7,7 +7,8 @@ class TravaSizedBox extends StatelessWidget {
   final double width;
   final Widget? child;
 
-  const TravaSizedBox({this.height = 0, this.width = 0, this.child});
+  const TravaSizedBox({Key? key, this.height = 0, this.width = 0, this.child})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

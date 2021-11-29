@@ -13,7 +13,7 @@ class CardMonthInputFormatter extends TextInputFormatter {
       return newValue;
     }
 
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
     for (int i = 0; i < newText.length; i++) {
       buffer.write(newText[i]);
       var nonZeroIndex = i + 1;
@@ -25,7 +25,7 @@ class CardMonthInputFormatter extends TextInputFormatter {
     var string = buffer.toString();
     return newValue.copyWith(
         text: string,
-        selection: new TextSelection.collapsed(offset: string.length));
+        selection: TextSelection.collapsed(offset: string.length));
   }
 }
 
@@ -39,7 +39,7 @@ class CardNumberInputFormatter extends TextInputFormatter {
       return newValue;
     }
 
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
     for (int i = 0; i < text.length; i++) {
       buffer.write(text[i]);
       var nonZeroIndex = i + 1;
@@ -51,7 +51,7 @@ class CardNumberInputFormatter extends TextInputFormatter {
     var string = buffer.toString();
     return newValue.copyWith(
         text: string,
-        selection: new TextSelection.collapsed(offset: string.length));
+        selection: TextSelection.collapsed(offset: string.length));
   }
 }
 
@@ -65,7 +65,7 @@ class PhoneNumberInputFormatter extends TextInputFormatter {
       return newValue;
     }
 
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
     for (int i = 0; i < text.length; i++) {
       var nonZeroIndex = i + 1;
       if (i == 0 && text.length == 1) {
@@ -84,6 +84,6 @@ class PhoneNumberInputFormatter extends TextInputFormatter {
     var string = buffer.toString();
     return newValue.copyWith(
         text: string,
-        selection: new TextSelection.collapsed(offset: string.length));
+        selection: TextSelection.collapsed(offset: string.length));
   }
 }

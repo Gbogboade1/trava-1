@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:trava/components/fragments/spacers/app_sized_box.dart';
@@ -6,11 +5,11 @@ import 'package:trava/style/colors.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 
 enum MessageType {
-  Error,
-  Warning,
-  Success,
-  Info,
-  Pending,
+  error,
+  warning,
+  success,
+  info,
+  pending,
 }
 
 class ComfirmAction extends StatelessWidget {
@@ -21,12 +20,12 @@ class ComfirmAction extends StatelessWidget {
 
   final String route;
 
-  ComfirmAction.confirm({
+  const ComfirmAction.confirm({Key? key, 
     required this.message,
-    this.messageType = MessageType.Info,
+    this.messageType = MessageType.info,
     required this.route,
     this.textAlign = TextAlign.center,
-  }) : _isConfirm = true;
+  }) : _isConfirm = true, super(key: key);
 
   String _parsedMessage() {
     if (message is String) {

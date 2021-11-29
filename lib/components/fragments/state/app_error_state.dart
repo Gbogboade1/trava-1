@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trava/utils/extensions.dart';
 import 'package:trava/components/fragments/spacers/app_sized_box.dart';
-import 'package:trava/style/colors.dart';
 import 'package:trava/utils/typedefs.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 
@@ -13,13 +12,12 @@ class TravaErrorState extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
 
-  TravaErrorState({
+  const TravaErrorState({Key? key, 
     required this.errorMessage,
     required this.onRetry,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.crossAxisAlignment = CrossAxisAlignment.center,
-  })  : assert(errorMessage != null),
-        assert(onRetry != null);
+  })  : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -81,7 +81,7 @@ String parseError(
         }
       }
       if (error is String) {
-        return error != null && error.isNotEmpty
+        return error.isNotEmpty
             ? error
             : _fallBackMessage(statusCode, fallbackMessage);
       }
@@ -97,7 +97,7 @@ String parseError(
 
 
 String parseSuccess(dynamic data, String defaultMessage) {
-  final fallbackMessage = defaultMessage != null && defaultMessage.isNotEmpty
+  final fallbackMessage = defaultMessage.isNotEmpty
       ? defaultMessage
       : "Success";
   try {
@@ -119,9 +119,9 @@ String? _parseErrorArray(Map error) {
   try {
     final data = Map<String, List>.from(error);
     List errorMessages = [];
-    data.keys.forEach((it) {
+    for (var it in data.keys) {
       errorMessages.addAll(data[it]!);
-    });
+    }
     return errorMessages.join(", ");
   } catch (_) {
     return null;

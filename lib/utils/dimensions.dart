@@ -15,8 +15,8 @@ class _TravaDimension {
   }
 
   ScreenType get screenType {
-    if (_queryData.size.width > 500) return ScreenType.TABLET;
-    return ScreenType.MOBILE;
+    if (_queryData.size.width > 500) return ScreenType.tablet;
+    return ScreenType.mobile;
   }
 
   double get topInset {

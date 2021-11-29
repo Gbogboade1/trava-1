@@ -19,6 +19,8 @@ class LoginScreen extends HookWidget {
   static String routeName = "/login_screen";
   final AuthHttpService authService = AuthHttpService();
 
+  LoginScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final emailController = useTextEditingController();

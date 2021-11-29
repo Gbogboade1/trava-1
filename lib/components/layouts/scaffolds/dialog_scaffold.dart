@@ -7,11 +7,11 @@ class TravaDialogScaffold extends StatelessWidget {
   final bool showClose;
   final Future? future;
 
-  TravaDialogScaffold({
+  const TravaDialogScaffold({Key? key, 
     required this.child,
     required this.showClose,
     this.future,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

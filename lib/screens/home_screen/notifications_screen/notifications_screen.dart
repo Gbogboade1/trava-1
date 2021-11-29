@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trava/utilities/constants.dart';
+import 'package:trava/style/colors.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 
 enum NotificationType {
@@ -68,6 +68,8 @@ class NotificationsScreen extends StatelessWidget {
                       default:
                         return const FundedNotificationTile();
                     }
+
+                    //  return const PaidNotificationTile();
                   },
                 ),
               )
@@ -89,13 +91,15 @@ class GoingYourWayNotificationTile extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: 12.h),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Icon(Icons.arrow_circle_down),
           SizedBox(width: 16.w),
-          Column(
-            children: [
-              Flexible(
-                child: RichText(
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RichText(
                   text: TextSpan(
                     children: [
                       const TextSpan(
@@ -115,26 +119,26 @@ class GoingYourWayNotificationTile extends StatelessWidget {
                         ),
                   ),
                 ),
-              ),
-              SizedBox(height: 16.h),
-              Row(
-                children: [
-                  NotificationButton(
-                    backgroundColor: const Color(0xffF45050).withOpacity(0.1),
-                    textColor: kRed,
-                    onTap: () {},
-                    text: 'Ignore',
-                  ),
-                  SizedBox(width: 30.w),
-                  NotificationButton(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    textColor: Colors.white,
-                    onTap: () {},
-                    text: "I’ll deliver package",
-                  ),
-                ],
-              ),
-            ],
+                SizedBox(height: 16.h),
+                Row(
+                  children: [
+                    NotificationButton(
+                      backgroundColor: const Color(0xffF45050).withOpacity(0.1),
+                      textColor: TravaColors.red,
+                      onTap: () {},
+                      text: 'Ignore',
+                    ),
+                    SizedBox(width: 30.w),
+                    NotificationButton(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      textColor: Colors.white,
+                      onTap: () {},
+                      text: "I’ll deliver package",
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -161,7 +165,7 @@ class NotificationButton extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 6.h),
+          padding: EdgeInsets.symmetric(vertical: 8.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40.0),
             color: backgroundColor,
@@ -169,8 +173,10 @@ class NotificationButton extends StatelessWidget {
           child: Center(
             child: Text(
               text,
-              style:
-                  Theme.of(context).textTheme.headline3!.copyWith(color: kRed),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4!
+                  .copyWith(color: textColor),
             ),
           ),
         ),

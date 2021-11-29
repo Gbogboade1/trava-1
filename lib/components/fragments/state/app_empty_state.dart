@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:trava/components/fragments/spacers/app_sized_box.dart';
-import 'package:trava/style/colors.dart';
 import 'package:trava/utils/dimensions.dart';
 import 'package:trava/utils/typedefs.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
@@ -13,13 +12,13 @@ class TravaEmptyState extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
 
-  TravaEmptyState({
+  const TravaEmptyState({Key? key, 
     required this.message,
     this.onRetry,
     this.subMessage,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.crossAxisAlignment = CrossAxisAlignment.center,
-  }) : assert(message != null);
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final scaler = TravaScaleUtil(context);

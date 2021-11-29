@@ -10,9 +10,9 @@ import 'helpers.dart';
 
 
 enum FutureState {
-  Loading,
-  Complete,
-  Fail,
+  loading,
+  complete,
+  fail,
 }
 
 Future<T?> formSubmitDialog<T>({
@@ -24,7 +24,7 @@ Future<T?> formSubmitDialog<T>({
   String? successMessage,
   bool forceErrorMessage = false,
 }) async {
-  ValueNotifier<FutureState> isResolved = ValueNotifier(FutureState.Loading);
+  ValueNotifier<FutureState> isResolved = ValueNotifier(FutureState.loading);
   final T? result = await showDialog<T>(
     context: context,
     barrierDismissible: false,
@@ -52,39 +52,39 @@ Future<T?> formSubmitDialog<T>({
                       },
                     );
                     if (successMessage == null) {
-                      return DialogMessage(
+                      return const DialogMessage(
                         message: "",
-                        messageType: MessageType.Pending,
+                        messageType: MessageType.pending,
                       );
                     }
                     return DialogMessage(
                       message: successMessage,
-                      messageType: MessageType.Success,
+                      messageType: MessageType.success,
                     );
                   }
                   if (res.hasError) {
                     WidgetsBinding.instance?.addPostFrameCallback(
                       (_) {
-                        isResolved.value = FutureState.Complete;
+                        isResolved.value = FutureState.complete;
                       },
                     );
 
                     return DialogMessage(
                       message: parseError(res.error, errorMessage),
-                      messageType: MessageType.Error,
+                      messageType: MessageType.error,
                     );
                   }
                   return DialogMessage(
                     message: prompt,
-                    messageType: MessageType.Pending,
+                    messageType: MessageType.pending,
                   );
                 },
               ),
-              showClose: isResolved.value != FutureState.Loading,
+              showClose: isResolved.value != FutureState.loading,
             );
           },
         ),
-        onWillPop: () async => isResolved.value == FutureState.Complete,
+        onWillPop: () async => isResolved.value == FutureState.complete,
       );
     },
   );
