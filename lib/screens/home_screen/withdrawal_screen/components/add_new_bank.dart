@@ -36,6 +36,7 @@ class AddNewBankButton extends StatelessWidget {
     );
   }
 }
+
 class AddNewBankBottomSheet extends StatefulWidget {
   const AddNewBankBottomSheet({Key? key}) : super(key: key);
 
@@ -99,11 +100,13 @@ class _AddNewBankBottomSheetState extends State<AddNewBankBottomSheet> {
                       SizedBox(height: 8.h),
                       TravaDropdown(
                         value: _chosenValue,
+                        
                         onChanged: (String? value) {
                           setState(() {
                             _chosenValue = value;
                           });
-                        }, hint: "Choose your bank",
+                        },
+                        hint: "Choose your bank",
                       ),
                       SizedBox(height: 16.h),
                       //Card number texfield

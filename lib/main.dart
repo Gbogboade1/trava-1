@@ -22,7 +22,6 @@ class TravaApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: "TRAVA",
         theme: ThemeData(
-          
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             selectedIconTheme: const IconThemeData(
               color: Color(0XFF17123B),
@@ -65,7 +64,6 @@ class TravaApp extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 color: const Color(0xff171718),
               ),
-              
               headline4: TextStyle(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
@@ -95,7 +93,8 @@ class TravaApp extends StatelessWidget {
           ),
         ),
         routes: routes,
-        initialRoute: Navigation.routeName,
+        initialRoute: LoginScreen.routeName,
+        onGenerateRoute: dynamicRoutes,
       ),
     );
   }

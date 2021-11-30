@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/https/users/otp_response.dart';
+import 'package:trava/models/https/users/reset_request.dart';
 import 'package:trava/navigation.dart';
+import 'package:trava/screens/login_screen/login_screen.dart';
+import 'package:trava/services/http/auth/auth_http_service.dart';
 import 'package:trava/utils/constants.dart';
+import 'package:trava/utils/modals.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/custom_scaffold.dart';
 
 import '../../widgets/buttons/back_button.dart';
 
-class NewPasswordScreen extends StatelessWidget {
+class NewPasswordScreen extends HookWidget {
   static const String routeName = "/new_password";
-  const NewPasswordScreen({Key? key}) : super(key: key);
+  final OtpResponse otpResponse;
+  NewPasswordScreen(this.otpResponse);
+  AuthHttpService authHttpService = AuthHttpService();
 
   @override
   Widget build(BuildContext context) {
+    final _passwordController = useTextEditingController();
     return CustomScaffold(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,6 +44,7 @@ class NewPasswordScreen extends StatelessWidget {
           ),
           SizedBox(height: 8.h),
           TextFormField(
+            controller: _passwordController,
             decoration: kTextFieldDecoration.copyWith(
               hintText: "Your new password",
               suffixIcon: Icon(
@@ -48,9 +58,23 @@ class NewPasswordScreen extends StatelessWidget {
           DefaultButton(
             isActive: true,
             buttonLabel: "Submit and Log me in",
-            onTap: () {
-              //TODO: implement password update and log user in
-              Navigator.pushNamed(context, Navigation.routeName);
+            onTap: () async {
+              final doRoute = await formSubmitDialog(
+                context: context,
+                future: authHttpService.newPassword(
+                  ResetRequest(
+                    newPassword: _passwordController.text,
+                    otp: otpResponse.otp,
+                  ),
+                ),
+              );
+
+              if (doRoute != null && (doRoute.status ?? false)) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  LoginScreen.routeName,
+                  (Route<dynamic> route) => false,
+                );
+              }
             },
           )
         ],

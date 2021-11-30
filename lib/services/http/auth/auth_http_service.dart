@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:trava/models/https/users/otp_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
+import 'package:trava/models/https/users/reset_request.dart';
 import 'package:trava/models/https/users/sign_in_request.dart';
 import 'package:trava/models/https/users/sign_in_response.dart';
 import 'package:trava/models/https/users/sign_out_response.dart';
@@ -15,7 +17,7 @@ class AuthHttpService extends HttpService {
           collectionUrl: "/user",
         );
 
-  Future<SignUpResponse> signUp (SignUpRequest data) async {
+  Future<SignUpResponse> signUp(SignUpRequest data) async {
     try {
       final req = await http.post(
         "/signup",
@@ -34,7 +36,7 @@ class AuthHttpService extends HttpService {
     }
   }
 
- Future<SignInResponse> signIn (SignInRequest data) async {
+  Future<SignInResponse> signIn(SignInRequest data) async {
     try {
       final req = await http.post(
         "/signin",
@@ -53,7 +55,7 @@ class AuthHttpService extends HttpService {
     }
   }
 
-   Future<SignOutResponse> signOut () async {
+  Future<SignOutResponse> signOut() async {
     try {
       final req = await http.get(
         "/signout",
@@ -71,8 +73,7 @@ class AuthHttpService extends HttpService {
     }
   }
 
-
-   Future<ProfileData> getProfile () async {
+  Future<ProfileData> getProfile() async {
     try {
       final req = await http.get(
         "/profile",
@@ -90,8 +91,7 @@ class AuthHttpService extends HttpService {
     }
   }
 
-
-  Future<ProfileData> getProfileById (String id) async {
+  Future<ProfileData> getProfileById(String id) async {
     try {
       final req = await http.get(
         "/profile/$id",
@@ -109,5 +109,39 @@ class AuthHttpService extends HttpService {
     }
   }
 
+  Future<OtpResponse> forgotPassword(String email) async {
+    try {
+      final req = await http.post(
+        "/password_recovery",
+        data: {"email": email},
+      );
+      // final data =
 
+      return OtpResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<ProfileData> newPassword(ResetRequest data) async {
+    try {
+      final req = await http.post(
+        "/password_reset",
+        data: data.toJson(),
+      );
+      // final data =
+
+      return ProfileData.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
 }
+// 
+// 
