@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:trava/models/https/users/otp_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/models/https/users/reset_request.dart';
@@ -8,6 +9,8 @@ import 'package:trava/models/https/users/sign_in_response.dart';
 import 'package:trava/models/https/users/sign_out_response.dart';
 import 'package:trava/models/https/users/sign_up.dart';
 import 'package:trava/models/https/users/sign_up_response.dart';
+import 'package:trava/services/storage/storage.dart';
+import 'package:trava/utils/token_manager.dart';
 
 import '../base_http.dart';
 
@@ -42,11 +45,22 @@ class AuthHttpService extends HttpService {
         "/signin",
         data: data.toJson(),
       );
-      // final data =
+
+      await Hive.box("user_data").clear();
+
+      SignInResponse result = SignInResponse.fromJson(req.data);
+      await Hive.box("user_data").clear();
+      final tokenManager = TravaTokenManager.instance;
+      tokenManager.setToken(
+        accessToken: result.token,
+        email: result.user?.email ?? data.email,
+      );
+
+      LocalStorage.setItem(key: LocalStorage.userData, value: req.data);
 
       log("my new data -${req.data}");
 
-      return SignInResponse.fromJson(req.data);
+      return result;
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,

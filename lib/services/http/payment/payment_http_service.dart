@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/models/https/users/sign_in_request.dart';
 import 'package:trava/models/https/users/sign_in_response.dart';
 import 'package:trava/models/https/users/sign_out_response.dart';
@@ -9,16 +8,16 @@ import 'package:trava/models/https/users/sign_up_response.dart';
 
 import '../base_http.dart';
 
-class PaymentHttpService extends HttpService {
-  PaymentHttpService()
+class RequestHttpService extends HttpService {
+  RequestHttpService()
       : super(
-          collectionUrl: "/user",
+          collectionUrl: "/user/bank",
         );
 
-  Future<SignUpResponse> signUp (SignUpRequest data) async {
+  Future<SignUpResponse> topUp (SignUpRequest data) async {
     try {
       final req = await http.post(
-        "/signup",
+        "/deposit",
         data: data.toJson(),
       );
       // final data =
@@ -34,10 +33,10 @@ class PaymentHttpService extends HttpService {
     }
   }
 
- Future<SignInResponse> signIn (SignInRequest data) async {
+ Future<SignInResponse> removeWithdrawalMethod (SignInRequest data) async {
     try {
-      final req = await http.post(
-        "/signin",
+      final req = await http.delete(
+        "/delete",
         data: data.toJson(),
       );
       // final data =
@@ -53,54 +52,16 @@ class PaymentHttpService extends HttpService {
     }
   }
 
-   Future<SignOutResponse> signOut () async {
+   Future<SignOutResponse> addWithdrawalMethod () async {
     try {
       final req = await http.get(
-        "/signout",
+        "/add",
       );
       // final data =
 
       log("my new data -${req.data}");
 
       return SignOutResponse.fromJson(req.data);
-    } on DioError catch (e) {
-      throw {
-        "statusCode": e.response?.statusCode,
-        "data": e.response?.data ?? {"message": e.error ?? e}
-      };
-    }
-  }
-
-
-   Future<ProfileData> getProfile () async {
-    try {
-      final req = await http.get(
-        "/profile",
-      );
-      // final data =
-
-      log("my new data -${req.data}");
-
-      return ProfileData.fromJson(req.data);
-    } on DioError catch (e) {
-      throw {
-        "statusCode": e.response?.statusCode,
-        "data": e.response?.data ?? {"message": e.error ?? e}
-      };
-    }
-  }
-
-
-  Future<ProfileData> getProfileById (String id) async {
-    try {
-      final req = await http.get(
-        "/profile/$id",
-      );
-      // final data =
-
-      log("my new data -${req.data}");
-
-      return ProfileData.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,

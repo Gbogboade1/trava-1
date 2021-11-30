@@ -3,11 +3,17 @@ import "package:flutter/material.dart";
 import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:trava/navigation.dart';
 import 'package:trava/screens/login_screen/login_screen.dart';
+import 'package:trava/screens/splash_screen/splash_screen.dart';
 import 'package:trava/utils/routes.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox("app_data");
+  await Hive.openBox("user_data");
   runApp(const TravaApp());
 }
 
@@ -93,7 +99,7 @@ class TravaApp extends StatelessWidget {
           ),
         ),
         routes: routes,
-        initialRoute: LoginScreen.routeName,
+        initialRoute: SplashScreen.routeName,
         onGenerateRoute: dynamicRoutes,
       ),
     );

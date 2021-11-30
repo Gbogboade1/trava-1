@@ -38,6 +38,8 @@ dependencies:
   google_fonts: ^2.1.0
   flutter_hooks: ^0.18.0
   flutter_svg:
+  hive:
+  hive_flutter:
   dio:
   dotted_decoration: ^2.0.0
   intl:

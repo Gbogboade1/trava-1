@@ -118,6 +118,7 @@ class LoginScreen extends HookWidget {
                           ),
                       ),
                     );
+                    
                     if (doRoute != null && (doRoute.status ?? false)) {
                       Navigator.pushNamedAndRemoveUntil(
                         context,
