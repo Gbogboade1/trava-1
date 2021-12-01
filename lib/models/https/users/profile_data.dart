@@ -37,6 +37,8 @@ class User {
   String? joinDate;
   String? createdAt;
   String? updatedAt;
+  String? otpTime;
+  int? wallet;
   int? iV;
 
   User(
@@ -51,6 +53,8 @@ class User {
       this.password,
       this.packages,
       this.deliveries,
+      this.otpTime,
+      this.wallet,
       this.joinDate,
       this.createdAt,
       this.updatedAt,
@@ -64,6 +68,8 @@ class User {
     lastName = json['lastName'];
     email = json['email'];
     phone = json['phone'];
+    wallet = json['wallet'];
+    otpTime = json['otpTime'];
     profileImg = json['profileImg'];
     password = json['password'];
     if (json['packages'] != null) {
@@ -91,6 +97,8 @@ class User {
     data['method'] = method;
     data['firstName'] = firstName;
     data['lastName'] = lastName;
+    data['wallet'] = wallet;
+    data['otpTime'] = otpTime;
     data['email'] = email;
     data['phone'] = phone;
     data['profileImg'] = profileImg;

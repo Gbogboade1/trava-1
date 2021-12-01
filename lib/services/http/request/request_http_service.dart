@@ -1,5 +1,8 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:trava/models/https/request/cancel_delivery_response.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
+import 'package:trava/models/https/request/pick_package_request.dart';
 import 'package:trava/models/https/request/send_package_request.dart';
 import 'package:trava/models/https/request/send_package_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
@@ -36,7 +39,7 @@ class PaymentHttpService extends HttpService {
     }
   }
 
-  Future<SignInResponse> pick(SignInRequest data) async {
+  Future<SendPackageResponse> pick(PickPackageRequest data) async {
     try {
       final req = await http.post(
         "/pick",
@@ -46,7 +49,7 @@ class PaymentHttpService extends HttpService {
 
       log("my new data -${req.data}");
 
-      return SignInResponse.fromJson(req.data);
+      return SendPackageResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
@@ -73,7 +76,7 @@ class PaymentHttpService extends HttpService {
     }
   }
 
-  Future<ProfileData> pickAPackage(String packageId) async {
+  Future<PickAPackageResponse> pickAPackage(String packageId) async {
     try {
       final req = await http.get(
         "/pick/$packageId",
@@ -82,7 +85,7 @@ class PaymentHttpService extends HttpService {
 
       log("my new data -${req.data}");
 
-      return ProfileData.fromJson(req.data);
+      return PickAPackageResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
@@ -91,7 +94,7 @@ class PaymentHttpService extends HttpService {
     }
   }
 
-  Future<ProfileData> cancelRequest() async {
+  Future<CancelDeliveryResponse> cancelRequest() async {
     try {
       final req = await http.patch(
         "/cancel",
@@ -100,7 +103,7 @@ class PaymentHttpService extends HttpService {
 
       log("my new data -${req.data}");
 
-      return ProfileData.fromJson(req.data);
+      return CancelDeliveryResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
