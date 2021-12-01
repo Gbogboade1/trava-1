@@ -16,13 +16,12 @@ import 'package:trava/screens/splash_screen/splash_screen.dart';
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => const SplashScreen(),
   LoginScreen.routeName: (context) => LoginScreen(),
-  
   SignUpScreen.routeName: (context) => SignUpScreen(),
   ForgetPasswordScreen.routeName: (context) => ForgetPasswordScreen(),
   Navigation.routeName: (context) => const Navigation(),
   FundWalletScreen.routeName: (context) => const FundWalletScreen(),
   WithdrawalScreen.routeName: (context) => const WithdrawalScreen(),
-  SendPackagesScreen.routeName: (context) => const SendPackagesScreen(),
+  SendPackagesScreen.routeName: (context) => SendPackagesScreen(),
   RequestToDeliverScreen.routeName: (context) => const RequestToDeliverScreen(),
   NotificationsScreen.routeName: (context) => const NotificationsScreen(),
 };
@@ -36,7 +35,7 @@ Route<dynamic> dynamicRoutes(RouteSettings settings) {
           return ResetCodeScreen(settings.arguments as OtpResponse);
         },
       );
-      case NewPasswordScreen.routeName:
+    case NewPasswordScreen.routeName:
       return MaterialPageRoute(
         settings: settings,
         builder: (context) {

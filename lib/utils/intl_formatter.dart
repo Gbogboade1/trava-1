@@ -115,7 +115,7 @@ class TravaFormatter {
       decimalDigits: 2,
     );
     if (amount.isEmpty || amount == "null") {
-      return "$symbol-.--";
+      return "$symbol -.--";
     }
     amount = amount.replaceAll(RegExp(r'[^0-9\.]'), "");
     final amountDouble = double.tryParse(amount);
@@ -123,7 +123,7 @@ class TravaFormatter {
       return amount;
     }
     if (amountDouble == 0) {
-      return "${symbol}0.00";
+      return "$symbol 0.00";
     }
     return formatter.format(amountDouble);
   }
