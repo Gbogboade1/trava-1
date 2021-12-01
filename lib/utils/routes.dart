@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trava/models/https/users/otp_response.dart';
 import 'package:trava/navigation.dart';
 import 'package:trava/screens/forget_password_screen/forget_password_screen.dart';
 import 'package:trava/screens/forget_password_screen/new_password_screen.dart';
@@ -15,10 +16,9 @@ import 'package:trava/screens/splash_screen/splash_screen.dart';
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => const SplashScreen(),
   LoginScreen.routeName: (context) => LoginScreen(),
-  ForgetPasswordScreen.routeName: (context) => const ForgetPasswordScreen(),
-  NewPasswordScreen.routeName: (context) => const NewPasswordScreen(),
-  SignUpScreen.routeName: (context) => const SignUpScreen(),
-  ResetCodeScreen.routeName: (context) => const ResetCodeScreen(),
+  
+  SignUpScreen.routeName: (context) => SignUpScreen(),
+  ForgetPasswordScreen.routeName: (context) => ForgetPasswordScreen(),
   Navigation.routeName: (context) => const Navigation(),
   FundWalletScreen.routeName: (context) => const FundWalletScreen(),
   WithdrawalScreen.routeName: (context) => const WithdrawalScreen(),
@@ -26,3 +26,30 @@ final Map<String, WidgetBuilder> routes = {
   RequestToDeliverScreen.routeName: (context) => const RequestToDeliverScreen(),
   NotificationsScreen.routeName: (context) => const NotificationsScreen(),
 };
+
+Route<dynamic> dynamicRoutes(RouteSettings settings) {
+  switch (settings.name) {
+    case ResetCodeScreen.routeName:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) {
+          return ResetCodeScreen(settings.arguments as OtpResponse);
+        },
+      );
+      case NewPasswordScreen.routeName:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) {
+          return NewPasswordScreen(settings.arguments as OtpResponse);
+        },
+      );
+
+    default:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) {
+          return const SplashScreen();
+        },
+      );
+  }
+}

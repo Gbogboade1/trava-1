@@ -1,12 +1,13 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:trava/utils/helpers.dart';
+import 'package:trava/utils/token_manager.dart';
 
 class Transformer extends DefaultTransformer {
   Transformer() : super(jsonDecodeCallback: parseJson);
 }
 
-const baseUrl = "https://travaapp.herokuapp.com/"; 
+const baseUrl = "https://travaapp.herokuapp.com"; 
 
 class HttpService {
   // final NavigationService _navigationService = locator<NavigationService>();
@@ -38,10 +39,10 @@ class HttpService {
             "params": opts.queryParameters,
           });
           //uncomment this two lines as well.
-          // TravaTokenManager _tokenManager = TravaTokenManager.instance;
+          TravaTokenManager _tokenManager = TravaTokenManager.instance;
 
           
-          // var tokens = await _tokenManager.tokens;
+          var tokens = await _tokenManager.tokens;
           // if (tokens.accessToken != null &&
           //     DateTime.now().difference(tokens.createdAt!).inMinutes >= 5) {
           //   http.interceptors.requestLock.lock();
@@ -75,8 +76,8 @@ class HttpService {
           //   }
           // }
           //uncomment
-          // opts.headers["Authorization"] = "Bearer ${tokens.accessToken}";
-          // log("auth :${tokens.accessToken}");
+          opts.headers["trava_access_token"] = "${tokens.accessToken}";
+          log("auth :${tokens.accessToken}");
           return handler.next(opts);
         }, onError: (DioError e, handler) async {
           print({

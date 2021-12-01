@@ -112,9 +112,13 @@ class LoginScreen extends HookWidget {
                       errorMessage: "An error occured while processing.",
                       prompt: "Please wait while we login you in",
                       future: authService.signIn(
-                        SignInRequest(),
+                        SignInRequest(
+                          email: emailController.text.trim(),
+                          password: pwdController.text,
+                          ),
                       ),
                     );
+                    
                     if (doRoute != null && (doRoute.status ?? false)) {
                       Navigator.pushNamedAndRemoveUntil(
                         context,
