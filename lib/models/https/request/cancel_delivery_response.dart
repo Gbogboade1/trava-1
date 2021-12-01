@@ -9,18 +9,18 @@ class CancelDeliveryResponse {
   CancelDeliveryResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
     token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['token'] = this.token;
+    data['token'] = token;
     return data;
   }
 }
@@ -102,31 +102,31 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['isVerified'] = this.isVerified;
-    data['method'] = this.method;
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['profileImg'] = this.profileImg;
-    data['password'] = this.password;
-    data['packages'] = this.packages;
-    if (this.deliveries != null) {
-      data['deliveries'] = this.deliveries!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['isVerified'] = isVerified;
+    data['method'] = method;
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['profileImg'] = profileImg;
+    data['password'] = password;
+    data['packages'] = packages;
+    if (deliveries != null) {
+      data['deliveries'] = deliveries!.map((v) => v.toJson()).toList();
     }
-    data['wallet'] = this.wallet;
-    data['joinDate'] = this.joinDate;
-    if (this.banks != null) {
-      data['banks'] = this.banks!.map((v) => v.toJson()).toList();
+    data['wallet'] = wallet;
+    data['joinDate'] = joinDate;
+    if (banks != null) {
+      data['banks'] = banks!.map((v) => v.toJson()).toList();
     }
-    if (this.cards != null) {
-      data['cards'] = this.cards!.map((v) => v.toJson()).toList();
+    if (cards != null) {
+      data['cards'] = cards!.map((v) => v.toJson()).toList();
     }
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
     return data;
   }
 }
