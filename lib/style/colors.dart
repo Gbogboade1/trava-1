@@ -45,7 +45,7 @@ class TravaColors {
   static const Color grayBorder = Color(0xFFEFEFEF);
   static const Color grayBtn = Color(0xFFF3F3F3);
   static const Color grayScaffold = Color(0xFFE5E5E5);
-  static const Color blue = Color(0xFF035AA6);
+  static const Color blue = Color(0xFF17123B);
   static const Color navy = Color(0xFF03435F);
   static const Color lightGreen = Color(0xFFE4F6EB);
   static const Color blueSky = Color(0xFFE9F3FF);

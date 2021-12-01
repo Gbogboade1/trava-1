@@ -10,6 +10,7 @@ import 'package:trava/screens/home_screen/request_to_deliver_screen/request_to_d
 import 'package:trava/screens/home_screen/send_packages_screen/send_packages_screen.dart';
 import 'package:trava/screens/home_screen/withdrawal_screen/withdrawal_screen.dart';
 import 'package:trava/screens/login_screen/login_screen.dart';
+import 'package:trava/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:trava/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:trava/screens/splash_screen/splash_screen.dart';
 
@@ -25,6 +26,7 @@ final Map<String, WidgetBuilder> routes = {
   SendPackagesScreen.routeName: (context) => const SendPackagesScreen(),
   RequestToDeliverScreen.routeName: (context) => const RequestToDeliverScreen(),
   NotificationsScreen.routeName: (context) => const NotificationsScreen(),
+  OnboardingScreen.routeName: (context) => const OnboardingScreen(),  
 };
 
 Route<dynamic> dynamicRoutes(RouteSettings settings) {
