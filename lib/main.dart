@@ -76,7 +76,7 @@ class TravaApp extends StatelessWidget {
                 color: Colors.white,
               ),
               headline5: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
                 color: TravaColors.black,
               ),
@@ -99,7 +99,7 @@ class TravaApp extends StatelessWidget {
           ),
         ),
         routes: routes,
-        initialRoute: OnboardingScreen.routeName,
+        initialRoute: SplashScreen.routeName,
         //onGenerateRoute: dynamicRoutes,
       ),
     );

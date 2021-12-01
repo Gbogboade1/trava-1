@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:trava/screens/login_screen/login_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:trava/screens/onboarding_screen/onboarding_screen.dart';
+import 'package:trava/style/colors.dart';
 import 'package:trava/utils/token_manager.dart';
 
 import '../../navigation.dart';
@@ -20,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _routingHandler(context);
+      _routingHandler(context);
   }
 
   @override
@@ -35,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
     timer = Timer(const Duration(milliseconds: 1400), () async {
       final model = await isLoggedIn();
       Navigator.of(context).pushNamedAndRemoveUntil(
-        model ? Navigation.routeName : LoginScreen.routeName,
+        model ? Navigation.routeName : OnboardingScreen.routeName,
         (_) => false,
       );
     });
@@ -51,9 +54,23 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      body: const Center(
-        child: Text(
-          "TRAVA",
+      body: Center(
+        child: Column(
+          children: [
+            const Spacer(),
+            SvgPicture.asset(
+              'assets/images/logo_splash.svg',
+            ),
+            const Spacer(),
+            Text(
+              "Helping you earn and save money in logistics.",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline3!
+                  .copyWith(color: TravaColors.white),
+            ),
+            SizedBox(height: 40.h),
+          ],
         ),
       ),
     );
