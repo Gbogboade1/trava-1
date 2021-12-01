@@ -9,18 +9,18 @@ class SendPackageResponse {
   SendPackageResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
     token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['token'] = this.token;
+    data['token'] = token;
     return data;
   }
 }
@@ -114,34 +114,34 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['sendState'] = this.sendState;
-    data['sendTown'] = this.sendTown;
-    data['sender'] = this.sender;
-    data['type'] = this.type;
-    data['description'] = this.description;
-    data['quantity'] = this.quantity;
-    data['images'] = this.images;
-    data['deliveryMode'] = this.deliveryMode;
-    data['pickupTime'] = this.pickupTime;
-    data['pickupLocation'] = this.pickupLocation;
-    data['deliveryHub'] = this.deliveryHub;
-    data['hub'] = this.hub;
-    data['deliveryDate'] = this.deliveryDate;
-    data['isDelivered'] = this.isDelivered;
-    data['isPickuped'] = this.isPickuped;
-    data['isDropped'] = this.isDropped;
-    data['isReceived'] = this.isReceived;
-    data['destState'] = this.destState;
-    data['destTown'] = this.destTown;
-    data['insurance'] = this.insurance;
-    data['hasPaid'] = this.hasPaid;
-    data['amount'] = this.amount;
-    data['paymentId'] = this.paymentId;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['sendState'] = sendState;
+    data['sendTown'] = sendTown;
+    data['sender'] = sender;
+    data['type'] = type;
+    data['description'] = description;
+    data['quantity'] = quantity;
+    data['images'] = images;
+    data['deliveryMode'] = deliveryMode;
+    data['pickupTime'] = pickupTime;
+    data['pickupLocation'] = pickupLocation;
+    data['deliveryHub'] = deliveryHub;
+    data['hub'] = hub;
+    data['deliveryDate'] = deliveryDate;
+    data['isDelivered'] = isDelivered;
+    data['isPickuped'] = isPickuped;
+    data['isDropped'] = isDropped;
+    data['isReceived'] = isReceived;
+    data['destState'] = destState;
+    data['destTown'] = destTown;
+    data['insurance'] = insurance;
+    data['hasPaid'] = hasPaid;
+    data['amount'] = amount;
+    data['paymentId'] = paymentId;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
     return data;
   }
 }

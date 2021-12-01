@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new
+
 class ResetRequest {
   String? otp;
   String? newPassword;
@@ -10,9 +12,9 @@ class ResetRequest {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['otp'] = this.otp;
-    data['newPassword'] = this.newPassword;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['otp'] = otp;
+    data['newPassword'] = newPassword;
     return data;
   }
 }

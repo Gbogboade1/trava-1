@@ -45,20 +45,20 @@ class SendPackageRequest {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['deliveryHub'] = this.deliveryHub;
-    data['pickupLocation'] = this.pickupLocation;
-    data['pickupTime'] = this.pickupTime;
-    data['deliveryDate'] = this.deliveryDate;
-    data['destTown'] = this.destTown;
-    data['destState'] = this.destState;
-    data['deliveryMode'] = this.deliveryMode;
-    data['quantity'] = this.quantity;
-    data['description'] = this.description;
-    data['type'] = this.type;
-    data['sendTown'] = this.sendTown;
-    data['sendState'] = this.sendState;
-    data['images'] = this.images;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['deliveryHub'] = deliveryHub;
+    data['pickupLocation'] = pickupLocation;
+    data['pickupTime'] = pickupTime;
+    data['deliveryDate'] = deliveryDate;
+    data['destTown'] = destTown;
+    data['destState'] = destState;
+    data['deliveryMode'] = deliveryMode;
+    data['quantity'] = quantity;
+    data['description'] = description;
+    data['type'] = type;
+    data['sendTown'] = sendTown;
+    data['sendState'] = sendState;
+    data['images'] = images;
     return data;
   }
 }

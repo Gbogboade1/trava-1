@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:trava/models/https/users/otp_response.dart';
 import 'package:trava/models/https/users/reset_request.dart';
-import 'package:trava/navigation.dart';
 import 'package:trava/screens/login_screen/login_screen.dart';
 import 'package:trava/services/http/auth/auth_http_service.dart';
 import 'package:trava/utils/constants.dart';
@@ -16,8 +16,10 @@ import '../../widgets/buttons/back_button.dart';
 class NewPasswordScreen extends HookWidget {
   static const String routeName = "/new_password";
   final OtpResponse otpResponse;
-  NewPasswordScreen(this.otpResponse);
-  AuthHttpService authHttpService = AuthHttpService();
+  NewPasswordScreen(
+    this.otpResponse, {Key? key}
+  ) : super(key: key);
+  final AuthHttpService authHttpService = AuthHttpService();
 
   @override
   Widget build(BuildContext context) {

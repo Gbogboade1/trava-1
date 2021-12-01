@@ -1,10 +1,8 @@
 import 'dart:math';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/home_screen/notifications_screen/components/notification_tile.dart';
-import 'package:trava/style/colors.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 
 enum NotificationType {
