@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart' show required;
 
 class TravaTokenModel {
   String? accessToken;

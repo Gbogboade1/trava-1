@@ -64,7 +64,7 @@ class OtpField extends HookWidget {
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline1,
                     decoration: kOTPFieldDecoration.copyWith(
-                      counter: TravaSizedBox(),
+                      counter: const TravaSizedBox(),
                     ),
                     onChanged: (value) {
                       if (index == focus.length - 1) {

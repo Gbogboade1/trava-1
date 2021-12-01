@@ -30,15 +30,15 @@ class PickPackageRequest {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['fromState'] = this.fromState;
-    data['fromTown'] = this.fromTown;
-    data['capacity'] = this.capacity;
-    data['toState'] = this.toState;
-    data['toTown'] = this.toTown;
-    data['travelTime'] = this.travelTime;
-    data['packageType'] = this.packageType;
-    data['transportMode'] = this.transportMode;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['fromState'] = fromState;
+    data['fromTown'] = fromTown;
+    data['capacity'] = capacity;
+    data['toState'] = toState;
+    data['toTown'] = toTown;
+    data['travelTime'] = travelTime;
+    data['packageType'] = packageType;
+    data['transportMode'] = transportMode;
     return data;
   }
 }

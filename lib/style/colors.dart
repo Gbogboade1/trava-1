@@ -40,11 +40,12 @@ class TravaColors {
   static const Color purplePale = Color(0xFFF2EFFF);
   static const Color purplePaleDark = Color(0xFFE8E2FF);
   static const Color gray = Color(0xFFE0E0E0);
+  static const Color gray3 = Color(0xFF828282);
   static const Color darkGray = Color(0xFF8A8A8F);
   static const Color grayBorder = Color(0xFFEFEFEF);
   static const Color grayBtn = Color(0xFFF3F3F3);
   static const Color grayScaffold = Color(0xFFE5E5E5);
-  static const Color blue = Color(0xFF035AA6);
+  static const Color blue = Color(0xFF17123B);
   static const Color navy = Color(0xFF03435F);
   static const Color lightGreen = Color(0xFFE4F6EB);
   static const Color blueSky = Color(0xFFE9F3FF);
@@ -65,7 +66,7 @@ class TravaColors {
   static const Color greenPaleDark = Color(0xFFB9FFD7);
   static const Color greenDark = Color(0xFF219653);
   static const Color white = Color(0xFFFFFFFF);
-  static const Color black = Color(0xFF212121);
+  static const Color black = Color(0xFF171718);
   static const Color divider = Color(0xFFDADADA);
   static const Color dividerDark = Color(0xFFB9B9B9);
   static const Color darkGrey = Color(0xFF656F78);

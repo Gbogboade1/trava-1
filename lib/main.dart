@@ -4,8 +4,8 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:trava/navigation.dart';
-import 'package:trava/screens/login_screen/login_screen.dart';
+import 'package:trava/screens/onboarding_screen/onboarding_screen.dart';
+import 'package:trava/style/colors.dart';
 import 'package:trava/screens/splash_screen/splash_screen.dart';
 import 'package:trava/utils/routes.dart';
 
@@ -58,17 +58,17 @@ class TravaApp extends StatelessWidget {
               headline1: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 24.sp,
-                color: const Color(0xff171718),
+                color: TravaColors.black,
               ),
               headline2: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 16.sp,
-                color: const Color(0xff171718),
+                color: TravaColors.black,
               ),
               headline3: TextStyle(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
-                color: const Color(0xff171718),
+                color: TravaColors.black,
               ),
               headline4: TextStyle(
                 fontSize: 12.sp,
@@ -76,9 +76,9 @@ class TravaApp extends StatelessWidget {
                 color: Colors.white,
               ),
               headline5: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
-                color: const Color(0xff171718),
+                color: TravaColors.black,
               ),
               bodyText1: TextStyle(
                 fontSize: 14.sp,
@@ -88,7 +88,7 @@ class TravaApp extends StatelessWidget {
               bodyText2: TextStyle(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w400,
-                color: const Color(0xff171718),
+                color: TravaColors.black,
               ),
               button: TextStyle(
                 fontSize: 16.sp,
@@ -100,7 +100,7 @@ class TravaApp extends StatelessWidget {
         ),
         routes: routes,
         initialRoute: SplashScreen.routeName,
-        onGenerateRoute: dynamicRoutes,
+        //onGenerateRoute: dynamicRoutes,
       ),
     );
   }

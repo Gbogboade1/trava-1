@@ -16,7 +16,7 @@ class ResetCodeScreen extends HookWidget {
   static const String routeName = "/reset_code";
 
   final OtpResponse argument;
-  const ResetCodeScreen(this.argument);
+const ResetCodeScreen(this.argument, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
