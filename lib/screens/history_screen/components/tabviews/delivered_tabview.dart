@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DeliveredTabView extends StatelessWidget {
   const DeliveredTabView({
@@ -19,7 +20,9 @@ class DeliveredTabView extends StatelessWidget {
                 child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.arrow_circle_down),
+                      SvgPicture.asset(
+                        'assets/images/baggage.svg',
+                      ),
                       SizedBox(width: 17.w),
                       Flexible(
                         child: RichText(

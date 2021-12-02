@@ -11,7 +11,7 @@ import 'package:trava/utils/typedefs.dart';
 class ProfileSetUpDataListeningWidget extends HookWidget {
   final ListenerBuilder<ProfileData?> builder;
 
-  ProfileSetUpDataListeningWidget({required this.builder});
+  ProfileSetUpDataListeningWidget({Key? key, required this.builder}) : super(key: key);
   final AuthHttpService _authHttpService = AuthHttpService();
 // /user/profile
   @override
