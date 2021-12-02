@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/utils/constants.dart';
+import 'package:trava/widgets/buttons/outlined_button.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
@@ -26,12 +27,34 @@ class MoreScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText2,
               ),
               SizedBox(height: 33.5.h),
-              const MoreListTile(title: "Items to pickup",),
-              const MoreListTile(title: "Inventory",),
-              const MoreListTile(title: "Edit Profile",),
-              const MoreListTile(title: "Password Settings",),
-              const MoreListTile(title: "IManage Linked Card(s)",),
-              const MoreListTile(title: "Manage Linked Bank Account(s)",),
+              const MoreListTile(
+                title: "Items to pickup",
+              ),
+              const MoreListTile(
+                title: "Edit Profile",
+              ),
+              const MoreListTile(
+                title: "Password Settings",
+              ),
+              const MoreListTile(
+                title: "IManage Linked Card(s)",
+              ),
+              const MoreListTile(
+                title: "Manage Linked Bank Account(s)",
+              ),
+              SizedBox(height: 73.5.h),
+              Text(
+                "Want to serve as an Hub for Trava?",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5!
+                    .copyWith(color: Theme.of(context).colorScheme.primary),
+              ),
+              Text("You get to earn per item",
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      color: Theme.of(context).colorScheme.primaryVariant)),
+              SizedBox(height: 24.h),
+              const TravaOutlinedButton(buttonLabel: "Register as a hub")
             ],
           ),
         ),
@@ -42,11 +65,13 @@ class MoreScreen extends StatelessWidget {
 
 class MoreListTile extends StatelessWidget {
   const MoreListTile({
-    Key? key, required this.title, this.onTap,
+    Key? key,
+    required this.title,
+    this.onTap,
   }) : super(key: key);
 
-final String title;
-final VoidCallback? onTap;
+  final String title;
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     return ListTile(
