@@ -64,6 +64,8 @@ class NotificationsScreen extends StatelessWidget {
                         return const PaidNotificationTile();
                       case NotificationType.goingYourWay:
                         return const GoingYourWayNotificationTile();
+                      case NotificationType.readyToPickup:
+                        return const ReadyToPickUpNotificationTile();
                       default:
                         return const FundedNotificationTile();
                     }
@@ -79,4 +81,3 @@ class NotificationsScreen extends StatelessWidget {
     );
   }
 }
-
