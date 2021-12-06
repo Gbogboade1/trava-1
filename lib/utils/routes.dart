@@ -4,6 +4,8 @@ import 'package:trava/navigation.dart';
 import 'package:trava/screens/forget_password_screen/forget_password_screen.dart';
 import 'package:trava/screens/forget_password_screen/new_password_screen.dart';
 import 'package:trava/screens/forget_password_screen/reset_code_screen.dart';
+import 'package:trava/screens/history_screen/components/delivered_package_details_screen.dart';
+import 'package:trava/screens/history_screen/components/sent_package_details_screen.dart';
 import 'package:trava/screens/home_screen/fund_wallet_screen/fund_wallet_screen.dart';
 import 'package:trava/screens/home_screen/notifications_screen/notifications_screen.dart';
 import 'package:trava/screens/home_screen/request_to_deliver_screen/request_to_deliver_screen.dart';
@@ -22,10 +24,10 @@ final Map<String, WidgetBuilder> routes = {
   Navigation.routeName: (context) => const Navigation(),
   FundWalletScreen.routeName: (context) => const FundWalletScreen(),
   WithdrawalScreen.routeName: (context) => const WithdrawalScreen(),
-  SendPackagesScreen.routeName: (context) => SendPackagesScreen(),
+  SendPackagesScreen.routeName: (context) => const SendPackagesScreen(),
   RequestToDeliverScreen.routeName: (context) => const RequestToDeliverScreen(),
   NotificationsScreen.routeName: (context) => const NotificationsScreen(),
-  OnboardingScreen.routeName: (context) => const OnboardingScreen(),  
+  OnboardingScreen.routeName: (context) => const OnboardingScreen(),
 };
 
 Route<dynamic> dynamicRoutes(RouteSettings settings) {
@@ -44,7 +46,20 @@ Route<dynamic> dynamicRoutes(RouteSettings settings) {
           return NewPasswordScreen(settings.arguments as OtpResponse);
         },
       );
-
+    case SentPackageDetailsScreen.routeName:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) {
+          return SentPackageDetailsScreen(settings.arguments as List);
+        },
+      );
+    case DeliveredPackageDetailsScreen.routeName:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) {
+          return DeliveredPackageDetailsScreen(settings.arguments as List);
+        },
+      );
     default:
       return MaterialPageRoute(
         settings: settings,

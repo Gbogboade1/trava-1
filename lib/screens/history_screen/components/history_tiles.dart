@@ -1,7 +1,9 @@
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:trava/screens/history_screen/components/sent_package_details_screen.dart';
 
 enum PackageDeliveryStatus {
   delivered,
@@ -46,6 +48,14 @@ class SentHistoryTile extends StatelessWidget {
                               "Your package (154)  to be delivered at DHL Hub, Asaba, Delta State by Aladetimi Tolulope. "),
                       TextSpan(
                         text: "See Details",
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushNamed(
+                              context,
+                              SentPackageDetailsScreen.routeName,
+                              arguments: [1, 2],
+                            );
+                          },
                         style: Theme.of(context)
                             .textTheme
                             .headline4!

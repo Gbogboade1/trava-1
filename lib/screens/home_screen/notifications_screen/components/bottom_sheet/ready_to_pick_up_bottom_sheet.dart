@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trava/screens/home_screen/notifications_screen/components/package_details_view.dart';
+import 'package:trava/widgets/package_details_view.dart';
 
 class ReadyToPickUpPackageBottomSheet extends StatelessWidget {
   const ReadyToPickUpPackageBottomSheet({Key? key}) : super(key: key);
@@ -40,7 +40,9 @@ class ReadyToPickUpPackageBottomSheet extends StatelessWidget {
                     top: Radius.circular(8),
                   ),
                 ),
-                child: const PackageDetailsView(),
+                child: const PackageDetailsView(
+                  packageList: [1],
+                ),
               ),
             ),
           ],

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/style/colors.dart';
@@ -6,8 +5,9 @@ import 'package:trava/style/colors.dart';
 class PackageDetailsView extends StatelessWidget {
   const PackageDetailsView({
     Key? key,
+    required this.packageList,
   }) : super(key: key);
-
+  final List packageList;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,11 +21,7 @@ class PackageDetailsView extends StatelessWidget {
                 const TextSpan(text: "Package 023 Details "),
                 TextSpan(
                   text: "(₦1,570)",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2!
-                      .copyWith(
-                        fontSize: 16.sp,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
                         color: TravaColors.red,
                       ),
                 ),
@@ -34,6 +30,51 @@ class PackageDetailsView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 15.h),
+        Expanded(
+          child: packageList.length <= 1
+              ? const PackageDetails()
+              : ListView.builder(
+                  itemCount: packageList.length,
+                  itemBuilder: (context, index) {
+                    String packageRank = () {
+                      switch (index) {
+                        case 0:
+                          return "1st";
+                        case 1:
+                          return "2nd";
+                        case 2:
+                          return "3rd";
+                        default:
+                          return "${index + 1}th";
+                      }
+                    }();
+                    return ExpansionTile(
+                      maintainState: true,
+                      initiallyExpanded:
+                          packageList[index] == packageList.last ? true : false,
+                      title: Text("$packageRank Package Details"),
+                      children: const [
+                        PackageDetails(),
+                      ],
+                    );
+                  },
+                ),
+        ),
+      ],
+    );
+  }
+}
+
+class PackageDetails extends StatelessWidget {
+  const PackageDetails({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Center(
           child: Container(
             height: 146.h,
