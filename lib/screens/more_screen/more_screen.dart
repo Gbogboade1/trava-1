@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/screens/more_screen/components/edit_profile_bottom_sheet.dart';
+import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/buttons/outlined_button.dart';
 
@@ -27,17 +29,29 @@ class MoreScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText2,
               ),
               SizedBox(height: 33.5.h),
-              const MoreListTile(
+              MoreListTile(
                 title: "Items to pickup",
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, PackagesToPickUpScreen.routeName);
+                },
               ),
-              const MoreListTile(
+              MoreListTile(
                 title: "Edit Profile",
+                onTap: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) => const EditProfileBottomSheet(),
+                  );
+                },
               ),
               const MoreListTile(
                 title: "Password Settings",
               ),
               const MoreListTile(
-                title: "IManage Linked Card(s)",
+                title: "Manage Linked Card(s)",
               ),
               const MoreListTile(
                 title: "Manage Linked Bank Account(s)",
@@ -75,6 +89,7 @@ class MoreListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       dense: true,
       title: Text(title,
           style:

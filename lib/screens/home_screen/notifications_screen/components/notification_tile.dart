@@ -1,6 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:trava/screens/home_screen/notifications_screen/components/bottom_sheet/deliver_package_bottom_sheet.dart';
+import 'package:trava/screens/home_screen/notifications_screen/components/bottom_sheet/ready_to_pick_up_bottom_sheet.dart';
 import 'package:trava/screens/home_screen/notifications_screen/components/notification_button.dart';
 import 'package:trava/style/colors.dart';
 
@@ -15,8 +18,8 @@ class PaidNotificationTile extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 12.h),
       child: Row(
         children: [
-          const Icon(Icons.arrow_circle_down),
-          SizedBox(width: 16.w),
+          SvgPicture.asset("assets/images/withdrawal.svg"),
+          SizedBox(width: 7.w),
           Flexible(
             child: Text(
               "You paid ₦1,570 to send your package (023) with to Timi Akinlaja to DHL Hub, Asaba, Delta State at 12:02pm",
@@ -42,8 +45,8 @@ class FundedNotificationTile extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 12.h),
       child: Row(
         children: [
-          const Icon(Icons.arrow_circle_down),
-          SizedBox(width: 16.w),
+          SvgPicture.asset("assets/images/fund.svg"),
+          SizedBox(width: 7.w),
           Flexible(
             child: Text(
               "You funded your Trava wallet ₦1,570 at 12:02pm",
@@ -70,7 +73,7 @@ class GoingYourWayNotificationTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.arrow_circle_down),
+          SvgPicture.asset("assets/images/speaker.svg"),
           SizedBox(width: 16.w),
           Expanded(
             child: Column(
@@ -131,100 +134,61 @@ class GoingYourWayNotificationTile extends StatelessWidget {
   }
 }
 
-class DeliverPackageBottomSheet extends StatelessWidget {
-  const DeliverPackageBottomSheet({
+class ReadyToPickUpNotificationTile extends StatelessWidget {
+  const ReadyToPickUpNotificationTile({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: SingleChildScrollView(
-        child: SizedBox(
-          height: 584.h,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              InkWell(
-                onTap: () => Navigator.pop(context),
-                child: Container(
-                  padding: EdgeInsets.all(10.w),
-                  //width: 32.w,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.close,
-                    size: 20.h,
-                  ),
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SvgPicture.asset("assets/images/speaker.svg"),
+          SizedBox(width: 16.w),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Aladetimi Tolu is ready to pickup Package (154) to be delivered at DHL Hub, Asaba, Delta State on 28-03-2021.",
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                        color: TravaColors.black,
+                      ),
                 ),
-              ),
-              SizedBox(height: 16.h),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(24.w, 15.h, 24.w, 25.h),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(8),
+                SizedBox(height: 16.h),
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (context) =>
+                          const ReadyToPickUpPackageBottomSheet(),
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 8.h),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40.0),
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Pay (₦1,570)",
+                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
                     ),
                   ),
-                  child: Column(
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          style: Theme.of(context).textTheme.headline2,
-                          children: [
-                            const TextSpan(text: "Package 023 Details "),
-                            TextSpan(
-                              text: "(₦1,570)",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(
-                                    fontSize: 16.sp,
-                                    color: TravaColors.red,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 15.h),
-                      Container(
-                        height: 146.h,
-                        width: 241.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(height: 32.h),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Package Description",
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              color: TravaColors.gray3,
-                            ),
-                          ),
-                          SizedBox(height: 2.h),
-                          Text(
-                            "Two boxes of sophisticated wine. A box contain 8 bottles.",
-                            style: Theme.of(context).textTheme.bodyText2,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

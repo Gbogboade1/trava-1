@@ -20,6 +20,8 @@ class SignUpScreen extends HookWidget {
 
   final AuthHttpService authHttpService = AuthHttpService();
 
+  SignUpScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final emailController = useTextEditingController();

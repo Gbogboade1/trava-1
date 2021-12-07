@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:trava/screens/history_screen/components/to_be_delivered_package_details_screen.dart';
 
 class ToBeDeliveredTabView extends StatelessWidget {
   const ToBeDeliveredTabView({
@@ -37,6 +39,14 @@ class ToBeDeliveredTabView extends StatelessWidget {
                                       "You’re to deliver package (154)  for Akinlabi Boluwatife  at DHL Hub, Asaba, Delta State. Package delivery code is 02345678. "),
                               TextSpan(
                                 text: "See Details",
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.pushNamed(
+                                        context,
+                                        ToBeDeliveredPackageDetailsScreen
+                                            .routeName,
+                                        arguments: [1]);
+                                  },
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline4!
