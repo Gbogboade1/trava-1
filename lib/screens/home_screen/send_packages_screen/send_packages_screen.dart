@@ -7,11 +7,11 @@ import 'package:trava/widgets/buttons/default_button.dart';
 
 class SendPackagesScreen extends HookWidget {
   static const String routeName = "/send_payments";
- 
+
   const SendPackagesScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-     final packageList = useState<List<int>>([1]);
+    final packageList = useState<List<int>>([1]);
     return Scaffold(
       body: SafeArea(
         child: Padding(

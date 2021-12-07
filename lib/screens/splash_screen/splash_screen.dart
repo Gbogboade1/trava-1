@@ -21,36 +21,6 @@ class _SplashScreenState extends State<SplashScreen> {
   late Timer? timer;
 
   @override
-  void initState() {
-    super.initState();
-      _routingHandler(context);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    if (timer?.isActive ?? false) {
-      timer!.cancel();
-    }
-  }
-
-  void _routingHandler(BuildContext context) {
-    timer = Timer(const Duration(milliseconds: 1400), () async {
-      final model = await isLoggedIn();
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        model ? Navigation.routeName : OnboardingScreen.routeName,
-        (_) => false,
-      );
-    });
-  }
-
-  Future<bool> isLoggedIn() async {
-    TravaTokenManager _tokenManager = TravaTokenManager.instance;
-    var tokens = await _tokenManager.tokens;
-    return tokens.accessToken != null;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
@@ -74,5 +44,35 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (timer?.isActive ?? false) {
+      timer!.cancel();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _routingHandler(context);
+  }
+
+  Future<bool> isLoggedIn() async {
+    TravaTokenManager _tokenManager = TravaTokenManager.instance;
+    var tokens = await _tokenManager.tokens;
+    return tokens.accessToken != null;
+  }
+
+  void _routingHandler(BuildContext context) {
+    timer = Timer(const Duration(milliseconds: 1400), () async {
+      final model = await isLoggedIn();
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        model ? Navigation.routeName : OnboardingScreen.routeName,
+        (_) => false,
+      );
+    });
   }
 }

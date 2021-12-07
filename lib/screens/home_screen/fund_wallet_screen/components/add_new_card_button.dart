@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
+
+class AddNewCardBottomSheet extends StatefulWidget {
+  const AddNewCardBottomSheet({Key? key}) : super(key: key);
+
+  @override
+  State<AddNewCardBottomSheet> createState() => _AddNewCardBottomSheetState();
+}
 
 class AddNewCardButton extends StatelessWidget {
   const AddNewCardButton({
@@ -37,15 +45,8 @@ class AddNewCardButton extends StatelessWidget {
   }
 }
 
-class AddNewCardBottomSheet extends StatefulWidget {
-  const AddNewCardBottomSheet({Key? key}) : super(key: key);
-
-  @override
-  State<AddNewCardBottomSheet> createState() => _AddNewCardBottomSheetState();
-}
-
 class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
-  String? _chosenValue;
+  final ValueNotifier<SelectionData?> _chosenValue = ValueNotifier(null);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -74,7 +75,7 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
               SizedBox(height: 16.h),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(24.w, 15.h, 24.w, 25.h),
+                  padding: EdgeInsets.fromLTRB(24.w, 15.h, 24.w, 18.h),
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.vertical(
@@ -99,12 +100,13 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
                       ),
                       SizedBox(height: 8.h),
                       TravaDropdown(
+                        items: banking
+                            .map((e) => SelectionData(e['Name']!, e['code']))
+                            .toList(),
                         hint: "Choose your bank",
                         value: _chosenValue,
-                        onChanged: (String? value) {
-                          setState(() {
-                            _chosenValue = value;
-                          });
+                        onChanged: (SelectionData? value) {
+                          _chosenValue.value = value;
                         },
                       ),
                       SizedBox(height: 16.h),

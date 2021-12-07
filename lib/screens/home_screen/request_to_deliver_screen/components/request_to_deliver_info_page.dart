@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
 
@@ -7,19 +8,21 @@ class RequestToDeliverForm extends StatefulWidget {
   const RequestToDeliverForm({Key? key}) : super(key: key);
 
   @override
-  _RequestToDeliverFormState createState() =>
-      _RequestToDeliverFormState();
+  _RequestToDeliverFormState createState() => _RequestToDeliverFormState();
 }
 
 class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
-  String? _chosenSendingState;
-  String? _chosenSendingTown;
-  String? _chosenTransportMode;
-  String? _chosenDestinationState;
-  String? _chosenDestinationTown;
-  String? _chosenTravelDate;
-  String? _chosenTravelTime;
-  String? _chosenPackageType;
+  final ValueNotifier<SelectionData?> _chosenSendingState = ValueNotifier(null);
+  final ValueNotifier<SelectionData?> _chosenSendingTown = ValueNotifier(null);
+  final ValueNotifier<SelectionData?> _chosenTransportMode =
+      ValueNotifier(null);
+  final ValueNotifier<SelectionData?> _chosenDestinationState =
+      ValueNotifier(null);
+  final ValueNotifier<SelectionData?> _chosenDestinationTown =
+      ValueNotifier(null);
+  final ValueNotifier<SelectionData?> _chosenTravelDate = ValueNotifier(null);
+  final ValueNotifier<SelectionData?> _chosenTravelTime = ValueNotifier(null);
+  final ValueNotifier<SelectionData?> _chosenPackageType = ValueNotifier(null);
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -36,11 +39,10 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             SizedBox(height: 8.h),
             TravaDropdown(
               hint: "e.g Ondo State",
+              items: const [],
               value: _chosenSendingState,
-              onChanged: (String? value) {
-                setState(() {
-                  _chosenSendingState = value;
-                });
+              onChanged: (SelectionData? value) {
+                _chosenSendingState.value = value;
               },
             ),
             SizedBox(height: 24.h),
@@ -52,12 +54,11 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              items: const [],
               hint: "e.g Ibadan",
               value: _chosenSendingTown,
-              onChanged: (String? value) {
-                setState(() {
-                  _chosenSendingTown = value;
-                });
+              onChanged: (SelectionData? value) {
+                _chosenSendingTown.value = value;
               },
             ),
             SizedBox(height: 24.h),
@@ -87,12 +88,11 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              items: const [],
               hint: "e.g Public Transport",
               value: _chosenTransportMode,
-              onChanged: (String? value) {
-                setState(() {
-                  _chosenTransportMode = value;
-                });
+              onChanged: (SelectionData? value) {
+                _chosenTransportMode.value = value;
               },
             ),
             SizedBox(height: 24.h),
@@ -105,12 +105,11 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              items: const [],
               hint: "e.g Ondo State",
               value: _chosenDestinationState,
-              onChanged: (String? value) {
-                setState(() {
-                  _chosenDestinationState = value;
-                });
+              onChanged: (SelectionData? value) {
+                _chosenDestinationState.value = value;
               },
             ),
             SizedBox(height: 24.h),
@@ -122,12 +121,11 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              items: const [],
               hint: "e.g Ibadan",
               value: _chosenDestinationTown,
-              onChanged: (String? value) {
-                setState(() {
-                  _chosenDestinationTown = value;
-                });
+              onChanged: (SelectionData? value) {
+                _chosenDestinationTown.value = value;
               },
             ),
             SizedBox(height: 24.h),
@@ -139,12 +137,11 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              items: const [],
               hint: "What's your travel date",
               value: _chosenTravelDate,
-              onChanged: (String? value) {
-                setState(() {
-                  _chosenTravelDate = value;
-                });
+              onChanged: (SelectionData? value) {
+                _chosenTravelDate.value = value;
               },
             ),
             SizedBox(height: 24.h),
@@ -156,12 +153,11 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              items: const [],
               hint: "What time will you be travelling at the set date?",
               value: _chosenTravelTime,
-              onChanged: (String? value) {
-                setState(() {
-                  _chosenTravelTime = value;
-                });
+              onChanged: (SelectionData? value) {
+                _chosenTravelTime.value = value;
               },
             ),
             SizedBox(height: 24.h),
@@ -173,12 +169,12 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              items: const [],
               hint: "e.g Any kind of package",
               value: _chosenPackageType,
-              onChanged: (String? value) {
-                setState(() {
-                  _chosenPackageType = value;
-                });
+              onChanged: (SelectionData? value) {
+                _chosenPackageType:
+                value;
               },
             ),
             SizedBox(height: 24.h),

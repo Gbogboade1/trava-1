@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/utils/constants.dart';
 
 class TravaDropdown extends StatelessWidget {
+  final ValueNotifier<SelectionData?> value;
+  final ValueChanged<SelectionData?> onChanged;
+  final String hint;
+  final List<SelectionData> items;
   const TravaDropdown({
     Key? key,
     required this.value,
-    required this.onChanged, required this.hint,
+    required this.items,
+    required this.onChanged,
+    required this.hint,
   }) : super(key: key);
-  final String? value;
-  final ValueChanged<String?> onChanged;
-  final String hint;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,10 +23,10 @@ class TravaDropdown extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: DropdownButton<String>(
+      child: DropdownButton<SelectionData>(
         focusColor: Colors.white,
         isExpanded: true,
-        value: value,
+        value: value.value,
         underline: const SizedBox(),
         icon: const Icon(
           Icons.keyboard_arrow_down_rounded,
@@ -30,20 +34,11 @@ class TravaDropdown extends StatelessWidget {
         ),
         //elevation: 5,
         style: const TextStyle(color: Colors.white),
-
-        items: <String>[
-          'A',
-          'B',
-          'C',
-          'D',
-          'E',
-          'F',
-          'G',
-        ].map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
+        items: items.map<DropdownMenuItem<SelectionData>>((SelectionData data) {
+          return DropdownMenuItem<SelectionData>(
+            value: data,
             child: Text(
-              value,
+              data.title,
               style: const TextStyle(color: Colors.black),
             ),
           );

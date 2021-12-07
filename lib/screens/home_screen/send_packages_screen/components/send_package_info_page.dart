@@ -1,6 +1,7 @@
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/screens/home_screen/send_packages_screen/components/add_new_package.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
@@ -17,25 +18,28 @@ class SendPackageInfoPage extends StatefulWidget {
 }
 
 class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
-  String? _chosenSendingState;
+  final ValueNotifier<SelectionData?> _chosenSendingState = ValueNotifier(null);
 
-  String? _chosenSendingTown;
+  final ValueNotifier<SelectionData?> _chosenSendingTown = ValueNotifier(null);
 
-  String? _chosenPackageType;
+  final ValueNotifier<SelectionData?> _chosenPackageType = ValueNotifier(null);
 
-  String? _chosenDeliveryMode;
+  final ValueNotifier<SelectionData?> _chosenDeliveryMode = ValueNotifier(null);
 
-  String? _chosenDestinationState;
+  final ValueNotifier<SelectionData?> _chosenDestinationState =
+      ValueNotifier(null);
 
-  String? _chosenDestinationTown;
+  final ValueNotifier<SelectionData?> _chosenDestinationTown =
+      ValueNotifier(null);
 
-  String? _chosenDeliveryDate;
+  final ValueNotifier<SelectionData?> _chosenDeliveryDate = ValueNotifier(null);
 
-  String? _chosenPickupTime;
+  final ValueNotifier<SelectionData?> _chosenPickupTime = ValueNotifier(null);
 
-  String? _chosenPickupLocation;
+  final ValueNotifier<SelectionData?> _chosenPickupLocation =
+      ValueNotifier(null);
 
-  String? _chosenDeliveryHub;
+  final ValueNotifier<SelectionData?> _chosenDeliveryHub = ValueNotifier(null);
 
   bool isChecked = false;
 
@@ -53,12 +57,11 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            items: const [],
             hint: "e.g Ondo State",
             value: _chosenSendingState,
-            onChanged: (String? value) {
-              setState(() {
-                _chosenSendingState = value;
-              });
+            onChanged: (SelectionData? value) {
+              _chosenSendingState.value = value;
             },
           ),
           SizedBox(height: 24.h),
@@ -69,12 +72,11 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            items: const [],
             hint: "e.g Akure",
             value: _chosenSendingTown,
-            onChanged: (String? value) {
-              setState(() {
-                _chosenSendingTown = value;
-              });
+            onChanged: (SelectionData? value) {
+              _chosenSendingTown.value = value;
             },
           ),
           SizedBox(height: 24.h),
@@ -85,12 +87,11 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            items: const [],
             hint: "e.g Heavy package ",
             value: _chosenPackageType,
-            onChanged: (String? value) {
-              setState(() {
-                _chosenPackageType = value;
-              });
+            onChanged: (SelectionData? value) {
+              _chosenPackageType.value = value;
             },
           ),
           SizedBox(height: 24.h),
@@ -148,12 +149,11 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            items: const [],
             hint: "e.g Private car",
             value: _chosenDeliveryMode,
-            onChanged: (String? value) {
-              setState(() {
-                _chosenDeliveryMode = value;
-              });
+            onChanged: (SelectionData? value) {
+              _chosenDeliveryMode.value = value;
             },
           ),
           SizedBox(height: 24.h),
@@ -164,12 +164,11 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            items: const [],
             hint: "e.g Osun State",
             value: _chosenDestinationState,
-            onChanged: (String? value) {
-              setState(() {
-                _chosenDestinationState = value;
-              });
+            onChanged: (SelectionData? value) {
+              _chosenDestinationState.value = value;
             },
           ),
           SizedBox(height: 24.h),
@@ -181,11 +180,10 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           SizedBox(height: 8.h),
           TravaDropdown(
             hint: "e.g Ilesha",
+            items: const [],
             value: _chosenDestinationTown,
-            onChanged: (String? value) {
-              setState(() {
-                _chosenDestinationTown = value;
-              });
+            onChanged: (SelectionData? value) {
+              _chosenDestinationTown.value = value;
             },
           ),
           SizedBox(height: 24.h),
@@ -196,12 +194,11 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            items: const [],
             hint: "When do you want your package to be delivered?",
             value: _chosenDeliveryDate,
-            onChanged: (String? value) {
-              setState(() {
-                _chosenDeliveryDate = value;
-              });
+            onChanged: (SelectionData? value) {
+              _chosenDeliveryDate.value = value;
             },
           ),
           SizedBox(height: 24.h),
@@ -212,12 +209,11 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            items: const [],
             hint: "When should the deliverer come pickup the package?",
             value: _chosenPickupTime,
-            onChanged: (String? value) {
-              setState(() {
-                _chosenPickupTime = value;
-              });
+            onChanged: (SelectionData? value) {
+              _chosenPickupTime.value = value;
             },
           ),
           SizedBox(height: 24.h),
@@ -228,12 +224,11 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            items: const [],
             hint: "Where should the deliverer come pickup the package?",
             value: _chosenPickupLocation,
-            onChanged: (String? value) {
-              setState(() {
-                _chosenPickupLocation = value;
-              });
+            onChanged: (SelectionData? value) {
+              _chosenPickupLocation.value = value;
             },
           ),
           SizedBox(height: 24.h),
@@ -244,12 +239,11 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            items: const [],
             hint: "e,g DHL, office, Ilesha",
             value: _chosenDeliveryHub,
-            onChanged: (String? value) {
-              setState(() {
-                _chosenDeliveryHub = value;
-              });
+            onChanged: (SelectionData? value) {
+              _chosenDeliveryHub.value = value;
             },
           ),
           SizedBox(height: 24.h),
