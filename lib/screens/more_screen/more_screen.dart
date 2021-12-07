@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/screens/more_screen/components/edit_profile_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/buttons/outlined_button.dart';
@@ -35,8 +36,16 @@ class MoreScreen extends StatelessWidget {
                       context, PackagesToPickUpScreen.routeName);
                 },
               ),
-              const MoreListTile(
+              MoreListTile(
                 title: "Edit Profile",
+                onTap: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) => const EditProfileBottomSheet(),
+                  );
+                },
               ),
               const MoreListTile(
                 title: "Password Settings",
