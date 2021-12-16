@@ -11,6 +11,7 @@ class SendPackageRequest {
   String? type;
   String? sendTown;
   String? sendState;
+
   String? images;
 
   SendPackageRequest(

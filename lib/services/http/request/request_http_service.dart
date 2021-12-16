@@ -1,23 +1,38 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:trava/models/https/payment/tranaction_history.dart';
 import 'package:trava/models/https/request/cancel_delivery_response.dart';
+import 'package:trava/models/https/request/delivered_response.dart';
+import 'package:trava/models/https/request/items_to_pick_up_response.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/models/https/request/pick_package_request.dart';
 import 'package:trava/models/https/request/send_package_request.dart';
 import 'package:trava/models/https/request/send_package_response.dart';
+import 'package:trava/models/https/request/sent_response.dart';
+import 'package:trava/models/https/request/tbd_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/models/https/users/sign_out_response.dart';
 
 import '../base_http.dart';
 
-class PaymentHttpService extends HttpService {
-  PaymentHttpService()
+class RequestHttpService extends HttpService {
+  RequestHttpService()
       : super(
           collectionUrl: "/request",
         );
 
   Future<SendPackageResponse> sendPackage(SendPackageRequest data) async {
     try {
+      var formData = FormData.fromMap({
+        'name': 'wendux',
+        'age': 25,
+        'file':
+            await MultipartFile.fromFile('./text.txt', filename: 'upload.txt'),
+        'files': [
+          await MultipartFile.fromFile('./text1.txt', filename: 'text1.txt'),
+          await MultipartFile.fromFile('./text2.txt', filename: 'text2.txt'),
+        ]
+      });
       final req = await http.post(
         "/send",
         data: data.toJson(),
@@ -161,5 +176,77 @@ class PaymentHttpService extends HttpService {
       };
     }
   }
+
+  Future<HistorySentResponse> getSentRequest() async {
+    try {
+      final req = await http.get(
+        "/sent",
+      );
+      // final data =
+
+      log("my new data -${req.data}");
+
+      return HistorySentResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<HistoryTBDResponse> getTBDRequest() async {
+    try {
+      final req = await http.get(
+        "/tbd",
+      );
+      // final data =
+
+      log("my new data -${req.data}");
+
+      return HistoryTBDResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<HistoryDeliveredResponse> getDeliveredRequest() async {
+    try {
+      final req = await http.get(
+        "/delivered",
+      );
+      // final data =
+
+      log("my new data -${req.data}");
+
+      return HistoryDeliveredResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<ItemsToPickUpResponse> getPickUpRequest() async {
+    try {
+      final req = await http.get(
+        "/pickup",
+      );
+      // final data =
+
+      log("my new data -${req.data}");
+
+      return ItemsToPickUpResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
 }
-// all
+// /

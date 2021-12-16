@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:trava/models/https/users/otp_response.dart';
@@ -31,6 +32,24 @@ class AuthHttpService extends HttpService {
       log("my new data -${req.data}");
 
       return SignUpResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<SignOutResponse> addWithdrawalMethod() async {
+    try {
+      final req = await http.get(
+        "/bank/add",
+      );
+      // final data =
+
+      log("my new data -${req.data}");
+
+      return SignOutResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
@@ -149,6 +168,32 @@ class AuthHttpService extends HttpService {
       // final data =
 
       return ProfileData.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<ProfileData> profileUpdate(ResetRequest data, {File? img}) async {
+    try {
+      if (img != null) {
+        final form = FormData();
+        final req = await http.patch(
+          "/password_reset",
+          data: data.toJson(),
+        );
+        return ProfileData.fromJson(req.data);
+      } else {
+        final req = await http.patch(
+          "/password_reset",
+          data: data.toJson(),
+        );
+        return ProfileData.fromJson(req.data);
+      }
+      // final data =
+
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,

@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-
+import 'package:trava/models/https/request/sent_response.dart';
+import 'package:trava/screens/history_screen/components/history_tiles.dart';
 
 _parseAndDecode(String response) {
   return jsonDecode(response);
@@ -95,11 +96,9 @@ String parseError(
   }
 }
 
-
 String parseSuccess(dynamic data, String defaultMessage) {
-  final fallbackMessage = defaultMessage.isNotEmpty
-      ? defaultMessage
-      : "Success";
+  final fallbackMessage =
+      defaultMessage.isNotEmpty ? defaultMessage : "Success";
   try {
     if (data is Map) {
       if (data["message"] != null &&
@@ -154,58 +153,74 @@ Future<File?> exractFile(Map<String, String> data) async {
     return null;
   }
 }
-  // launchURL(String value) async {
-  //   const url = 'https://instagram.com/';
-  //   const url2 = 'https://twitter.com/';
-  //   const url3 = 'https://m.facebook.com/';
-  //   const url4 = 'https://google.com/';
-  //   const url5 = 'https://myTrava.io/faq-mobile';
-  //   const url6 = 'https://myTrava.io/terms-mobile';
-  //   const url7 = 'https://myTrava.io/privacy-mobile';
-  //   if (value == 'instagram') {
-  //     if (await canLaunch(url)) {
-  //       await launch(url);
-  //     } else {
-  //       throw 'Could not launch $url';
-  //     }
-  //   } else if (value == 'tweeter') {
-  //     if (await canLaunch(url2)) {
-  //       await launch(url2);
-  //     } else {
-  //       throw 'Could not launch $url2';
-  //     }
-  //   } else if (value == 'facebook') {
-  //     if (await canLaunch(url3)) {
-  //       await launch(url3);
-  //     } else {
-  //       throw 'Could not launch $url3';
-  //     }
-  //   } else if (value == 'google') {
-  //     if (await canLaunch(url4)) {
-  //       await launch(url4);
-  //     } else {
-  //       throw 'Could not launch $url4';
-  //     }
-  //   }else if (value == 'faq') {
-  //     if (await canLaunch(url5)) {
-  //       await launch(url5);
-  //     } else {
-  //       throw 'Could not launch $url4';
-  //     }
-  //   }
-  //   else if (value == 'terms') {
-  //     if (await canLaunch(url5)) {
-  //       await launch(url5);
-  //     } else {
-  //       throw 'Could not launch $url4';
-  //     }
-  //   }
-  //   else if (value == 'policy') {
-  //     if (await canLaunch(url5)) {
-  //       await launch(url5);
-  //     } else {
-  //       throw 'Could not launch $url4';
-  //     }
-  //   }
-  
+// launchURL(String value) async {
+//   const url = 'https://instagram.com/';
+//   const url2 = 'https://twitter.com/';
+//   const url3 = 'https://m.facebook.com/';
+//   const url4 = 'https://google.com/';
+//   const url5 = 'https://myTrava.io/faq-mobile';
+//   const url6 = 'https://myTrava.io/terms-mobile';
+//   const url7 = 'https://myTrava.io/privacy-mobile';
+//   if (value == 'instagram') {
+//     if (await canLaunch(url)) {
+//       await launch(url);
+//     } else {
+//       throw 'Could not launch $url';
+//     }
+//   } else if (value == 'tweeter') {
+//     if (await canLaunch(url2)) {
+//       await launch(url2);
+//     } else {
+//       throw 'Could not launch $url2';
+//     }
+//   } else if (value == 'facebook') {
+//     if (await canLaunch(url3)) {
+//       await launch(url3);
+//     } else {
+//       throw 'Could not launch $url3';
+//     }
+//   } else if (value == 'google') {
+//     if (await canLaunch(url4)) {
+//       await launch(url4);
+//     } else {
+//       throw 'Could not launch $url4';
+//     }
+//   }else if (value == 'faq') {
+//     if (await canLaunch(url5)) {
+//       await launch(url5);
+//     } else {
+//       throw 'Could not launch $url4';
+//     }
+//   }
+//   else if (value == 'terms') {
+//     if (await canLaunch(url5)) {
+//       await launch(url5);
+//     } else {
+//       throw 'Could not launch $url4';
+//     }
+//   }
+//   else if (value == 'policy') {
+//     if (await canLaunch(url5)) {
+//       await launch(url5);
+//     } else {
+//       throw 'Could not launch $url4';
+//     }
+//   }
+
 // }
+PackageDeliveryStatus getpackaheDeliveryStatus(Data? d) {
+  if (d == null) {
+    return PackageDeliveryStatus.pickedUpAtLocation;
+  }
+  if (d.isDelivered ?? false) {
+    return PackageDeliveryStatus.delivered;
+  }
+  if ((d.isDroped ?? false) || (d.isDropped ?? false)) {
+    return PackageDeliveryStatus.pickedUpAtLocation;
+  }
+  if (d.isPickuped ?? false) {
+    return PackageDeliveryStatus.pickedUpByDeliverer;
+  }
+
+  return PackageDeliveryStatus.delivered;
+}

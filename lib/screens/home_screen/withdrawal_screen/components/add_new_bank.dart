@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/utils/constants.dart';
+import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
+
+class AddNewBankBottomSheet extends StatefulWidget {
+  const AddNewBankBottomSheet({Key? key}) : super(key: key);
+
+  @override
+  State<AddNewBankBottomSheet> createState() => _AddNewBankBottomSheetState();
+}
 
 class AddNewBankButton extends StatelessWidget {
   const AddNewBankButton({
@@ -37,15 +46,8 @@ class AddNewBankButton extends StatelessWidget {
   }
 }
 
-class AddNewBankBottomSheet extends StatefulWidget {
-  const AddNewBankBottomSheet({Key? key}) : super(key: key);
-
-  @override
-  State<AddNewBankBottomSheet> createState() => _AddNewBankBottomSheetState();
-}
-
 class _AddNewBankBottomSheetState extends State<AddNewBankBottomSheet> {
-  String? _chosenValue;
+  final ValueNotifier<SelectionData?> _chosenValue = ValueNotifier(null);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -99,14 +101,10 @@ class _AddNewBankBottomSheetState extends State<AddNewBankBottomSheet> {
                       ),
                       SizedBox(height: 8.h),
                       TravaDropdown(
-                        value: _chosenValue,
-                        
-                        onChanged: (String? value) {
-                          setState(() {
-                            _chosenValue = value;
-                          });
-                        },
-                        hint: "Choose your bank",
+                        TextEditingController(),
+                        validator: TravaValidators.required,
+                        items: const [],
+                        hintText: "Choose your bank",
                       ),
                       SizedBox(height: 16.h),
                       //Card number texfield

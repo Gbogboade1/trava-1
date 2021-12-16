@@ -3,11 +3,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:trava/components/fragments/indicators/dialog_message.dart';
+import 'package:trava/components/fragments/spacers/app_selection_sheet.dart';
 
 import 'package:trava/components/layouts/scaffolds/dialog_scaffold.dart';
+import 'package:trava/models/podos/selection_data.dart';
+import 'package:trava/style/colors.dart';
+import 'package:trava/utils/typedefs.dart';
 
 import 'helpers.dart';
-
 
 enum FutureState {
   loading,
@@ -91,10 +94,7 @@ Future<T?> formSubmitDialog<T>({
   return result;
 }
 
-
-
 //
-
 
 // showAlert(
 //   BuildContext context, {
@@ -107,3 +107,23 @@ Future<T?> formSubmitDialog<T>({
 //     },
 //   );
 // }
+
+showSelectionSheet(
+  BuildContext context, {
+  String? title,
+  List<SelectionData>? data,
+  OnChanged<SelectionData>? onSelect,
+}) {
+  showModalBottomSheet(
+    context: context,
+    builder: (context) {
+      return SelectionBottomSheet(
+        title: title,
+        onSelect: onSelect,
+        items: data,
+      );
+    },
+    backgroundColor: TravaColors.transparent,
+    isScrollControlled: true,
+  );
+}

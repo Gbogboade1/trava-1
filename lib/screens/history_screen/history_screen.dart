@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/history_screen/components/tabviews/delivered_tabview.dart';
 import 'package:trava/screens/history_screen/components/tabviews/sent_tabview.dart';
 import 'package:trava/screens/history_screen/components/tabviews/to_be_delivered_tabview.dart';
+import 'package:trava/utils/intl_formatter.dart';
 
-class HistoryScreen extends StatefulWidget {
+class HistoryScreen extends HookWidget {
   const HistoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<HistoryScreen> createState() => _HistoryScreenState();
-}
-
-class _HistoryScreenState extends State<HistoryScreen> {
-  int currentIndex = 0;
-  @override
   Widget build(BuildContext context) {
+    final currentIndex = useState(0);
     return Scaffold(
       // backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
@@ -47,18 +44,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   children: [
                     InkWell(
                       onTap: () {
-                        setState(() {
-                          if (mounted) {
-                            currentIndex = 0;
-                          }
-                        });
+                        currentIndex.value = 0;
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             vertical: 8.h, horizontal: 12.w),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: currentIndex == 0
+                          color: currentIndex.value == 0
                               ? Colors.white
                               : Colors.transparent,
                         ),
@@ -67,18 +60,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        setState(() {
-                          if (mounted) {
-                            currentIndex = 1;
-                          }
-                        });
+                        currentIndex.value = 1;
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             vertical: 8.h, horizontal: 12.w),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: currentIndex == 1
+                          color: currentIndex.value == 1
                               ? Colors.white
                               : Colors.transparent,
                         ),
@@ -87,18 +76,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        setState(() {
-                          if (mounted) {
-                            currentIndex = 2;
-                          }
-                        });
+                        currentIndex.value = 2;
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             vertical: 8.h, horizontal: 12.w),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: currentIndex == 2
+                          color: currentIndex.value == 2
                               ? Colors.white
                               : Colors.transparent,
                         ),
@@ -110,7 +95,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               ),
               SizedBox(height: 16.h),
               Text(
-                "12-05-2021",
+                TravaFormatter.formatDate('${DateTime.now()}'),
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w600,
@@ -119,11 +104,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
               ),
               SizedBox(height: 8.h),
               () {
-                switch (currentIndex) {
+                switch (currentIndex.value) {
                   case 0:
-                    return const SentTabView();
+                    return SentTabView();
                   case 1:
-                    return const ToBeDeliveredTabView();
+                    return ToBeDeliveredTabView();
                   case 2:
                     return const DeliveredTabView();
                   default:
