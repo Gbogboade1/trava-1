@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/screens/more_screen/components/change_password_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/edit_profile_bottom_sheet.dart';
+import 'package:trava/screens/more_screen/components/linked_bank_account_bottom_sheet.dart';
+import 'package:trava/screens/more_screen/components/linked_card_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/buttons/outlined_button.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
+
+  final bool hubCreated = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +41,15 @@ class MoreScreen extends StatelessWidget {
                       context, PackagesToPickUpScreen.routeName);
                 },
               ),
+              hubCreated
+                  ? MoreListTile(
+                      title: "Inventory",
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, PackagesToPickUpScreen.routeName);
+                      },
+                    )
+                  : const SizedBox(),
               MoreListTile(
                 title: "Edit Profile",
                 onTap: () {
@@ -47,28 +61,54 @@ class MoreScreen extends StatelessWidget {
                   );
                 },
               ),
-              const MoreListTile(
+              MoreListTile(
                 title: "Password Settings",
+                onTap: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) => const ChangePasswordBottomSheet(),
+                  );
+                },
               ),
-              const MoreListTile(
+              MoreListTile(
                 title: "Manage Linked Card(s)",
+                onTap: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) => const CardSettingsBottomSheet(),
+                  );
+                },
               ),
-              const MoreListTile(
+             MoreListTile(
                 title: "Manage Linked Bank Account(s)",
+                 onTap: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) => const BankAccountsBottomSheet(),
+                  );
+                },
               ),
               SizedBox(height: 73.5.h),
-              Text(
-                "Want to serve as an Hub for Trava?",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5!
-                    .copyWith(color: Theme.of(context).colorScheme.primary),
-              ),
-              Text("You get to earn per item",
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      color: Theme.of(context).colorScheme.primaryVariant)),
-              SizedBox(height: 24.h),
-              const TravaOutlinedButton(buttonLabel: "Register as a hub")
+              if (!hubCreated) ...[
+                Text(
+                  "Want to serve as an Hub for Trava?",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(color: Theme.of(context).colorScheme.primary),
+                ),
+                Text("You get to earn per item",
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                        color: Theme.of(context).colorScheme.primaryVariant)),
+                SizedBox(height: 24.h),
+                const TravaOutlinedButton(buttonLabel: "Register as a hub"),
+              ]
             ],
           ),
         ),
