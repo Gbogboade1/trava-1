@@ -348,12 +348,12 @@ class Banks {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['bankId'] = this.bankId;
-    data['accountNumber'] = this.accountNumber;
-    data['accountName'] = this.accountName;
-    data['bankName'] = this.bankName;
-    data['_id'] = this.sId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['bankId'] = bankId;
+    data['accountNumber'] = accountNumber;
+    data['accountName'] = accountName;
+    data['bankName'] = bankName;
+    data['_id'] = sId;
     return data;
   }
 }

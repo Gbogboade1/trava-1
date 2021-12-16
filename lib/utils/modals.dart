@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/components/fragments/indicators/dialog_message.dart';
 import 'package:trava/components/fragments/spacers/app_selection_sheet.dart';
 
@@ -9,6 +10,7 @@ import 'package:trava/components/layouts/scaffolds/dialog_scaffold.dart';
 import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/utils/typedefs.dart';
+import 'package:trava/widgets/buttons/default_button.dart';
 
 import 'helpers.dart';
 
@@ -126,4 +128,66 @@ showSelectionSheet(
     backgroundColor: TravaColors.transparent,
     isScrollControlled: true,
   );
+}
+
+Future showNotificationBottomSheet(BuildContext context,
+    {String? title, String? message}) {
+      Navigator.pop(context);
+  return showModalBottomSheet(
+      context: context,
+      isDismissible: false,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.fromLTRB(24.w, 16.h, 24.w, 25.h),
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(8),
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(24.w, 29.h, 24.w, 27.h),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 120.h,
+                  width: 120.w,
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                Text(
+                  title!,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                SizedBox(
+                  height: 9.h,
+                ),
+                message != null
+                    ? Text(
+                        message,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                              color: TravaColors.black,
+                            ),
+                      )
+                    : const SizedBox(),
+                SizedBox(
+                  height: 40.h,
+                ),
+                DefaultButton(
+                  isActive: true,
+                  buttonLabel: "Thank You",
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ),
+          ),
+        );
+      });
 }

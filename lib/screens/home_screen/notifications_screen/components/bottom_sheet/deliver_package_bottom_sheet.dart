@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/home_screen/notifications_screen/components/notification_button.dart';
+import 'package:trava/utils/modals.dart';
 import 'package:trava/widgets/package_details_view.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
@@ -48,7 +49,8 @@ class DeliverPackageBottomSheet extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const PackageDetailsView(packageList: [1]),
+                    const Expanded(
+                        child: PackageDetailsView(packageList: [1, 2])),
                     SizedBox(height: 40.h),
                     Row(
                       children: [
@@ -66,62 +68,11 @@ class DeliverPackageBottomSheet extends StatelessWidget {
                           textColor: Colors.white,
                           onTap: () {
                             Navigator.pop(context);
-
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  contentPadding: const EdgeInsets.all(0),
-                                  insetPadding: const EdgeInsets.all(5),
-                                  content: SizedBox(
-                                    width: double.infinity,
-                                    child: Padding(
-                                      padding: EdgeInsets.fromLTRB(
-                                          24.w, 29.h, 24.w, 27.h),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          SizedBox(
-                                            height: 120.h,
-                                            width: 120.w,
-                                          ),
-                                          SizedBox(
-                                            height: 24.h,
-                                          ),
-                                          Text(
-                                            "Success!",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5,
-                                          ),
-                                          SizedBox(
-                                            height: 9.h,
-                                          ),
-                                          Text(
-                                            "You’ve successfully accepted to deliver Package (234). You’ll be notified at intervals before pickup time. You can also check the More Tab to keep track of items you need to pickup.",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline4!
-                                                .copyWith(
-                                                  color: TravaColors.black,
-                                                ),
-                                          ),
-                                          SizedBox(
-                                            height: 40.h,
-                                          ),
-                                          DefaultButton(
-                                            isActive: true,
-                                            buttonLabel: "Thank You",
-                                            onTap: () {
-                                              Navigator.pop(context);
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
+                            showNotificationBottomSheet(
+                              context,
+                              title: "Success!",
+                              message:
+                                  "You’ve successfully accepted to deliver Package (234). You’ll be notified at intervals before pickup time. You can also check the More Tab to keep track of items you need to pickup.",
                             );
                           },
                           text: "I’ll deliver package",

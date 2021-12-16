@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/utils/constants.dart';
+import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
@@ -175,9 +176,15 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
                           ),
                         ),
                         const Spacer(),
-                        const DefaultButton(
+                        DefaultButton(
                           isActive: true,
                           buttonLabel: "Add card",
+                          onTap: () {
+                            showNotificationBottomSheet(
+                              context,
+                              title: "Card Added Successfully!",
+                            );
+                          },
                         )
                       ],
                     ),

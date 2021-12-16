@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:trava/components/fragments/spacers/app_text_field.dart';
 import 'package:trava/models/podos/selection_data.dart';
-import 'package:trava/utils/constants.dart';
 import 'package:trava/utils/county_list.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/typedefs.dart';
@@ -63,11 +63,12 @@ class TownDropDownInput extends StatefulWidget {
   final OnValidate<String>? validator;
   final TextEditingController? controller;
 
-  TownDropDownInput({
+  const TownDropDownInput({
+    Key? key,
     this.state,
     this.validator,
     required this.controller,
-  });
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => TownDropDownInputState();
@@ -88,7 +89,7 @@ class TownDropDownInputState extends State<TownDropDownInput> {
 
   @override
   Widget build(BuildContext context) {
-    if (lgas.isEmpty) return Offstage();
+    if (lgas.isEmpty) return const Offstage();
 
     return TravaDropdown(
       widget.controller!,
@@ -108,15 +109,16 @@ class TravaDropdown<T> extends StatefulWidget {
   final bool pop;
   final bool isEnabled;
 
-  TravaDropdown(
+  const TravaDropdown(
     this.controller, {
+    Key? key,
     this.hintText = "Dropdown",
     this.validator,
     this.items,
     this.isEnabled = true,
     this.onChanged,
     this.pop = false,
-  }) : assert(controller != null);
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => TravaDropdownInputState<T>();
@@ -133,9 +135,7 @@ class TravaDropdownInputState<T> extends State<TravaDropdown> {
   }
 
   void _populateCtrl() {
-    if (widget.controller != null &&
-        widget.controller.text != null &&
-        widget.controller.text.isNotEmpty) {
+    if (widget.controller.text.isNotEmpty) {
       final SelectionData? selection = widget.items?.firstWhere(
         (it) => (it.title == widget.controller.text),
       );
@@ -173,8 +173,12 @@ class TravaDropdownInputState<T> extends State<TravaDropdown> {
             isEnabled: false,
             controller: _localCtrl,
             hintText: widget.hintText,
+            style: TextStyle(
+                color: const Color(0xff828282),
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w300),
             validator: widget.validator,
-            suffixIcon: Icon(Icons.keyboard_arrow_down),
+            suffixIcon: const Icon(Icons.keyboard_arrow_down),
           ),
         );
       },
@@ -184,7 +188,7 @@ class TravaDropdownInputState<T> extends State<TravaDropdown> {
   @override
   void didUpdateWidget(TravaDropdown oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (this.widget.controller.text.trim().isEmpty) {
+    if (widget.controller.text.trim().isEmpty) {
       _localCtrl.clear();
     }
   }

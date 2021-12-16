@@ -21,7 +21,7 @@ class NotificationButton extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 8.h),
+          padding: EdgeInsets.symmetric(vertical: 10.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40.0),
             color: backgroundColor,
