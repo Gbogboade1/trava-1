@@ -114,7 +114,8 @@ class PasswordSettingBottomSheet extends HookWidget {
                                       "Kindly wait while we change password",
                                 );
                                 if (changePassword != null) {
-                                  //  handle the screen change here....
+                                  showNotificationBottomSheet(context,
+                    title: "Password Changed!");
                                 }
                               } else {
                                 log('what\'s good my nigga??');
