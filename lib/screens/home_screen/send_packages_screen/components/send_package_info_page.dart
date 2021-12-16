@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/screens/home_screen/send_packages_screen/components/add_new_package.dart';
 import 'package:trava/utils/constants.dart';
+import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
 
 class SendPackageInfoPage extends StatefulWidget {
@@ -57,12 +58,10 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            TextEditingController(),
+            validator: TravaValidators.required,
             items: const [],
-            hint: "e.g Ondo State",
-            value: _chosenSendingState,
-            onChanged: (SelectionData? value) {
-              _chosenSendingState.value = value;
-            },
+            hintText: "e.g Ondo State",
           ),
           SizedBox(height: 24.h),
           //What Town will you be sending from?"
@@ -72,12 +71,10 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            TextEditingController(),
+            validator: TravaValidators.required,
             items: const [],
-            hint: "e.g Akure",
-            value: _chosenSendingTown,
-            onChanged: (SelectionData? value) {
-              _chosenSendingTown.value = value;
-            },
+            hintText: "e.g Akure",
           ),
           SizedBox(height: 24.h),
           //Type of package
@@ -87,12 +84,10 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            TextEditingController(),
+            validator: TravaValidators.required,
             items: const [],
-            hint: "e.g Heavy package ",
-            value: _chosenPackageType,
-            onChanged: (SelectionData? value) {
-              _chosenPackageType.value = value;
-            },
+            hintText: "e.g Heavy package ",
           ),
           SizedBox(height: 24.h),
           //Package Description
@@ -149,12 +144,10 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            TextEditingController(),
+            validator: TravaValidators.required,
             items: const [],
-            hint: "e.g Private car",
-            value: _chosenDeliveryMode,
-            onChanged: (SelectionData? value) {
-              _chosenDeliveryMode.value = value;
-            },
+            hintText: "e.g Private car",
           ),
           SizedBox(height: 24.h),
           //Package Destination State
@@ -164,12 +157,10 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            TextEditingController(),
+            validator: TravaValidators.required,
             items: const [],
-            hint: "e.g Osun State",
-            value: _chosenDestinationState,
-            onChanged: (SelectionData? value) {
-              _chosenDestinationState.value = value;
-            },
+            hintText: "e.g Osun State",
           ),
           SizedBox(height: 24.h),
           //Package Destination Town
@@ -179,12 +170,10 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
-            hint: "e.g Ilesha",
+            TextEditingController(),
+            validator: TravaValidators.required,
+            hintText: "e.g Ilesha",
             items: const [],
-            value: _chosenDestinationTown,
-            onChanged: (SelectionData? value) {
-              _chosenDestinationTown.value = value;
-            },
           ),
           SizedBox(height: 24.h),
           //Package Delivery Date
@@ -194,12 +183,10 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            TextEditingController(),
+            validator: TravaValidators.required,
             items: const [],
-            hint: "When do you want your package to be delivered?",
-            value: _chosenDeliveryDate,
-            onChanged: (SelectionData? value) {
-              _chosenDeliveryDate.value = value;
-            },
+            hintText: "When do you want your package to be delivered?",
           ),
           SizedBox(height: 24.h),
           //Pickup Time
@@ -209,12 +196,10 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            TextEditingController(),
+            validator: TravaValidators.required,
             items: const [],
-            hint: "When should the deliverer come pickup the package?",
-            value: _chosenPickupTime,
-            onChanged: (SelectionData? value) {
-              _chosenPickupTime.value = value;
-            },
+            hintText: "When should the deliverer come pickup the package?",
           ),
           SizedBox(height: 24.h),
           //Pickup Location
@@ -224,12 +209,10 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            TextEditingController(),
+            validator: TravaValidators.required,
             items: const [],
-            hint: "Where should the deliverer come pickup the package?",
-            value: _chosenPickupLocation,
-            onChanged: (SelectionData? value) {
-              _chosenPickupLocation.value = value;
-            },
+            hintText: "Where should the deliverer come pickup the package?",
           ),
           SizedBox(height: 24.h),
           //Select your preferred delivery hub
@@ -239,12 +222,10 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
           ),
           SizedBox(height: 8.h),
           TravaDropdown(
+            TextEditingController(),
+            validator: TravaValidators.required,
             items: const [],
-            hint: "e,g DHL, office, Ilesha",
-            value: _chosenDeliveryHub,
-            onChanged: (SelectionData? value) {
-              _chosenDeliveryHub.value = value;
-            },
+            hintText: "e,g DHL, office, Ilesha",
           ),
           SizedBox(height: 24.h),
           Text(

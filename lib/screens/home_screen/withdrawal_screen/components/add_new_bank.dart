@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/utils/constants.dart';
+import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
 
@@ -100,12 +101,10 @@ class _AddNewBankBottomSheetState extends State<AddNewBankBottomSheet> {
                       ),
                       SizedBox(height: 8.h),
                       TravaDropdown(
+                        TextEditingController(),
+                        validator: TravaValidators.required,
                         items: const [],
-                        value: _chosenValue,
-                        onChanged: (SelectionData? value) {
-                          _chosenValue.value = value;
-                        },
-                        hint: "Choose your bank",
+                        hintText: "Choose your bank",
                       ),
                       SizedBox(height: 16.h),
                       //Card number texfield

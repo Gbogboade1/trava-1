@@ -93,8 +93,7 @@ class Data {
     sId = json['_id'];
     sendState = json['sendState'];
     sendTown = json['sendTown'];
-    sender =
-        json['sender'] != null ? Sender.fromJson(json['sender']) : null;
+    sender = json['sender'] != null ? Sender.fromJson(json['sender']) : null;
     isActive = json['isActive'];
     type = json['type'];
     description = json['description'];
@@ -120,9 +119,8 @@ class Data {
     iV = json['__v'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    deliverer = json['deliverer'] != null
-        ? Sender.fromJson(json['deliverer'])
-        : null;
+    deliverer =
+        json['deliverer'] != null ? Sender.fromJson(json['deliverer']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -179,7 +177,7 @@ class Sender {
   List? deliveries;
   double? wallet;
   String? joinDate;
-  List? banks;
+  List<Banks>? banks;
   List? cards;
   String? createdAt;
   String? updatedAt;
@@ -231,7 +229,7 @@ class Sender {
     if (json['banks'] != null) {
       banks = [];
       json['banks'].forEach((v) {
-        banks!.add((v));
+        banks!.add((Banks.fromJson(v)));
       });
     }
     if (json['cards'] != null) {
@@ -323,6 +321,39 @@ class Request {
     data['travelTime'] = travelTime;
     data['packageType'] = packageType;
     data['transportMode'] = transportMode;
+    return data;
+  }
+}
+
+class Banks {
+  String? bankId;
+  String? accountNumber;
+  String? accountName;
+  String? bankName;
+  String? sId;
+
+  Banks(
+      {this.bankId,
+      this.accountNumber,
+      this.accountName,
+      this.bankName,
+      this.sId});
+
+  Banks.fromJson(Map<String, dynamic> json) {
+    bankId = json['bankId'];
+    accountNumber = json['accountNumber'];
+    accountName = json['accountName'];
+    bankName = json['bankName'];
+    sId = json['_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['bankId'] = this.bankId;
+    data['accountNumber'] = this.accountNumber;
+    data['accountName'] = this.accountName;
+    data['bankName'] = this.bankName;
+    data['_id'] = this.sId;
     return data;
   }
 }

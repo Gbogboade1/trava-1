@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:trava/models/https/payment/tranaction_history.dart';
 import 'package:trava/models/https/users/sign_in_request.dart';
 import 'package:trava/models/https/users/sign_in_response.dart';
 import 'package:trava/models/https/users/sign_out_response.dart';
@@ -8,13 +9,13 @@ import 'package:trava/models/https/users/sign_up_response.dart';
 
 import '../base_http.dart';
 
-class RequestHttpService extends HttpService {
-  RequestHttpService()
+class PaymentHttpService extends HttpService {
+  PaymentHttpService()
       : super(
-          collectionUrl: "/user/bank",
+          collectionUrl: "/payment",
         );
 
-  Future<SignUpResponse> topUp (SignUpRequest data) async {
+  Future<SignUpResponse> topUp(SignUpRequest data) async {
     try {
       final req = await http.post(
         "/deposit",
@@ -33,7 +34,7 @@ class RequestHttpService extends HttpService {
     }
   }
 
- Future<SignInResponse> removeWithdrawalMethod (SignInRequest data) async {
+  Future<SignInResponse> removeWithdrawalMethod(SignInRequest data) async {
     try {
       final req = await http.delete(
         "/delete",
@@ -52,16 +53,16 @@ class RequestHttpService extends HttpService {
     }
   }
 
-   Future<SignOutResponse> addWithdrawalMethod () async {
+  Future<TransactionHistory> getTransactions() async {
     try {
       final req = await http.get(
-        "/add",
+        "/transactions",
       );
       // final data =
 
       log("my new data -${req.data}");
 
-      return SignOutResponse.fromJson(req.data);
+      return TransactionHistory.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
@@ -69,6 +70,4 @@ class RequestHttpService extends HttpService {
       };
     }
   }
-
-
 }

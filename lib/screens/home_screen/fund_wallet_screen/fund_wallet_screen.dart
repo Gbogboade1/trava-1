@@ -20,6 +20,7 @@ class FundWalletScreen extends HookWidget {
         MediaQuery.of(context).padding.top -
         MediaQuery.of(context).padding.bottom;
     final groupValue = useState<String?>(null);
+    final entered = useState<String>('');
     final cards = useState<List?>(null);
 
     final fundWalletController = useTextEditingController();
@@ -102,6 +103,9 @@ class FundWalletScreen extends HookWidget {
                                   .textTheme
                                   .headline5!
                                   .copyWith(color: kGray1),
+                              onChanged: (s) {
+                                entered.value = s;
+                              },
                               controller: fundWalletController,
                               keyboardType: TextInputType.number,
                               decoration: kTextFieldDecoration.copyWith(
@@ -117,8 +121,8 @@ class FundWalletScreen extends HookWidget {
                   groupValue != null
                       ? DefaultButton(
                           buttonLabel: "Fund my wallet",
-                          isActive:
-                              fundWalletController.text.isEmpty ? false : true,
+                          onTap: () {},
+                          isActive: entered.value.isEmpty ? false : true,
                         )
                       : const SizedBox(),
                 ],

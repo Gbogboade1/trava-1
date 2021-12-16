@@ -15,7 +15,7 @@ class HubHttpService extends HttpService {
           collectionUrl: "/user",
         );
 
-  Future<SignUpResponse> signUp (SignUpRequest data) async {
+  Future<SignUpResponse> signUp(SignUpRequest data) async {
     try {
       final req = await http.post(
         "/signup",
@@ -34,7 +34,7 @@ class HubHttpService extends HttpService {
     }
   }
 
- Future<SignInResponse> signIn (SignInRequest data) async {
+  Future<SignInResponse> signIn(SignInRequest data) async {
     try {
       final req = await http.post(
         "/signin",
@@ -53,7 +53,7 @@ class HubHttpService extends HttpService {
     }
   }
 
-   Future<SignOutResponse> signOut () async {
+  Future<SignOutResponse> signOut() async {
     try {
       final req = await http.get(
         "/signout",
@@ -71,8 +71,7 @@ class HubHttpService extends HttpService {
     }
   }
 
-
-   Future<ProfileData> getProfile () async {
+  Future<ProfileData> getProfile() async {
     try {
       final req = await http.get(
         "/profile",
@@ -90,8 +89,7 @@ class HubHttpService extends HttpService {
     }
   }
 
-
-  Future<ProfileData> getProfileById (String id) async {
+  Future<ProfileData> getProfileById(String id) async {
     try {
       final req = await http.get(
         "/profile/$id",
@@ -109,5 +107,57 @@ class HubHttpService extends HttpService {
     }
   }
 
+  Future<ProfileData> getPickedUp(String id) async {
+    try {
+      final req = await http.get(
+        "/picked/$id",
+      );
+      // final data =
 
+      log("my new data -${req.data}");
+
+      return ProfileData.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<ProfileData> getToBeReceived(String id) async {
+    try {
+      final req = await http.get(
+        "/tbr/$id",
+      );
+      // final data =
+
+      log("my new data -${req.data}");
+
+      return ProfileData.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<ProfileData> getToBePickedUp(String id) async {
+    try {
+      final req = await http.get(
+        "/tbp/$id",
+      );
+      // final data =
+
+      log("my new data -${req.data}");
+
+      return ProfileData.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
 }

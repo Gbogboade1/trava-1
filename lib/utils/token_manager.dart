@@ -39,13 +39,13 @@ class TravaTokenManager {
     });
   }
 
-  Future<TravaTokenModel> get tokens async {
-    final createdAt =
-        await LocalStorage.getItem(LocalStorage.tokenCreationTime);
+  TravaTokenModel get tokens {
+    final createdAt = LocalStorage.getItem(LocalStorage.tokenCreationTime);
     return TravaTokenModel.fromJson({
       "mobileNumber": LocalStorage.getItem(LocalStorage.email),
       "accessToken": LocalStorage.getItem(LocalStorage.accessToken),
-      "createdAt": createdAt != null ? DateTime.tryParse(createdAt) : null,
+      "createdAt":
+          createdAt != null ? DateTime.tryParse(createdAt.toString()) : null,
     });
   }
 

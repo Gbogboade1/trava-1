@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/utils/constants.dart';
+import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
 
 class RequestToDeliverForm extends StatefulWidget {
@@ -38,12 +39,10 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
-              hint: "e.g Ondo State",
+              TextEditingController(),
+              validator: TravaValidators.required,
+              hintText: "e.g Ondo State",
               items: const [],
-              value: _chosenSendingState,
-              onChanged: (SelectionData? value) {
-                _chosenSendingState.value = value;
-              },
             ),
             SizedBox(height: 24.h),
             //What Town will you be travelling from?
@@ -54,12 +53,10 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              TextEditingController(),
+              validator: TravaValidators.required,
               items: const [],
-              hint: "e.g Ibadan",
-              value: _chosenSendingTown,
-              onChanged: (SelectionData? value) {
-                _chosenSendingTown.value = value;
-              },
+              hintText: "e.g Ibadan",
             ),
             SizedBox(height: 24.h),
             //How many packages can you deliver?
@@ -88,12 +85,10 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              TextEditingController(),
+              validator: TravaValidators.required,
               items: const [],
-              hint: "e.g Public Transport",
-              value: _chosenTransportMode,
-              onChanged: (SelectionData? value) {
-                _chosenTransportMode.value = value;
-              },
+              hintText: "e.g Public Transport",
             ),
             SizedBox(height: 24.h),
 
@@ -104,13 +99,12 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
                   Theme.of(context).textTheme.button!.copyWith(color: kBlack),
             ),
             SizedBox(height: 8.h),
+
             TravaDropdown(
-              items: const [],
-              hint: "e.g Ondo State",
-              value: _chosenDestinationState,
-              onChanged: (SelectionData? value) {
-                _chosenDestinationState.value = value;
-              },
+              TextEditingController(),
+              validator: TravaValidators.required,
+              hintText: "eg. Ondo State",
+              items: [],
             ),
             SizedBox(height: 24.h),
             //What Town are you travelling to?
@@ -120,13 +114,21 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
                   Theme.of(context).textTheme.button!.copyWith(color: kBlack),
             ),
             SizedBox(height: 8.h),
-            TravaDropdown(
-              items: const [],
-              hint: "e.g Ibadan",
-              value: _chosenDestinationTown,
-              onChanged: (SelectionData? value) {
-                _chosenDestinationTown.value = value;
+            ValueListenableBuilder(
+              valueListenable: _chosenDestinationState,
+              builder: (_, state, __) {
+                return TownDropDownInput(
+                  controller: TextEditingController(),
+                  state: 'Lagos',
+                  validator: TravaValidators.required,
+                );
               },
+            ),
+            TravaDropdown(
+              TextEditingController(),
+              hintText: "e.g Ibadan",
+              validator: TravaValidators.required,
+              items: [],
             ),
             SizedBox(height: 24.h),
             //When are you travelling?
@@ -137,12 +139,10 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              TextEditingController(),
+              validator: TravaValidators.required,
               items: const [],
-              hint: "What's your travel date",
-              value: _chosenTravelDate,
-              onChanged: (SelectionData? value) {
-                _chosenTravelDate.value = value;
-              },
+              hintText: "What's your travel date",
             ),
             SizedBox(height: 24.h),
             //What Time are you travelling?
@@ -153,12 +153,10 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              TextEditingController(),
+              validator: TravaValidators.required,
               items: const [],
-              hint: "What time will you be travelling at the set date?",
-              value: _chosenTravelTime,
-              onChanged: (SelectionData? value) {
-                _chosenTravelTime.value = value;
-              },
+              hintText: "What time will you be travelling at the set date?",
             ),
             SizedBox(height: 24.h),
             //What type of Package can you deliver?
@@ -169,14 +167,12 @@ class _RequestToDeliverFormState extends State<RequestToDeliverForm> {
             ),
             SizedBox(height: 8.h),
             TravaDropdown(
+              TextEditingController(),
+              validator: TravaValidators.required,
               items: const [],
-              hint: "e.g Any kind of package",
-              value: _chosenPackageType,
-              onChanged: (SelectionData? value) {
-                _chosenPackageType:
-                value;
-              },
+              hintText: "e.g Any kind of package",
             ),
+
             SizedBox(height: 24.h),
           ],
         ),
