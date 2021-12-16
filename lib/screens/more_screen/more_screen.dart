@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trava/screens/more_screen/components/change_password_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/edit_profile_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/linked_bank_account_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/linked_card_bottom_sheet.dart';
