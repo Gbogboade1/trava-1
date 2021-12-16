@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/utils/constants.dart';
+import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/custom_bottom_sheet.dart';
@@ -63,6 +64,8 @@ class ChangePasswordBottomSheet extends HookWidget {
               buttonLabel: "Change password",
               onTap: () {
                 //TODO: Change password
+                showNotificationBottomSheet(context,
+                    title: "Password Changed!");
               },
             ),
           ],

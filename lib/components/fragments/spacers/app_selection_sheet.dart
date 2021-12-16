@@ -10,11 +10,11 @@ class SelectionBottomSheet<T> extends StatelessWidget {
   final OnChanged<T>? onSelect;
   final List<SelectionData>? items;
 
-  SelectionBottomSheet({
+  const SelectionBottomSheet({Key? key, 
     required this.title,
     required this.onSelect,
     required this.items,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

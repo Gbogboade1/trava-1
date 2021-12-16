@@ -63,7 +63,7 @@ class TravaTextField extends StatefulWidget {
     this.validator,
     this.keyboardType,
     this.style,
-  })  : this._expands = false,
+  })  : _expands = false,
         super(key: key);
 
   const TravaTextField.expand({
@@ -90,7 +90,7 @@ class TravaTextField extends StatefulWidget {
     this.validator,
     this.keyboardType,
     this.style,
-  })  : this._expands = true,
+  })  : _expands = true,
         super(key: key);
 
   @override
@@ -109,7 +109,7 @@ class _TravaTextFieldState extends State<TravaTextField>
       () {
         _hasFocus.value = FocusState(
           hasText:
-              widget.ctrl != null && (widget.ctrl?.text?.isNotEmpty ?? false),
+             (widget.ctrl.text.isNotEmpty),
           isFocused: _inputFocus.hasFocus,
         );
       },
@@ -120,31 +120,31 @@ class _TravaTextFieldState extends State<TravaTextField>
     return InputDecoration(
       filled: false,
       fillColor: TravaColors.transparent,
-      border: UnderlineInputBorder(
+      border: const UnderlineInputBorder(
         borderSide: BorderSide(
           color: TravaColors.transparent,
           width: 0,
         ),
       ),
-      enabledBorder: UnderlineInputBorder(
+      enabledBorder: const UnderlineInputBorder(
         borderSide: BorderSide(
           color: TravaColors.transparent,
           width: 0,
         ),
       ),
-      focusedBorder: UnderlineInputBorder(
+      focusedBorder: const UnderlineInputBorder(
         borderSide: BorderSide(
           color: TravaColors.transparent,
           width: 0,
         ),
       ),
-      errorBorder: UnderlineInputBorder(
+      errorBorder:const UnderlineInputBorder(
         borderSide: BorderSide(
           color: TravaColors.transparent,
           width: 0,
         ),
       ),
-      focusedErrorBorder: OutlineInputBorder(
+      focusedErrorBorder:const OutlineInputBorder(
         borderSide: BorderSide(
           color: TravaColors.transparent,
           width: 0,
@@ -199,12 +199,12 @@ class _TravaTextFieldState extends State<TravaTextField>
                 widget.prefix != null
                     ? Padding(
                         padding: const EdgeInsets.only(left: 12.0, right: 1.0),
-                        child: Container(
+                        child: SizedBox(
                             width: scaler.sizer.setWidth(6),
                             child: widget.prefix),
                       )
-                    : TravaSizedBox(),
-                widget.prefix != null ? VerticalDivider() : TravaSizedBox(),
+                    : const TravaSizedBox(),
+                widget.prefix != null ? const VerticalDivider() : const TravaSizedBox(),
                 Expanded(
                   child: TextFormField(
                     showCursor: true,
@@ -232,14 +232,13 @@ class _TravaTextFieldState extends State<TravaTextField>
                     onChanged: widget.onChanged,
                     decoration: decoration.copyWith(
                       alignLabelWithHint: widget._expands,
+                      
                       labelStyle: widget.bold!
                           ? null
                           : TravaTextStyle.medium.copyWith(
                               fontSize: scaler.fontSizer.sp(40),
                             ),
-                      suffixIcon: widget.suffixIcon != null
-                          ? widget.suffixIcon
-                          : Offstage(),
+                      suffixIcon: widget.suffixIcon ?? const Offstage(),
                       // prefix: widget.prefix,
                       counter: null,
                       counterStyle: TravaTextStyle.bold,

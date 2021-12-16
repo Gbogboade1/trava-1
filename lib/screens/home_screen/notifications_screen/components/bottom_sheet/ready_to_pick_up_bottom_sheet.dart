@@ -41,7 +41,7 @@ class ReadyToPickUpPackageBottomSheet extends StatelessWidget {
                   ),
                 ),
                 child: const PackageDetailsView(
-                  packageList: [1],
+                  packageList: [1, 2],
                 ),
               ),
             ),

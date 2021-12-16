@@ -5,13 +5,14 @@ import 'package:trava/screens/more_screen/components/edit_profile_bottom_sheet.d
 import 'package:trava/screens/more_screen/components/linked_bank_account_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/linked_card_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
+import 'package:trava/screens/register_hub_screen/register_hub_screen.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/buttons/outlined_button.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
 
-  final bool hubCreated = true;
+  final bool hubCreated = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,9 +84,9 @@ class MoreScreen extends StatelessWidget {
                   );
                 },
               ),
-             MoreListTile(
+              MoreListTile(
                 title: "Manage Linked Bank Account(s)",
-                 onTap: () {
+                onTap: () {
                   showModalBottomSheet(
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
@@ -107,8 +108,32 @@ class MoreScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         color: Theme.of(context).colorScheme.primaryVariant)),
                 SizedBox(height: 24.h),
-                const TravaOutlinedButton(buttonLabel: "Register as a hub"),
-              ]
+                TravaOutlinedButton(
+                  buttonLabel: "Register as a hub",
+                  onTap: () =>
+                      Navigator.pushNamed(context, RegisterHubScreen.routeName),
+                ),
+              ],
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.logout,
+                    size: 15.w,
+                    color: const Color(0xffF43232),
+                  ),
+                  SizedBox(width: 9.w),
+                  Text(
+                    "Logout",
+                    style: Theme.of(context).textTheme.headline4!.copyWith(
+                          color: const Color(0xffF43232),
+                        ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.h),
             ],
           ),
         ),
