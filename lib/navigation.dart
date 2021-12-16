@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:trava/screens/history_screen/history_screen.dart';
 import 'package:trava/screens/home_screen/home_screen.dart';
 import 'package:trava/screens/more_screen/more_screen.dart';
 import 'package:trava/screens/transaction_screen/transaction_screen.dart';
+import 'package:trava/state/profile/auth_state.dart';
+import 'package:provider/provider.dart';
 
 class Navigation extends StatefulWidget {
   static const String routeName = "/navigation";
@@ -13,7 +17,6 @@ class Navigation extends StatefulWidget {
 }
 
 class _NavigationState extends State<Navigation> {
-  int currentIndex = 0;
   List<Widget> screens = const [
     HomeScreen(),
     HistoryScreen(),
@@ -22,25 +25,31 @@ class _NavigationState extends State<Navigation> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: screens[currentIndex],
+    final model = context.watch<AuthState>();
+    return ValueListenableBuilder<int>(
+      valueListenable: model.currentIndex,
+      builder: (context, int index, ___) => Scaffold(
+        body: screens[index],
         bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            currentIndex: currentIndex,
-            onTap: (index) {
-              setState(() {
-                currentIndex = index;
-              });
-            },
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.article), label: "History"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.account_balance), label: "Transactions"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.settings_input_component_rounded),
-                  label: "More"),
-            ]));
+          type: BottomNavigationBarType.fixed,
+          currentIndex: index,
+          onTap: (i) {
+            log('waitn dea happen');
+            model.current = i;
+            log('waitn dea happen ${model.currentIndex.value}');
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.article), label: "History"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_balance), label: "Transactions"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.settings_input_component_rounded),
+                label: "More"),
+          ],
+        ),
+      ),
+    );
   }
 }

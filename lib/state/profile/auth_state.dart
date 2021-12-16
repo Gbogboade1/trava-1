@@ -36,6 +36,8 @@ class AuthState extends ChangeNotifier {
   ValueNotifier<Future<HistoryDeliveredResponse?>?> _deliveriedHistory =
       ValueNotifier(null);
   set profile(value) => _profileStatus.value = Future.value(value);
+  ValueNotifier<int> currentIndex = ValueNotifier(0);
+  set current(value) => currentIndex.value = value;
 
   ValueNotifier<Future<ProfileData?>?> get status {
     if (_profileStatus.value == null) {

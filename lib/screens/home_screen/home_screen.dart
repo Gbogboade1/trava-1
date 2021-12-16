@@ -1,33 +1,43 @@
 import "package:flutter/material.dart";
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:trava/components/hooks/profile_data_listening_widget.dart';
 import 'package:trava/screens/home_screen/components/buttons/home_screen_button.dart';
 import 'package:trava/screens/home_screen/components/tab_views/transactions_list_view.dart';
 import 'package:trava/screens/home_screen/fund_wallet_screen/fund_wallet_screen.dart';
 import 'package:trava/screens/home_screen/notifications_screen/notifications_screen.dart';
 import 'package:trava/screens/home_screen/withdrawal_screen/withdrawal_screen.dart';
+import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/intl_formatter.dart';
 import 'components/buttons/request_to_deliver_button.dart';
 import 'components/buttons/send_packages_button.dart';
 import 'components/tab_views/operations_list_view.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends HookWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AuthState>();
+    final tabController = useTabController(initialLength: 2);
     return ProfileSetUpDataListeningWidget(
       builder: (context, profile) => Scaffold(
         bottomSheet: Container(
           height: 25.h,
           color: Colors.white,
           child: Center(
-            child: Text(
-              "See all",
-              style: Theme.of(context).textTheme.headline4!.copyWith(
-                    decoration: TextDecoration.underline,
-                    color: const Color(0xff171718),
-                  ),
+            child: GestureDetector(
+              onTap: () {
+                model.current = tabController.index + 1;
+              },
+              child: Text(
+                "See all",
+                style: Theme.of(context).textTheme.headline4!.copyWith(
+                      decoration: TextDecoration.underline,
+                      color: const Color(0xff171718),
+                    ),
+              ),
             ),
           ),
         ),
@@ -122,6 +132,7 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         TabBar(
                           // isScrollable: true,
+                          controller: tabController,
                           indicatorColor: Colors.black,
                           indicatorSize: TabBarIndicatorSize.label,
                           labelColor: const Color(0xff171718),

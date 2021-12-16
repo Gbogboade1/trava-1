@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trava/screens/more_screen/components/change_password_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/edit_profile_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/linked_bank_account_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/linked_card_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
 import 'package:trava/screens/register_hub_screen/register_hub_screen.dart';
+import 'package:trava/screens/more_screen/components/password_settings_bottom_sheet.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/buttons/outlined_button.dart';
 
@@ -53,25 +53,23 @@ class MoreScreen extends StatelessWidget {
                   : const SizedBox(),
               MoreListTile(
                 title: "Edit Profile",
-                onTap: () {
-                  showModalBottomSheet(
+                onTap: () async {
+                  await showModalBottomSheet(
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
                     context: context,
-                    builder: (context) => const EditProfileBottomSheet(),
+                    builder: (context) => EditProfileBottomSheet(),
                   );
                 },
               ),
               MoreListTile(
                 title: "Password Settings",
-                onTap: () {
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    builder: (context) => const ChangePasswordBottomSheet(),
-                  );
-                },
+                onTap: () async => await showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  context: context,
+                  builder: (context) => PasswordSettingBottomSheet(),
+                ),
               ),
               MoreListTile(
                 title: "Manage Linked Card(s)",
