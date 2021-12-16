@@ -6,11 +6,7 @@ import 'package:trava/models/https/request/pick_package_request.dart';
 import 'package:trava/models/https/request/send_package_request.dart';
 import 'package:trava/models/https/request/send_package_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
-import 'package:trava/models/https/users/sign_in_request.dart';
-import 'package:trava/models/https/users/sign_in_response.dart';
 import 'package:trava/models/https/users/sign_out_response.dart';
-import 'package:trava/models/https/users/sign_up.dart';
-import 'package:trava/models/https/users/sign_up_response.dart';
 
 import '../base_http.dart';
 
