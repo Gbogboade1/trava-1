@@ -4,12 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:trava/models/https/users/otp_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
+import 'package:trava/models/https/users/profile_update_request.dart';
 import 'package:trava/models/https/users/reset_request.dart';
 import 'package:trava/models/https/users/sign_in_request.dart';
 import 'package:trava/models/https/users/sign_in_response.dart';
 import 'package:trava/models/https/users/sign_out_response.dart';
 import 'package:trava/models/https/users/sign_up.dart';
 import 'package:trava/models/https/users/sign_up_response.dart';
+import 'package:trava/models/https/users/update_password_request.dart';
 import 'package:trava/services/storage/storage.dart';
 import 'package:trava/utils/token_manager.dart';
 
@@ -176,22 +178,32 @@ class AuthHttpService extends HttpService {
     }
   }
 
-  Future<ProfileData> profileUpdate(ResetRequest data, {File? img}) async {
+  Future<ProfileData> updatePassword(UpdatePasswordRequest data) async {
     try {
-      if (img != null) {
-        final form = FormData();
-        final req = await http.patch(
-          "/password_reset",
-          data: data.toJson(),
-        );
-        return ProfileData.fromJson(req.data);
-      } else {
-        final req = await http.patch(
-          "/password_reset",
-          data: data.toJson(),
-        );
-        return ProfileData.fromJson(req.data);
-      }
+      final req = await http.patch(
+        "/update_password",
+        data: data.toJson(),
+      );
+      // final data =
+
+      return ProfileData.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<ProfileData> profileUpdate(ProfileUpdateRequest data,
+      {File? img}) async {
+    try {
+      final req = await http.patch(
+        "/update_profile",
+        data: data.toJson(),
+      );
+      return ProfileData.fromJson(req.data);
+
       // final data =
 
     } on DioError catch (e) {
