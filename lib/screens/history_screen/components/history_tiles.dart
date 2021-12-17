@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/screens/history_screen/components/sent_package_details_screen.dart';
 
 import 'package:trava/models/https/request/sent_response.dart';
@@ -42,7 +43,7 @@ class SentHistoryTile extends StatelessWidget {
                 children: [
                   TextSpan(
                       text:
-                          "Your package (${packageDetails.sId})  to be delivered at ${packageDetails.deliveryHub}, ${packageDetails.destTown}, ${packageDetails.destState} State by  ${packageDetails.sender}. "),
+                          "Your package (${packageDetails.deliveryCode})  to be delivered at ${packageDetails.deliveryHub}, ${packageDetails.destTown}, ${packageDetails.destState} State by ${packageDetails.sender?.firstName ?? ''} ${packageDetails.sender?.lastName ?? ''}. "),
                   TextSpan(
                     text: "See Details",
                     recognizer: TapGestureRecognizer()
@@ -50,7 +51,7 @@ class SentHistoryTile extends StatelessWidget {
                         Navigator.pushNamed(
                           context,
                           SentPackageDetailsScreen.routeName,
-                          arguments: [1, 2],
+                          arguments: packageDetails,
                         );
                       },
                     style: Theme.of(context).textTheme.headline4!.copyWith(

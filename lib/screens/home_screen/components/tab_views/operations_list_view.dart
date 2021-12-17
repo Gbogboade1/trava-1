@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:trava/components/fragments/indicators/app_loader.dart';
 import 'package:trava/components/fragments/state/app_error_state.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/helpers.dart';
@@ -47,7 +48,7 @@ class OperationsListView extends StatelessWidget {
                       SizedBox(width: 16.w),
                       Flexible(
                         child: Text(
-                          "Your package (${packageDetails.sId})  to be delivered at ${packageDetails.deliveryHub}, ${packageDetails.destTown}, ${packageDetails.destState} State by  ${packageDetails.sender}. ",
+                          "Your package (${packageDetails.deliveryCode})  to be delivered at ${packageDetails.deliveryHub}, ${packageDetails.destTown}, ${packageDetails.destState} State by  ${packageDetails.sender?.firstName ?? ''} ${packageDetails.sender?.lastName ?? ''}. ",
                           style:
                               Theme.of(context).textTheme.headline4!.copyWith(
                                     color: const Color(0xff171718),

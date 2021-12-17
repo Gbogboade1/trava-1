@@ -152,9 +152,10 @@ class HomeScreen extends HookWidget {
                           ],
                         ),
                         SizedBox(height: 24.0.h),
-                        const Expanded(
+                        Expanded(
                           child: TabBarView(
-                            children: [
+                            controller: tabController,
+                            children: const [
                               OperationsListView(),
                               TransactionsListView(),
                             ],

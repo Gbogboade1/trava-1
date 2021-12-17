@@ -3,17 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 import 'package:trava/widgets/package_details_view.dart';
 
+import 'package:trava/models/https/request/pick_a_package_response.dart';
+
 class DeliveredPackageDetailsScreen extends StatelessWidget {
-  static const routeName =  '/delivered-package-details';
+  static const routeName = '/delivered-package-details';
   const DeliveredPackageDetailsScreen(
     this.arguments, {
     Key? key,
   }) : super(key: key);
 
-  final List arguments;
+  final Data arguments;
   @override
   Widget build(BuildContext context) {
-    List packageList = arguments;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -33,10 +34,9 @@ class DeliveredPackageDetailsScreen extends StatelessWidget {
               SizedBox(height: 24.h),
               Expanded(
                 child: PackageDetailsView(
-                  packageList: packageList,
+                  package: arguments,
                 ),
               ),
-         
             ],
           ),
         ),

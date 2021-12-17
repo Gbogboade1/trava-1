@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
+import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/style/colors.dart';
+import 'package:trava/utils/intl_formatter.dart';
 
 class PackageDetailsView extends StatelessWidget {
-  const PackageDetailsView({
+  PackageDetailsView({
     Key? key,
-    required this.packageList,
+    required this.package,
   }) : super(key: key);
-  final List packageList;
+  final Data package;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,9 +21,10 @@ class PackageDetailsView extends StatelessWidget {
             text: TextSpan(
               style: Theme.of(context).textTheme.headline2,
               children: [
-                const TextSpan(text: "Package 023 Details "),
+                TextSpan(text: "Package ${package.deliveryCode} Details "),
                 TextSpan(
-                  text: "(₦1,570)",
+                  text:
+                      "(${TravaFormatter.formatCurrency('${package.amount}')})",
                   style: Theme.of(context).textTheme.headline2!.copyWith(
                         color: TravaColors.red,
                       ),
@@ -31,34 +35,7 @@ class PackageDetailsView extends StatelessWidget {
         ),
         SizedBox(height: 15.h),
         Expanded(
-          child: packageList.length <= 1
-              ? const PackageDetails()
-              : ListView.builder(
-                  itemCount: packageList.length,
-                  itemBuilder: (context, index) {
-                    String packageRank = () {
-                      switch (index) {
-                        case 0:
-                          return "1st";
-                        case 1:
-                          return "2nd";
-                        case 2:
-                          return "3rd";
-                        default:
-                          return "${index + 1}th";
-                      }
-                    }();
-                    return ExpansionTile(
-                      maintainState: true,
-                      initiallyExpanded:
-                          packageList[index] == packageList.last ? true : false,
-                      title: Text("$packageRank Package Details"),
-                      children: const [
-                        PackageDetails(),
-                      ],
-                    );
-                  },
-                ),
+          child: PackageDetails(package),
         ),
       ],
     );
@@ -66,10 +43,12 @@ class PackageDetailsView extends StatelessWidget {
 }
 
 class PackageDetails extends StatelessWidget {
-  const PackageDetails({
+  const PackageDetails(
+    this.package, {
     Key? key,
   }) : super(key: key);
 
+  final Data package;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -82,6 +61,12 @@ class PackageDetails extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: Colors.black,
+              image: DecorationImage(
+                image: NetworkImage(
+                  package.images ??
+                      'https://cholatrek-9acb7.appspot.com.storage.googleapis.com/87b4e5ed-72d1-482a-9aa3-084a4c7d5950.png',
+                ),
+              ),
             ),
           ),
         ),
@@ -95,90 +80,91 @@ class PackageDetails extends StatelessWidget {
         ),
         SizedBox(height: 2.h),
         Text(
-          "Two boxes of sophisticated wine. A box contain 8 bottles.",
+          "${package.description}",
           style: Theme.of(context).textTheme.bodyText2,
         ),
         SizedBox(height: 16.h),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: PackageDetailField(
                 title: "Package Type:",
-                value: "Normal Weight",
+                value: "${package.type} Weight",
               ),
             ),
             Expanded(
               child: PackageDetailField(
                 title: "Package Quantity:",
-                value: "2",
+                value: "${package.quantity}",
               ),
             ),
           ],
         ),
         SizedBox(height: 16.h),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: PackageDetailField(
                 title: "Package Destination:",
-                value: "Ilesha, Osun State",
+                value: "${package.destTown}, ${package.destState} State",
               ),
             ),
             Expanded(
               child: PackageDetailField(
                 title: "Package Delivery Date:",
-                value: "23-12-2021",
+                value: TravaFormatter.formatDate(
+                    package.deliveryDate ?? DateTime.now().toString()),
               ),
             ),
           ],
         ),
         SizedBox(height: 16.h),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: PackageDetailField(
                 title: "Preferred Mode of Transport:",
-                value: "Private Car",
+                value: "${package.deliveryMode}",
               ),
             ),
             Expanded(
               child: PackageDetailField(
                 title: "Preferred Delivery Hub:",
-                value: "DHL Hub, Asaba, Delta State.",
+                value: "${package.deliveryHub}",
               ),
             ),
           ],
         ),
         SizedBox(height: 16.h),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: PackageDetailField(
                 title: "Pickup Loation:",
-                value: "Iyana Cele Junctio, Akure.",
+                value: "${package.pickupLocation}",
               ),
             ),
             Expanded(
               child: PackageDetailField(
                 title: "Pickup Time:",
-                value: "5:00 pm",
+                value: TravaFormatter.formatTime("${package.pickupTime}"),
               ),
             ),
           ],
         ),
         SizedBox(height: 16.h),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: PackageDetailField(
-                title: "Sender’s Name:",
-                value: "Boluwatife Akinlabi",
-              ),
+                  title: "Sender’s Name:",
+                  value:
+                      "${package.sender?.firstName} ${package.sender?.lastName}"),
             ),
             Expanded(
               child: PackageDetailField(
                 title: "Sender’s Phone Number:",
-                value: "08136279876",
+                value: "${package.sender?.phone}",
               ),
             ),
           ],

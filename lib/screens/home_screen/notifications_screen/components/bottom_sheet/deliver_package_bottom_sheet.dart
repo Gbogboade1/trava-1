@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/screens/home_screen/notifications_screen/components/notification_button.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/widgets/package_details_view.dart';
@@ -49,8 +50,10 @@ class DeliverPackageBottomSheet extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Expanded(
-                        child: PackageDetailsView(packageList: [1, 2])),
+                    Expanded(
+                        child: PackageDetailsView(
+                      package: Data(),
+                    )),
                     SizedBox(height: 40.h),
                     Row(
                       children: [

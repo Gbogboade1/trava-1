@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/widgets/buttons/selector.dart';
 
 class BankTile extends StatelessWidget {
@@ -8,11 +8,13 @@ class BankTile extends StatelessWidget {
     Key? key,
     required this.selectorValue,
     required this.groupValue,
+    required this.bank,
     required this.onChanged,
   }) : super(key: key);
   final String selectorValue;
   final String? groupValue;
   final ValueChanged<String?> onChanged;
+  final Banks bank;
 
   bool get isSelected => selectorValue == groupValue;
   @override
@@ -53,13 +55,13 @@ class BankTile extends StatelessWidget {
               children: [
                 //account number
                 Text(
-                  "0237834098",
+                  "${bank.accountNumber}",
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 SizedBox(height: 5.h),
                 //account name
                 Text(
-                  "Boluwatife Akinlabi",
+                  "${bank.accountName}",
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         color: const Color(0xff828282),
                       ),
@@ -73,4 +75,3 @@ class BankTile extends StatelessWidget {
     );
   }
 }
-

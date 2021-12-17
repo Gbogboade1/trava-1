@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 class PickAPackageResponse {
   bool? status;
   String? message;
@@ -29,15 +31,19 @@ class Data {
   String? sId;
   String? sendState;
   String? sendTown;
+  String? pickupCode;
+  String? deliveryCode;
   Sender? sender;
   bool? isActive;
   String? type;
   String? description;
+  bool? isDroped;
   int? quantity;
   String? images;
   String? deliveryMode;
   String? pickupTime;
   String? pickupLocation;
+
   String? dropspot;
   String? deliveryHub;
   String? hub;
@@ -50,7 +56,7 @@ class Data {
   String? destTown;
   bool? insurance;
   bool? hasPaid;
-  double? amount;
+  num? amount;
   String? paymentId;
   int? iV;
   String? createdAt;
@@ -61,8 +67,10 @@ class Data {
       {this.sId,
       this.sendState,
       this.sendTown,
+      this.deliveryCode,
       this.sender,
       this.isActive,
+      this.pickupCode,
       this.type,
       this.description,
       this.quantity,
@@ -73,6 +81,7 @@ class Data {
       this.dropspot,
       this.deliveryHub,
       this.hub,
+      this.isDroped,
       this.deliveryDate,
       this.isDelivered,
       this.isPickuped,
@@ -94,9 +103,12 @@ class Data {
     sendState = json['sendState'];
     sendTown = json['sendTown'];
     sender = json['sender'] != null ? Sender.fromJson(json['sender']) : null;
+    isDroped = json['isDroped'];
     isActive = json['isActive'];
     type = json['type'];
+    pickupCode = json['pickupCode'];
     description = json['description'];
+    deliveryCode = json['deliveryCode'];
     quantity = json['quantity'];
     images = json['images'];
     deliveryMode = json['deliveryMode'];
@@ -131,8 +143,12 @@ class Data {
     if (sender != null) {
       data['sender'] = sender!.toJson();
     }
+
+    data['pickupCode'] = pickupCode;
     data['isActive'] = isActive;
     data['type'] = type;
+    data['isDroped'] = isDroped;
+    data['deliveryCode'] = deliveryCode;
     data['description'] = description;
     data['quantity'] = quantity;
     data['images'] = images;
@@ -225,6 +241,7 @@ class Sender {
       });
     }
     wallet = json['wallet'];
+    log("error don happen");
     joinDate = json['joinDate'];
     if (json['banks'] != null) {
       banks = [];
@@ -243,6 +260,8 @@ class Sender {
     iV = json['__v'];
     request =
         json['request'] != null ? Request.fromJson(json['request']) : null;
+
+    log("error don happen");
     hubs = json['hubs'].cast<String>();
   }
 

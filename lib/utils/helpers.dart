@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/screens/history_screen/components/history_tiles.dart';
 
