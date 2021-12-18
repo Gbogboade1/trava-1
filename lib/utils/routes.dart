@@ -8,6 +8,7 @@ import 'package:trava/screens/forget_password_screen/new_password_screen.dart';
 import 'package:trava/screens/forget_password_screen/reset_code_screen.dart';
 import 'package:trava/screens/history_screen/components/delivered_package_details_screen.dart';
 import 'package:trava/screens/history_screen/components/sent_package_details_screen.dart';
+import 'package:trava/screens/history_screen/components/track_package_screen.dart';
 import 'package:trava/screens/home_screen/fund_wallet_screen/fund_wallet_screen.dart';
 import 'package:trava/screens/home_screen/notifications_screen/notifications_screen.dart';
 import 'package:trava/screens/home_screen/request_to_deliver_screen/request_to_deliver_screen.dart';
@@ -33,7 +34,10 @@ final Map<String, WidgetBuilder> routes = {
   NotificationsScreen.routeName: (context) => const NotificationsScreen(),
   OnboardingScreen.routeName: (context) => const OnboardingScreen(),
   PackagesToPickUpScreen.routeName: (context) => const PackagesToPickUpScreen(),
-  RegisterHubScreen.routeName: (context) => RegisterHubScreen(),
+
+  RegisterHubScreen.routeName: (context) =>  RegisterHubScreen(),
+   TrackPackageScreen.routeName: (context) => const TrackPackageScreen(),
+
 };
 
 Route<dynamic> dynamicRoutes(RouteSettings settings) {

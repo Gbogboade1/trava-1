@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/screens/history_screen/components/track_package_screen.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/package_details_view.dart';
@@ -40,7 +41,11 @@ class SentPackageDetailsScreen extends StatelessWidget {
                 ),
               ),
               DefaultButton(
-                  isActive: true, buttonLabel: "Track package", onTap: () {})
+                  isActive: true,
+                  buttonLabel: "Track package",
+                  onTap: () {
+                    Navigator.pushNamed(context, TrackPackageScreen.routeName);
+                  },)
             ],
           ),
         ),
