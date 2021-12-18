@@ -34,10 +34,7 @@ final Map<String, WidgetBuilder> routes = {
   NotificationsScreen.routeName: (context) => const NotificationsScreen(),
   OnboardingScreen.routeName: (context) => const OnboardingScreen(),
   PackagesToPickUpScreen.routeName: (context) => const PackagesToPickUpScreen(),
-
-  RegisterHubScreen.routeName: (context) =>  RegisterHubScreen(),
-   TrackPackageScreen.routeName: (context) => const TrackPackageScreen(),
-
+  RegisterHubScreen.routeName: (context) => RegisterHubScreen(),
 };
 
 Route<dynamic> dynamicRoutes(RouteSettings settings) {
@@ -47,6 +44,13 @@ Route<dynamic> dynamicRoutes(RouteSettings settings) {
         settings: settings,
         builder: (context) {
           return ResetCodeScreen(settings.arguments as OtpResponse);
+        },
+      );
+    case TrackPackageScreen.routeName:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) {
+          return TrackPackageScreen(settings.arguments as Data);
         },
       );
     case NewPasswordScreen.routeName:

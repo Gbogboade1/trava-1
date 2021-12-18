@@ -2,12 +2,14 @@ import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 
 class TrackPackageScreen extends StatefulWidget {
   static const String routeName = "/track_package";
-  const TrackPackageScreen({Key? key}) : super(key: key);
+  const TrackPackageScreen(this.package, {Key? key}) : super(key: key);
+  final Data package;
 
   @override
   _TrackPackageScreenState createState() => _TrackPackageScreenState();
@@ -58,7 +60,7 @@ class _TrackPackageScreenState extends State<TrackPackageScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Package 023 Tracking Details ",
+              "Package ${widget.package.deliveryCode} Tracking Details ",
               style: Theme.of(context)
                   .textTheme
                   .headline2!
@@ -71,7 +73,7 @@ class _TrackPackageScreenState extends State<TrackPackageScreen> {
                     color: Color(0xff1A1AF2)),
                 SizedBox(width: 20.w),
                 Text(
-                  "Ilesha, Osun State",
+                  "${widget.package.sendTown}, ${widget.package.sendState} State",
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
@@ -115,7 +117,7 @@ class _TrackPackageScreenState extends State<TrackPackageScreen> {
                 SizedBox(width: 20.w),
                 Flexible(
                   child: Text(
-                    "Ibadan, Oyo State",
+                    "${widget.package.destTown}, ${widget.package.destState} State",
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1!

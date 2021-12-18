@@ -38,6 +38,7 @@ dependencies:
   image_cropper:
   image_picker:
   flutter_hooks: ^0.18.0
+
   flutter_svg:
   grouped_list: ^4.1.0
   provider:

@@ -41,11 +41,16 @@ class SentPackageDetailsScreen extends StatelessWidget {
                 ),
               ),
               DefaultButton(
-                  isActive: true,
-                  buttonLabel: "Track package",
-                  onTap: () {
-                    Navigator.pushNamed(context, TrackPackageScreen.routeName);
-                  },)
+                isActive: true,
+                buttonLabel: "Track package",
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    TrackPackageScreen.routeName,
+                    arguments: arguments,
+                  );
+                },
+              )
             ],
           ),
         ),
