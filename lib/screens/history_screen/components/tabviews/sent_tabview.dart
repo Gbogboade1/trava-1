@@ -37,17 +37,14 @@ class SentTabView extends HookWidget {
                         );
                       }
                       return ListView.builder(
-                        itemCount: 1, //snapshot.data?.data?.length ?? 0,
+                        itemCount: snapshot.data?.data?.length ?? 0,
                         itemBuilder: (context, index) {
                           return SentHistoryTile(
-                              packageDeliveryStatus:
-                                  PackageDeliveryStatus.delivered,
-                              //getpackaheDeliveryStatus(
-                              //   snapshot.data!.data![index],
-                              // ),
-                              packageDetails:
-                                  Data() //snapshot.data!.data![index],
-                              );
+                            packageDeliveryStatus: getpackaheDeliveryStatus(
+                              snapshot.data!.data![index],
+                            ),
+                            packageDetails: snapshot.data!.data![index],
+                          );
                         },
                       );
                     });
