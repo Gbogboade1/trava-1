@@ -6,12 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:trava/models/https/payment/tranaction_history.dart';
 import 'package:trava/models/https/request/delivered_response.dart';
 import 'package:trava/models/https/request/items_to_pick_up_response.dart';
+import 'package:trava/models/https/request/pick_package_request.dart';
+import 'package:trava/models/https/request/send_package_response.dart';
 import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/models/https/request/tbd_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
+import 'package:trava/models/podos/selection_data.dart';
+import 'package:trava/screens/splash_screen/splash_screen.dart';
 import 'package:trava/services/http/auth/auth_http_service.dart';
 import 'package:trava/services/http/payment/payment_http_service.dart';
 import 'package:trava/services/http/request/request_http_service.dart';
+import 'package:trava/services/storage/storage.dart';
+import 'package:trava/utils/county_list.dart';
+import 'package:trava/utils/modals.dart';
+import 'package:trava/utils/token_manager.dart';
 
 class AuthState extends ChangeNotifier {
   static AuthState? _instance;
@@ -186,5 +194,48 @@ class AuthState extends ChangeNotifier {
     final data = _requestHttp.getDeliveredRequest();
 
     return data;
+  }
+
+  logout(BuildContext context) async {
+    clearOut();
+    await Navigator.pushNamedAndRemoveUntil(
+        context, SplashScreen.routeName, (route) => false);
+  }
+
+  clearOut() {
+    TravaTokenManager _tokenManager = TravaTokenManager.instance;
+    _tokenManager.clearTokens();
+    current = 0;
+  }
+
+  Future deliveryRequest(PickPackageRequest data, BuildContext context) async {
+    final doRoute = await formSubmitDialog(
+      context: context,
+      future: _requestHttp.pick(data),
+      prompt: "Requesting to be deliver",
+    );
+
+    if (doRoute != null) {
+      Navigator.pop(
+        context,
+      );
+    }
+  }
+
+  List<SelectionData> get state {
+    List<String> a = [];
+    List<SelectionData> result = [];
+
+    county.forEach((e) {
+      // log('value--- $e');
+      if (!a.contains(e['state'])) {
+        a.add("${e['state']}");
+      }
+    });
+    // log("a--- ${a.length}");
+    a.sort();
+    a.forEach((e) => result.add(SelectionData(e, e)));
+    // log("rsult --- ${result.length}");
+    return result;
   }
 }

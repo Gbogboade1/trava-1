@@ -6,8 +6,10 @@ import 'package:trava/screens/more_screen/components/linked_card_bottom_sheet.da
 import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
 import 'package:trava/screens/register_hub_screen/register_hub_screen.dart';
 import 'package:trava/screens/more_screen/components/password_settings_bottom_sheet.dart';
+import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/buttons/outlined_button.dart';
+import 'package:provider/provider.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class MoreScreen extends StatelessWidget {
   final bool hubCreated = false;
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AuthState>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -113,23 +116,26 @@ class MoreScreen extends StatelessWidget {
                 ),
               ],
               const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.logout,
-                    size: 15.w,
-                    color: const Color(0xffF43232),
-                  ),
-                  SizedBox(width: 9.w),
-                  Text(
-                    "Logout",
-                    style: Theme.of(context).textTheme.headline4!.copyWith(
-                          color: const Color(0xffF43232),
-                        ),
-                  ),
-                ],
+              GestureDetector(
+                onTap: () async => await model.logout(context),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.logout,
+                      size: 15.w,
+                      color: const Color(0xffF43232),
+                    ),
+                    SizedBox(width: 9.w),
+                    Text(
+                      "Logout",
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                            color: const Color(0xffF43232),
+                          ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 20.h),
             ],

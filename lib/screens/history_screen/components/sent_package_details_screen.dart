@@ -4,6 +4,8 @@ import 'package:trava/screens/history_screen/components/track_package_screen.dar
 import 'package:trava/widgets/buttons/back_button.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/package_details_view.dart';
+import 'package:trava/models/https/request/sent_response.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 
 class SentPackageDetailsScreen extends StatelessWidget {
   static const routeName = '/sent-package-details';
@@ -12,10 +14,10 @@ class SentPackageDetailsScreen extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final List arguments;
+  final Data arguments;
   @override
   Widget build(BuildContext context) {
-    List packageList = arguments;
+    // List packageList = arguments;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -35,7 +37,7 @@ class SentPackageDetailsScreen extends StatelessWidget {
               SizedBox(height: 24.h),
               Expanded(
                 child: PackageDetailsView(
-                  packageList: packageList,
+                  package: arguments,
                 ),
               ),
               DefaultButton(

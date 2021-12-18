@@ -1,7 +1,10 @@
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/src/provider.dart';
+import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/constants.dart';
+import 'package:trava/utils/county_list.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
@@ -15,6 +18,7 @@ class RegisterHubScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AuthState>();
     return CustomScaffold(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +86,7 @@ class RegisterHubScreen extends StatelessWidget {
           TravaDropdown(
             TextEditingController(),
             validator: TravaValidators.required,
-            items: const [],
+            items: model.state,
             hintText: "Choose the state your hub in located at",
           ),
           SizedBox(height: 16.h),

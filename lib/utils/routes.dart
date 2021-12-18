@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
+import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/models/https/users/otp_response.dart';
 import 'package:trava/navigation.dart';
 import 'package:trava/screens/forget_password_screen/forget_password_screen.dart';
@@ -28,7 +30,7 @@ final Map<String, WidgetBuilder> routes = {
   FundWalletScreen.routeName: (context) => const FundWalletScreen(),
   WithdrawalScreen.routeName: (context) => const WithdrawalScreen(),
   SendPackagesScreen.routeName: (context) => const SendPackagesScreen(),
-  RequestToDeliverScreen.routeName: (context) => const RequestToDeliverScreen(),
+  RequestToDeliverScreen.routeName: (context) => RequestToDeliverScreen(),
   NotificationsScreen.routeName: (context) => const NotificationsScreen(),
   OnboardingScreen.routeName: (context) => const OnboardingScreen(),
   PackagesToPickUpScreen.routeName: (context) => const PackagesToPickUpScreen(),
@@ -56,14 +58,14 @@ Route<dynamic> dynamicRoutes(RouteSettings settings) {
       return MaterialPageRoute(
         settings: settings,
         builder: (context) {
-          return SentPackageDetailsScreen(settings.arguments as List);
+          return SentPackageDetailsScreen(settings.arguments as Data);
         },
       );
     case DeliveredPackageDetailsScreen.routeName:
       return MaterialPageRoute(
         settings: settings,
         builder: (context) {
-          return DeliveredPackageDetailsScreen(settings.arguments as List);
+          return DeliveredPackageDetailsScreen(settings.arguments as Data);
         },
       );
     default:
