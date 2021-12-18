@@ -28,12 +28,12 @@ final Map<String, WidgetBuilder> routes = {
   Navigation.routeName: (context) => const Navigation(),
   FundWalletScreen.routeName: (context) => const FundWalletScreen(),
   WithdrawalScreen.routeName: (context) => const WithdrawalScreen(),
-  SendPackagesScreen.routeName: (context) => const SendPackagesScreen(),
+  SendPackagesScreen.routeName: (context) => SendPackagesScreen(),
   RequestToDeliverScreen.routeName: (context) => RequestToDeliverScreen(),
   NotificationsScreen.routeName: (context) => const NotificationsScreen(),
   OnboardingScreen.routeName: (context) => const OnboardingScreen(),
   PackagesToPickUpScreen.routeName: (context) => const PackagesToPickUpScreen(),
-  RegisterHubScreen.routeName: (context) => const RegisterHubScreen(),
+  RegisterHubScreen.routeName: (context) => RegisterHubScreen(),
 };
 
 Route<dynamic> dynamicRoutes(RouteSettings settings) {

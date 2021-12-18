@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/models/https/users/sign_in_request.dart';
@@ -12,14 +13,24 @@ import '../base_http.dart';
 class HubHttpService extends HttpService {
   HubHttpService()
       : super(
-          collectionUrl: "/user",
+          collectionUrl: "/hub",
         );
 
-  Future<SignUpResponse> signUp(SignUpRequest data) async {
+  Future<SignUpResponse> register(
+      String town, String name, description, state, File file) async {
     try {
+      var formData = FormData.fromMap({
+        'town': town,
+        'name': name,
+        'description': description,
+        'state': state,
+        'images': await MultipartFile.fromFile(
+          file.path,
+        ),
+      });
       final req = await http.post(
-        "/signup",
-        data: data.toJson(),
+        "/register",
+        data: formData,
       );
       // final data =
 

@@ -4,11 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/home_screen/send_packages_screen/components/send_package_info_page.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
+import 'package:flutter/foundation.dart' show ChangeNotifier;
 
 class SendPackagesScreen extends HookWidget {
   static const String routeName = "/send_payments";
 
-  const SendPackagesScreen({Key? key}) : super(key: key);
+  SendPackagesScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final packageList = useState<List<int>>([1]);

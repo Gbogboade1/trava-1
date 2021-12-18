@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:trava/components/hooks/profile_data_listening_widget.dart';
 import 'package:trava/screens/home_screen/withdrawal_screen/components/add_new_bank.dart';
 import 'package:trava/screens/home_screen/withdrawal_screen/components/bank_tile.dart';
+import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/constants.dart';
+import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
@@ -29,6 +32,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AuthState>();
     final availableHeight = MediaQuery.of(context).size.height -
         MediaQuery.of(context).padding.top -
         MediaQuery.of(context).padding.bottom;
@@ -113,9 +117,22 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                           ? DefaultButton(
                               buttonLabel: "Withdraw",
                               isActive: true,
-                              onTap: () {
+                              onTap: () async {
                                 if (formKey.currentState!.validate()) {
-                                  print("Withdrawal successful");
+                                  final withdraw = await formSubmitDialog(
+                                    context: context,
+                                    prompt: "Sending withdrawal request",
+                                    future: model.withdraw(
+                                      data!.user!.banks![int.parse(groupValue!)]
+                                          .bankId!,
+                                      int.parse(withdrawalController.text),
+                                    ),
+                                  );
+                                  if (withdraw != null) {
+                                    showNotificationBottomSheet(context,
+                                        message: "Withdrawal  Successful",
+                                        title: "",);
+                                  }
                                 }
                               })
                           : const SizedBox(),
