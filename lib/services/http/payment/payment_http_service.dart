@@ -34,6 +34,25 @@ class PaymentHttpService extends HttpService {
     }
   }
 
+  Future<SignUpResponse> withdrawal(int amt, String bankId) async {
+    try {
+      final req = await http.post(
+        "/deposit",
+        data: {"bankId": bankId, "amount": amt},
+      );
+      // final data =
+
+      log("my new data -${req.data}");
+
+      return SignUpResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
   Future<SignInResponse> removeWithdrawalMethod(SignInRequest data) async {
     try {
       final req = await http.delete(

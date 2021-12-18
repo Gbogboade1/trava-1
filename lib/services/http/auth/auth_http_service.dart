@@ -42,16 +42,22 @@ class AuthHttpService extends HttpService {
     }
   }
 
-  Future<SignOutResponse> addWithdrawalMethod() async {
+  Future<SignUpResponse> addBank(
+      String bankname, String accountNumber, String accountName) async {
     try {
-      final req = await http.get(
+      final req = await http.post(
         "/bank/add",
+        data: {
+          "bankName": bankname,
+          "accountNumber": accountNumber,
+          "accountName": accountName
+        },
       );
       // final data =
 
       log("my new data -${req.data}");
 
-      return SignOutResponse.fromJson(req.data);
+      return SignUpResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
