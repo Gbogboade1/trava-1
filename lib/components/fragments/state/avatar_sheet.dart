@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:trava/components/fragments/spacers/app_sized_box.dart';
 import 'package:trava/components/fragments/spacers/text_styles.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/utils/extensions.dart';
 
 class AvatarBottomSheet extends StatelessWidget {
+  const AvatarBottomSheet({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final sizer = context.scaler.sizer;
@@ -69,7 +70,7 @@ class AvatarBottomSheet extends StatelessWidget {
                           Navigator.of(context).pop(false);
                         },
                       ),
-                      Offstage(),
+                      const Offstage(),
                     ],
                   ),
                   TableRow(
@@ -84,7 +85,7 @@ class AvatarBottomSheet extends StatelessWidget {
                         },
                       ),
                       TableRowInkWell(
-                        child: Text(
+                        child: const Text(
                           "Camera",
                           textAlign: TextAlign.center,
                         ),
@@ -92,7 +93,7 @@ class AvatarBottomSheet extends StatelessWidget {
                           Navigator.of(context).pop(false);
                         },
                       ),
-                      Offstage(),
+                      const Offstage(),
                     ],
                   ),
                 ],

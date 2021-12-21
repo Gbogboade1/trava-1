@@ -8,7 +8,6 @@ import 'package:trava/models/https/payment/tranaction_history.dart';
 import 'package:trava/models/https/request/delivered_response.dart';
 import 'package:trava/models/https/request/items_to_pick_up_response.dart';
 import 'package:trava/models/https/request/pick_package_request.dart';
-import 'package:trava/models/https/request/send_package_response.dart';
 import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/models/https/request/tbd_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
@@ -18,7 +17,6 @@ import 'package:trava/services/http/auth/auth_http_service.dart';
 import 'package:trava/services/http/hub/hub_http_service.dart';
 import 'package:trava/services/http/payment/payment_http_service.dart';
 import 'package:trava/services/http/request/request_http_service.dart';
-import 'package:trava/services/storage/storage.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/utils/county_list.dart';
 import 'package:trava/utils/image_utils.dart';
@@ -33,22 +31,22 @@ class AuthState extends ChangeNotifier {
     return _instance!;
   }
 
-  ValueNotifier<File?> _image = ValueNotifier(null);
+  final ValueNotifier<File?> _image = ValueNotifier(null);
   final AuthHttpService _http = AuthHttpService();
   final PaymentHttpService _paymentHttp = PaymentHttpService();
   final HubHttpService _hubHttp = HubHttpService();
   final RequestHttpService _requestHttp = RequestHttpService();
 
-  ValueNotifier<Future<ProfileData?>?> _profileStatus = ValueNotifier(null);
-  ValueNotifier<Future<TransactionHistory?>?> _transactions =
+  final ValueNotifier<Future<ProfileData?>?> _profileStatus = ValueNotifier(null);
+  final ValueNotifier<Future<TransactionHistory?>?> _transactions =
       ValueNotifier(null);
-  ValueNotifier<Future<ItemsToPickUpResponse?>?> _itemsToBePicked =
+  final ValueNotifier<Future<ItemsToPickUpResponse?>?> _itemsToBePicked =
       ValueNotifier(null);
-  ValueNotifier<Future<HistorySentResponse?>?> _sentHistory =
+  final ValueNotifier<Future<HistorySentResponse?>?> _sentHistory =
       ValueNotifier(null);
-  ValueNotifier<Future<HistoryTBDResponse?>?> _toBeDeliveredHistory =
+  final ValueNotifier<Future<HistoryTBDResponse?>?> _toBeDeliveredHistory =
       ValueNotifier(null);
-  ValueNotifier<Future<HistoryDeliveredResponse?>?> _deliveriedHistory =
+  final ValueNotifier<Future<HistoryDeliveredResponse?>?> _deliveriedHistory =
       ValueNotifier(null);
   set profile(value) => _profileStatus.value = Future.value(value);
   ValueNotifier<int> currentIndex = ValueNotifier(0);
@@ -235,15 +233,17 @@ class AuthState extends ChangeNotifier {
     List<String> a = [];
     List<SelectionData> result = [];
 
-    county.forEach((e) {
+    for (var e in county) {
       // log('value--- $e');
       if (!a.contains(e['state'])) {
         a.add("${e['state']}");
       }
-    });
+    }
     // log("a--- ${a.length}");
     a.sort();
-    a.forEach((e) => result.add(SelectionData(e, e)));
+    for (var e in a) {
+      result.add(SelectionData(e, e));
+    }
     // log("rsult --- ${result.length}");
     return result;
   }
@@ -258,7 +258,7 @@ class AuthState extends ChangeNotifier {
         isScrollControlled: true,
         isDismissible: true,
         builder: (context) {
-          return AvatarBottomSheet();
+          return const AvatarBottomSheet();
         },
       );
       if (isGal == null) {
@@ -314,7 +314,7 @@ class AuthState extends ChangeNotifier {
       showSnack(
         context: context,
         message: "Profile picture update failed, please try again",
-        type: SnackType.Error,
+        type: SnackType.error,
       );
     }
   }

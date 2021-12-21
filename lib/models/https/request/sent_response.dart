@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:trava/models/https/request/pick_a_package_response.dart';
 
 class HistorySentResponse {

@@ -106,7 +106,7 @@ class HistoryScreen extends HookWidget {
               () {
                 switch (currentIndex.value) {
                   case 0:
-                    return SentTabView();
+                    return const SentTabView();
                   case 1:
                     return ToBeDeliveredTabView();
                   case 2:

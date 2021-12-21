@@ -14,11 +14,11 @@ class ProfileUpdateRequest {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = this.email;
-    data['lastName'] = this.lastName;
-    data['firstName'] = this.firstName;
-    data['phone'] = this.phone;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['email'] = email;
+    data['lastName'] = lastName;
+    data['firstName'] = firstName;
+    data['phone'] = phone;
     return data;
   }
 }

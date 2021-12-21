@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
-import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/models/https/users/otp_response.dart';
 import 'package:trava/navigation.dart';
 import 'package:trava/screens/forget_password_screen/forget_password_screen.dart';

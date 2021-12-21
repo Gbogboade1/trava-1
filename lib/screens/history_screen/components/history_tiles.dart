@@ -5,8 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/screens/history_screen/components/sent_package_details_screen.dart';
 
-import 'package:trava/models/https/request/sent_response.dart';
-
 enum PackageDeliveryStatus {
   delivered,
   inTransit,
