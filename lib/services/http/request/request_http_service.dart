@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:trava/models/https/payment/tranaction_history.dart';
 import 'package:trava/models/https/request/cancel_delivery_response.dart';
+import 'package:trava/models/https/request/deliever_request_response.dart';
 import 'package:trava/models/https/request/delivered_response.dart';
 import 'package:trava/models/https/request/items_to_pick_up_response.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
@@ -50,7 +51,7 @@ class RequestHttpService extends HttpService {
     }
   }
 
-  Future<SendPackageResponse> pick(PickPackageRequest data) async {
+  Future<RequestDelieverResponse> pick(PickPackageRequest data) async {
     try {
       final req = await http.post(
         "/pick",
@@ -60,7 +61,7 @@ class RequestHttpService extends HttpService {
 
       log("my new data -${req.data}");
 
-      return SendPackageResponse.fromJson(req.data);
+      return RequestDelieverResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,

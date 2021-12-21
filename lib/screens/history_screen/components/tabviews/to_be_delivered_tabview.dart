@@ -65,7 +65,7 @@ class ToBeDeliveredTabView extends HookWidget {
                                       children: [
                                         TextSpan(
                                             text:
-                                                "You’re to deliver package (${snapshot.data!.data![index].sId})  for ${snapshot.data!.data![index].sender?.firstName ?? ''} ${snapshot.data!.data![index].sender?.lastName ?? ''}  at ${snapshot.data!.data![index].deliveryHub ?? ''}, ${snapshot.data!.data![index].destTown ?? ''}, ${snapshot.data!.data![index].destState ?? ''} State. Package delivery code is 02345678. "),
+                                                "You’re to deliver package (${snapshot.data!.data![index].deliveryCode})  for ${snapshot.data!.data![index].sender?.firstName ?? ''} ${snapshot.data!.data![index].sender?.lastName ?? ''}  at ${snapshot.data!.data![index].deliveryHub ?? ''}, ${snapshot.data!.data![index].destTown ?? ''}, ${snapshot.data!.data![index].destState ?? ''} State. Package delivery code is ${snapshot.data!.data![index].deliveryCode}. "),
                                         TextSpan(
                                           text: "See Details",
                                           recognizer: TapGestureRecognizer()

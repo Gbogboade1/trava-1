@@ -14,7 +14,7 @@ class TravaValidators {
   }
 
   static String getCleanedNumber(String text) {
-    RegExp regExp =  RegExp(r"[^0-9]");
+    RegExp regExp = RegExp(r"[^0-9]");
     return text.replaceAll(regExp, '');
   }
 
@@ -107,10 +107,10 @@ class TravaValidators {
     if (value != null && value.isEmpty) {
       return 'Amount cannot be left empty';
     } else if (amount == null || amount < minAmount) {
-      return 'Please enter valid amount';
+      return 'Please enter an amount higher than $minAmount';
     }
     if (check && (maxAmount == null || amount > maxAmount)) {
-    return 'Please enter valid amount';
+      return 'Please enter an amount less than $maxAmount';
     }
     return null;
   }

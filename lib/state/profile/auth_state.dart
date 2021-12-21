@@ -3,15 +3,28 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:flutter/material.dart';
+import 'package:trava/components/fragments/state/avatar_sheet.dart';
 import 'package:trava/models/https/payment/tranaction_history.dart';
 import 'package:trava/models/https/request/delivered_response.dart';
 import 'package:trava/models/https/request/items_to_pick_up_response.dart';
+import 'package:trava/models/https/request/pick_package_request.dart';
+import 'package:trava/models/https/request/send_package_response.dart';
 import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/models/https/request/tbd_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
+import 'package:trava/models/podos/selection_data.dart';
+import 'package:trava/screens/splash_screen/splash_screen.dart';
 import 'package:trava/services/http/auth/auth_http_service.dart';
+import 'package:trava/services/http/hub/hub_http_service.dart';
 import 'package:trava/services/http/payment/payment_http_service.dart';
 import 'package:trava/services/http/request/request_http_service.dart';
+import 'package:trava/services/storage/storage.dart';
+import 'package:trava/style/colors.dart';
+import 'package:trava/utils/county_list.dart';
+import 'package:trava/utils/image_utils.dart';
+import 'package:trava/utils/modals.dart';
+import 'package:trava/utils/snacks.dart';
+import 'package:trava/utils/token_manager.dart';
 
 class AuthState extends ChangeNotifier {
   static AuthState? _instance;
@@ -20,8 +33,10 @@ class AuthState extends ChangeNotifier {
     return _instance!;
   }
 
+  ValueNotifier<File?> _image = ValueNotifier(null);
   final AuthHttpService _http = AuthHttpService();
   final PaymentHttpService _paymentHttp = PaymentHttpService();
+  final HubHttpService _hubHttp = HubHttpService();
   final RequestHttpService _requestHttp = RequestHttpService();
 
   ValueNotifier<Future<ProfileData?>?> _profileStatus = ValueNotifier(null);
@@ -48,6 +63,8 @@ class AuthState extends ChangeNotifier {
 
     return _profileStatus;
   }
+
+  ValueNotifier<File?> get image => _image;
 
   set status(value) => _profileStatus.value = value;
 
@@ -186,5 +203,145 @@ class AuthState extends ChangeNotifier {
     final data = _requestHttp.getDeliveredRequest();
 
     return data;
+  }
+
+  logout(BuildContext context) async {
+    clearOut();
+    await Navigator.pushNamedAndRemoveUntil(
+        context, SplashScreen.routeName, (route) => false);
+  }
+
+  clearOut() {
+    TravaTokenManager _tokenManager = TravaTokenManager.instance;
+    _tokenManager.clearTokens();
+    current = 0;
+  }
+
+  Future deliveryRequest(PickPackageRequest data, BuildContext context) async {
+    final doRoute = await formSubmitDialog(
+      context: context,
+      future: _requestHttp.pick(data),
+      prompt: "Requesting to be deliver",
+    );
+
+    if (doRoute != null) {
+      Navigator.pop(
+        context,
+      );
+    }
+  }
+
+  List<SelectionData> get state {
+    List<String> a = [];
+    List<SelectionData> result = [];
+
+    county.forEach((e) {
+      // log('value--- $e');
+      if (!a.contains(e['state'])) {
+        a.add("${e['state']}");
+      }
+    });
+    // log("a--- ${a.length}");
+    a.sort();
+    a.forEach((e) => result.add(SelectionData(e, e)));
+    // log("rsult --- ${result.length}");
+    return result;
+  }
+
+  void selectImage(BuildContext context) async {
+    // final curPic = avatar.value;
+    log("hfdjjhvjkd");
+    try {
+      final isGal = await showModalBottomSheet<bool>(
+        backgroundColor: TravaColors.transparent,
+        context: context,
+        isScrollControlled: true,
+        isDismissible: true,
+        builder: (context) {
+          return AvatarBottomSheet();
+        },
+      );
+      if (isGal == null) {
+        // showSnack(
+        //   context: context,
+        //   message: "Please select an image source",
+        //   type: SnackType.Info,
+        // );
+        return;
+      }
+      final imgData = await pickImage(isGal: isGal);
+      if (imgData != null) {
+        final cropImg = await cropImage(imgData);
+        if (cropImg == null) {
+          // isUploading.value = false;
+          // showSnack(
+          //   context: context,
+          //   message: "Profile picture update was cancelled",
+          //   type: SnackType.Info,
+          // );
+          return;
+        }
+        // avatar.value = cropImg;
+        // isUploading.value = true;
+        // showSnack(
+        //   context: context,
+        //   message: "Your profile picture is being uploaded",
+        //   type: SnackType.Info,
+        // );
+        try {
+          _image.value = cropImg;
+          // await http.addAvatar(cropImg);
+          // isUploading.value = false;
+          // showSnack(
+          //   context: context,
+          //   message: "Profile picture update was successful",
+          //   type: SnackType.Success,
+          // );
+          // _cacheAvatar(cropImg);
+        } catch (e) {
+          // isUploading.value = false;
+          // avatar.value = curPic;
+          // showSnack(
+          //   context: context,
+          //   message: "Profile picture update failed, please try again",
+          //   type: SnackType.Error,
+          // );
+        }
+      }
+    } catch (_) {
+      // isUploading.value = false;
+      // avatar.value = curPic;
+      showSnack(
+        context: context,
+        message: "Profile picture update failed, please try again",
+        type: SnackType.Error,
+      );
+    }
+  }
+
+  Future registerHub(
+    town,
+    name,
+    description,
+    stateDes,
+  ) async {
+    return _hubHttp.register(
+      town,
+      name,
+      description,
+      stateDes,
+      image.value!,
+    );
+  }
+
+  Future withdraw(String bankId, int amt) async {
+    return _paymentHttp.withdrawal(
+      amt,
+      bankId,
+    );
+  }
+
+  addBankAccount(String bankName, String accountNumber, String accountName) {
+    return _http.addBank(bankName, accountNumber, accountName);
   }
 }

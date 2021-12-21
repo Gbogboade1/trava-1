@@ -8,15 +8,18 @@ import 'package:trava/screens/more_screen/components/linked_card_bottom_sheet.da
 import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
 import 'package:trava/screens/register_hub_screen/register_hub_screen.dart';
 import 'package:trava/screens/more_screen/components/password_settings_bottom_sheet.dart';
+import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/buttons/outlined_button.dart';
 import 'package:trava/widgets/custom_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
   final bool hubCreated = true;
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AuthState>();
     var availableHeight = MediaQuery.of(context).size.height -
         AppBar().preferredSize.height -
         MediaQuery.of(context).padding.top -
@@ -144,8 +147,8 @@ class MoreScreen extends StatelessWidget {
                   ),
                 ],
                 const Spacer(),
-                Align(
-                  alignment: Alignment.bottomCenter,
+                InkWell(
+                  onTap: () async => await model.logout(context),
                   child: Center(
                     child: Row(
                       mainAxisSize: MainAxisSize.min,

@@ -33,7 +33,7 @@ class TransactionHistory {
 class Data {
   bool? status;
   String? sId;
-  double? amount;
+  num? amount;
   String? type;
   String? currency;
   String? description;

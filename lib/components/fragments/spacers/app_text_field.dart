@@ -108,8 +108,7 @@ class _TravaTextFieldState extends State<TravaTextField>
     _inputFocus.addListener(
       () {
         _hasFocus.value = FocusState(
-          hasText:
-             (widget.ctrl.text.isNotEmpty),
+          hasText: (widget.ctrl.text.isNotEmpty),
           isFocused: _inputFocus.hasFocus,
         );
       },
@@ -138,19 +137,19 @@ class _TravaTextFieldState extends State<TravaTextField>
           width: 0,
         ),
       ),
-      errorBorder:const UnderlineInputBorder(
+      errorBorder: const UnderlineInputBorder(
         borderSide: BorderSide(
           color: TravaColors.transparent,
           width: 0,
         ),
       ),
-      focusedErrorBorder:const OutlineInputBorder(
+      focusedErrorBorder: const OutlineInputBorder(
         borderSide: BorderSide(
           color: TravaColors.transparent,
           width: 0,
         ),
       ),
-      labelText: widget.hintText,
+      labelText: widget.showLabel! ? widget.hintText : null,
       labelStyle: TravaTextStyle.bold.copyWith(
         color: TravaColors.black.withOpacity(.8),
       ),
@@ -204,7 +203,9 @@ class _TravaTextFieldState extends State<TravaTextField>
                             child: widget.prefix),
                       )
                     : const TravaSizedBox(),
-                widget.prefix != null ? const VerticalDivider() : const TravaSizedBox(),
+                widget.prefix != null
+                    ? const VerticalDivider()
+                    : const TravaSizedBox(),
                 Expanded(
                   child: TextFormField(
                     showCursor: true,
@@ -220,7 +221,7 @@ class _TravaTextFieldState extends State<TravaTextField>
                         widget.textCapitalization ?? TextCapitalization.none,
                     style: widget.style ??
                         TravaTextStyle.bold
-                            .copyWith(fontSize: scaler.fontSizer.sp(40)),
+                            .copyWith(fontSize: scaler.fontSizer.sp(50)),
                     maxLength: widget.maxLength,
                     controller: widget.ctrl,
                     enabled: true,
@@ -232,8 +233,8 @@ class _TravaTextFieldState extends State<TravaTextField>
                     onChanged: widget.onChanged,
                     decoration: decoration.copyWith(
                       alignLabelWithHint: widget._expands,
-                      
-                      labelStyle: widget.bold!
+
+                      labelStyle: widget.bold! && !widget.showLabel!
                           ? null
                           : TravaTextStyle.medium.copyWith(
                               fontSize: scaler.fontSizer.sp(40),
@@ -244,7 +245,7 @@ class _TravaTextFieldState extends State<TravaTextField>
                       counterStyle: TravaTextStyle.bold,
                       contentPadding: scaler.insets.symmetric(
                         horizontal: 3,
-                        // vertical: 1.5,
+                        vertical: 1.0,
                       ),
                     ),
                     validator: (String? text) {

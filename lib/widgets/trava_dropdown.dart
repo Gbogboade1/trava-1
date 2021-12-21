@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -80,7 +82,7 @@ class TownDropDownInputState extends State<TownDropDownInput> {
     final json = county.where(
       (it) => '${it["state"]}'.toLowerCase() == widget.state!.toLowerCase(),
     );
-
+    log("here=  ${json.length}");
     return json
         .map((it) => SelectionData<String>(it['city'].toString().toLowerCase(),
             it['city'].toString().toLowerCase()))
@@ -89,14 +91,22 @@ class TownDropDownInputState extends State<TownDropDownInput> {
 
   @override
   Widget build(BuildContext context) {
-    if (lgas.isEmpty) return const Offstage();
+    // if (lgas.isEmpty) return const Offstage();
 
     return TravaDropdown(
       widget.controller!,
       validator: widget.validator,
-      hintText: "LGA",
+      hintText: "e.g Ibadan",
       items: lgas,
     );
+  }
+
+  @override
+  void didUpdateWidget(TownDropDownInput oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.state!.trim() != oldWidget.state!.trim()) {
+      widget.controller!.clear();
+    }
   }
 }
 
@@ -105,7 +115,7 @@ class TravaDropdown<T> extends StatefulWidget {
   final TextEditingController controller;
   final OnValidate<String>? validator;
   final List<SelectionData<T>>? items;
-  final OnChanged<int>? onChanged;
+  final OnChanged<SelectionData>? onChanged;
   final bool pop;
   final bool isEnabled;
 
@@ -163,7 +173,7 @@ class TravaDropdownInputState<T> extends State<TravaDropdown> {
                       _localCtrl.text = data.title;
                       if (widget.onChanged != null) {
                         if (widget.pop) Navigator.pop(context);
-                        widget.onChanged!(widget.items!.indexOf(data));
+                        widget.onChanged!(data);
                       }
                     },
                   );
@@ -171,11 +181,12 @@ class TravaDropdownInputState<T> extends State<TravaDropdown> {
               : null,
           child: TravaTextField(
             isEnabled: false,
+            // showLabel: false,
             controller: _localCtrl,
             hintText: widget.hintText,
             style: TextStyle(
                 color: const Color(0xff828282),
-                fontSize: 12.sp,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.w300),
             validator: widget.validator,
             suffixIcon: const Icon(Icons.keyboard_arrow_down),

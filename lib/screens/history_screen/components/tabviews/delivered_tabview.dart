@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:trava/components/fragments/indicators/app_loader.dart';
 import 'package:trava/components/fragments/state/app_error_state.dart';
 import 'package:trava/models/https/request/delivered_response.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/screens/history_screen/components/delivered_package_details_screen.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/helpers.dart';
@@ -63,7 +64,7 @@ class DeliveredTabView extends StatelessWidget {
                                     children: [
                                       TextSpan(
                                           text:
-                                              "Your package (${packageDetails?.sId ?? ''})  to be delivered at ${packageDetails?.deliveryHub ?? ''}, ${packageDetails?.destTown ?? ''}, ${packageDetails?.destState ?? ''} State by ${packageDetails?.sender?.lastName ?? ''} ${packageDetails?.sender?.firstName ?? ''}. "),
+                                              "Your package (${packageDetails?.deliveryCode ?? ''})  to be delivered at ${packageDetails?.deliveryHub ?? ''}, ${packageDetails?.destTown ?? ''}, ${packageDetails?.destState ?? ''} State by ${packageDetails?.sender?.lastName ?? ''} ${packageDetails?.sender?.firstName ?? ''}. "),
                                       TextSpan(
                                         text: "See Details",
                                         recognizer: TapGestureRecognizer()

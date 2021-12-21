@@ -4,9 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 import 'package:trava/components/fragments/indicators/app_loader.dart';
+import 'package:trava/components/fragments/spacers/text_styles.dart';
 import 'package:trava/components/fragments/state/app_error_state.dart';
 import 'package:trava/models/https/request/items_to_pick_up_response.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/state/profile/auth_state.dart';
+import 'package:trava/style/colors.dart';
 import 'package:trava/utils/helpers.dart';
 import 'package:trava/utils/intl_formatter.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
@@ -66,15 +69,15 @@ class PackagesToPickUpScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               value,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                              style: TravaTextStyle.medium.copyWith(
+                                fontSize: 15,
+                                color: TravaColors.lightGrey,
                               ),
                             ),
                           ),
                           itemBuilder: (context, Data element) => Padding(
-                            padding: EdgeInsets.only(bottom: 16.0.h),
+                            padding:
+                                EdgeInsets.only(bottom: 16.0.h, top: 14.0.h),
                             child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -84,8 +87,7 @@ class PackagesToPickUpScreen extends StatelessWidget {
                                   SizedBox(width: 17.w),
                                   Flexible(
                                     child: Text(
-                                      // "You’re to pickup Package (154) to be delivered at DHL Hub, Asaba, Delta State on 28-03-2021. by 5:00 pm today.  Payment code is 23940875.",
-                                      "${element.description}",
+                                      "You’re to pickup Package (${element.deliveryCode}) to be delivered at ${element.deliveryHub}, ${element.destTown}, ${element.destState} State  on ${TravaFormatter.formatDate(element.deliveryDate ?? DateTime.now().toString())}. by  ${TravaFormatter.formatTime(element.deliveryDate ?? DateTime.now().toString())} today. pickup code is ${element.pickupCode}.",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText2!
