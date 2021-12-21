@@ -7,13 +7,6 @@ import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
 
-class AddNewCardBottomSheet extends StatefulWidget {
-  const AddNewCardBottomSheet({Key? key}) : super(key: key);
-
-  @override
-  State<AddNewCardBottomSheet> createState() => _AddNewCardBottomSheetState();
-}
-
 class AddNewCardButton extends StatelessWidget {
   const AddNewCardButton({
     Key? key,
@@ -45,6 +38,13 @@ class AddNewCardButton extends StatelessWidget {
       ),
     );
   }
+}
+
+class AddNewCardBottomSheet extends StatefulWidget {
+  const AddNewCardBottomSheet({Key? key}) : super(key: key);
+
+  @override
+  State<AddNewCardBottomSheet> createState() => _AddNewCardBottomSheetState();
 }
 
 class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {

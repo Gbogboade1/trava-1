@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/style/colors.dart';
 
-class PackageDetailsView extends StatelessWidget {
-  const PackageDetailsView({
+class VerifyDeliveryDetailsView extends StatelessWidget {
+  const VerifyDeliveryDetailsView({
     Key? key,
     required this.packageList,
-    this.isInventory = false,
   }) : super(key: key);
   final List packageList;
-  final bool isInventory;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,9 +33,7 @@ class PackageDetailsView extends StatelessWidget {
         SizedBox(height: 15.h),
         Expanded(
           child: packageList.length <= 1
-              ? PackageDetails(
-                  isInventory: isInventory,
-                )
+              ? const VerifyDeliveryDetails()
               : ListView.builder(
                   itemCount: packageList.length,
                   itemBuilder: (context, index) {
@@ -57,10 +54,8 @@ class PackageDetailsView extends StatelessWidget {
                       initiallyExpanded:
                           packageList[index] == packageList.last ? true : false,
                       title: Text("$packageRank Package Details"),
-                      children: [
-                        PackageDetails(
-                          isInventory: isInventory,
-                        ),
+                      children: const [
+                        VerifyDeliveryDetails(),
                       ],
                     );
                   },
@@ -71,12 +66,19 @@ class PackageDetailsView extends StatelessWidget {
   }
 }
 
-class PackageDetails extends StatelessWidget {
-  const PackageDetails({
+class VerifyDeliveryDetails extends StatefulWidget {
+  const VerifyDeliveryDetails({
     Key? key,
-    this.isInventory = false,
   }) : super(key: key);
-  final bool isInventory;
+
+  @override
+  State<VerifyDeliveryDetails> createState() =>
+      _VerifyDeliveryDetailsState();
+}
+
+class _VerifyDeliveryDetailsState extends State<VerifyDeliveryDetails> {
+  bool _value = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -157,43 +159,22 @@ class PackageDetails extends StatelessWidget {
           ],
         ),
         SizedBox(height: 16.h),
-        if (!isInventory) ...[
-          Row(
-            children: const [
-              Expanded(
-                child: PackageDetailField(
-                  title: "Pickup Loation:",
-                  value: "Iyana Cele Junctio, Akure.",
-                ),
+        Row(
+          children: const [
+            Expanded(
+              child: PackageDetailField(
+                title: "Deliever’s Name:",
+                value: "Boluwatife Akinlabi",
               ),
-              Expanded(
-                child: PackageDetailField(
-                  title: "Pickup Time:",
-                  value: "5:00 pm",
-                ),
+            ),
+            Expanded(
+              child: PackageDetailField(
+                title: "Deliverer’s Phone Number:",
+                value: "08136279876",
               ),
-            ],
-          ),
-          SizedBox(height: 16.h),
-        ],
-        isInventory
-            ? Row(
-                children: const [
-                  Expanded(
-                    child: PackageDetailField(
-                      title: "Deliever’s Name:",
-                      value: "Boluwatife Akinlabi",
-                    ),
-                  ),
-                  Expanded(
-                    child: PackageDetailField(
-                      title: "Deliverer’s Phone Number:",
-                      value: "08136279876",
-                    ),
-                  ),
-                ],
-              )
-            : const SizedBox(),
+            ),
+          ],
+        ),
         SizedBox(height: 16.h),
         Row(
           children: const [
@@ -208,6 +189,44 @@ class PackageDetails extends StatelessWidget {
                 title: "Sender’s Phone Number:",
                 value: "08136279876",
               ),
+            ),
+          ],
+        ),
+        SizedBox(height: 24.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              onTap: () {
+                setState(() {
+                  _value = !_value;
+                });
+              },
+              child: Container(
+                  height: 16.w,
+                  width: 16.w,
+                  decoration: BoxDecoration(
+                    color: _value ? TravaColors.black : TravaColors.white,
+                    border: Border.all(width: 1.0),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: _value
+                      ? const FittedBox(
+                          child: Icon(
+                            Icons.check,
+                            // size: 30.0,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const SizedBox()),
+            ),
+            SizedBox(width: 8.w),
+            Text(
+              "Verify package delivery",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1!
+                  .copyWith(color: TravaColors.black),
             ),
           ],
         ),

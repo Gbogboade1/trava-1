@@ -10,7 +10,6 @@ import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/helpers.dart';
 import 'package:trava/utils/intl_formatter.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
-import "package:collection/collection.dart";
 
 class PackagesToPickUpScreen extends StatelessWidget {
   static const routeName = '/packages-to-pick-up';

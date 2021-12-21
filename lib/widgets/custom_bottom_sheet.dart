@@ -3,19 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet(
-      {Key? key, required this.content, required this.height, this.title})
+      {Key? key, required this.content, required this.title})
       : super(key: key);
 
   final Widget content;
-  final double height;
-  final String? title;
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      width: double.infinity,
+    return SingleChildScrollView(
+      padding: MediaQuery.of(context).viewInsets,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           InkWell(
@@ -34,34 +34,31 @@ class CustomBottomSheet extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16.h),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.fromLTRB(24.w, 16.h, 24.w, 25.h),
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(8),
-                ),
+          Container(
+            padding: EdgeInsets.fromLTRB(24.w, 16.h, 24.w, 25.h),
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(8),
               ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Text(
-                        title!,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
                     ),
-                    SizedBox(height: 24.h),
-                    content,
-                  ],
+                  ),
                 ),
-              ),
+                SizedBox(height: 24.h),
+                content,
+              ],
             ),
           ),
         ],

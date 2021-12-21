@@ -13,6 +13,10 @@ import 'package:trava/screens/home_screen/request_to_deliver_screen/request_to_d
 import 'package:trava/screens/home_screen/send_packages_screen/send_packages_screen.dart';
 import 'package:trava/screens/home_screen/withdrawal_screen/withdrawal_screen.dart';
 import 'package:trava/screens/login_screen/login_screen.dart';
+import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/component/picked_up_screen/pickedup_screen.dart';
+import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/component/verify_delivery_screen/verify_delivery_screen.dart';
+import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/component/verify_pickup_screen/verify_pickup_screen.dart';
+import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/inventory_delivery_screen.dart';
 import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
 import 'package:trava/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:trava/screens/register_hub_screen/register_hub_screen.dart';
@@ -33,7 +37,8 @@ final Map<String, WidgetBuilder> routes = {
   OnboardingScreen.routeName: (context) => const OnboardingScreen(),
   PackagesToPickUpScreen.routeName: (context) => const PackagesToPickUpScreen(),
   RegisterHubScreen.routeName: (context) => const RegisterHubScreen(),
-   TrackPackageScreen.routeName: (context) => const TrackPackageScreen(),
+  TrackPackageScreen.routeName: (context) => const TrackPackageScreen(),
+  InventoryDeliveryScreen.routeName: (context) => const InventoryDeliveryScreen()
 };
 
 Route<dynamic> dynamicRoutes(RouteSettings settings) {
@@ -64,6 +69,27 @@ Route<dynamic> dynamicRoutes(RouteSettings settings) {
         settings: settings,
         builder: (context) {
           return DeliveredPackageDetailsScreen(settings.arguments as List);
+        },
+      );
+    case VerifyDeliveryScreen.routeName:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) {
+          return VerifyDeliveryScreen(settings.arguments as List);
+        },
+      );
+    case VerifyPickUpScreen.routeName:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) {
+          return VerifyPickUpScreen(settings.arguments as List);
+        },
+      );
+       case PickedUpScreen.routeName:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) {
+          return PickedUpScreen(settings.arguments as List);
         },
       );
     default:
