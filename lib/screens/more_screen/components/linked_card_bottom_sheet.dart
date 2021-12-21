@@ -22,7 +22,7 @@ class _CardSettingsBottomSheetState extends State<CardSettingsBottomSheet> {
   Widget build(BuildContext context) {
     return CustomBottomSheet(
       title: "Linked card settings",
-      height: 452.h,
+   
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

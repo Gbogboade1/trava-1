@@ -106,42 +106,42 @@ class User {
     updatedAt = json['updatedAt'];
     iV = json['__v'];
     request =
-        json['request'] != null ? new Request.fromJson(json['request']) : null;
+        json['request'] != null ? Request.fromJson(json['request']) : null;
     hubs = json['hubs'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['isVerified'] = this.isVerified;
-    data['method'] = this.method;
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['profileImg'] = this.profileImg;
-    data['password'] = this.password;
-    if (this.packages != null) {
-      data['packages'] = this.packages!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['isVerified'] = isVerified;
+    data['method'] = method;
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['profileImg'] = profileImg;
+    data['password'] = password;
+    if (packages != null) {
+      data['packages'] = packages!.map((v) => v.toJson()).toList();
     }
-    if (this.deliveries != null) {
-      data['deliveries'] = this.deliveries!.map((v) => v.toJson()).toList();
+    if (deliveries != null) {
+      data['deliveries'] = deliveries!.map((v) => v.toJson()).toList();
     }
-    data['wallet'] = this.wallet;
-    data['joinDate'] = this.joinDate;
-    if (this.banks != null) {
-      data['banks'] = this.banks!.map((v) => v.toJson()).toList();
+    data['wallet'] = wallet;
+    data['joinDate'] = joinDate;
+    if (banks != null) {
+      data['banks'] = banks!.map((v) => v.toJson()).toList();
     }
-    if (this.cards != null) {
-      data['cards'] = this.cards!.map((v) => v.toJson()).toList();
+    if (cards != null) {
+      data['cards'] = cards!.map((v) => v.toJson()).toList();
     }
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    if (this.request != null) {
-      data['request'] = this.request!.toJson();
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
+    if (request != null) {
+      data['request'] = request!.toJson();
     }
-    data['hubs'] = this.hubs;
+    data['hubs'] = hubs;
     return data;
   }
 }
@@ -256,41 +256,41 @@ class Packages {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['sendState'] = this.sendState;
-    data['sendTown'] = this.sendTown;
-    data['sender'] = this.sender;
-    data['isActive'] = this.isActive;
-    data['type'] = this.type;
-    data['description'] = this.description;
-    data['quantity'] = this.quantity;
-    data['deliveryMode'] = this.deliveryMode;
-    data['pickupTime'] = this.pickupTime;
-    data['pickupLocation'] = this.pickupLocation;
-    data['dropspot'] = this.dropspot;
-    data['deliveryHub'] = this.deliveryHub;
-    data['hub'] = this.hub;
-    data['deliveryDate'] = this.deliveryDate;
-    data['isDelivered'] = this.isDelivered;
-    data['isPickuped'] = this.isPickuped;
-    data['isDropped'] = this.isDropped;
-    data['isReceived'] = this.isReceived;
-    data['destState'] = this.destState;
-    data['destTown'] = this.destTown;
-    data['insurance'] = this.insurance;
-    data['hasPaid'] = this.hasPaid;
-    data['amount'] = this.amount;
-    data['paymentId'] = this.paymentId;
-    data['deliveryCode'] = this.deliveryCode;
-    data['pickupCode'] = this.pickupCode;
-    data['__v'] = this.iV;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['deliverer'] = this.deliverer;
-    data['images'] = this.images;
-    data['isPickeduped'] = this.isPickeduped;
-    data['isDroped'] = this.isDroped;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['sendState'] = sendState;
+    data['sendTown'] = sendTown;
+    data['sender'] = sender;
+    data['isActive'] = isActive;
+    data['type'] = type;
+    data['description'] = description;
+    data['quantity'] = quantity;
+    data['deliveryMode'] = deliveryMode;
+    data['pickupTime'] = pickupTime;
+    data['pickupLocation'] = pickupLocation;
+    data['dropspot'] = dropspot;
+    data['deliveryHub'] = deliveryHub;
+    data['hub'] = hub;
+    data['deliveryDate'] = deliveryDate;
+    data['isDelivered'] = isDelivered;
+    data['isPickuped'] = isPickuped;
+    data['isDropped'] = isDropped;
+    data['isReceived'] = isReceived;
+    data['destState'] = destState;
+    data['destTown'] = destTown;
+    data['insurance'] = insurance;
+    data['hasPaid'] = hasPaid;
+    data['amount'] = amount;
+    data['paymentId'] = paymentId;
+    data['deliveryCode'] = deliveryCode;
+    data['pickupCode'] = pickupCode;
+    data['__v'] = iV;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['deliverer'] = deliverer;
+    data['images'] = images;
+    data['isPickeduped'] = isPickeduped;
+    data['isDroped'] = isDroped;
     return data;
   }
 }
@@ -318,12 +318,12 @@ class Banks {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['bankId'] = this.bankId;
-    data['accountNumber'] = this.accountNumber;
-    data['accountName'] = this.accountName;
-    data['bankName'] = this.bankName;
-    data['_id'] = this.sId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['bankId'] = bankId;
+    data['accountNumber'] = accountNumber;
+    data['accountName'] = accountName;
+    data['bankName'] = bankName;
+    data['_id'] = sId;
     return data;
   }
 }
@@ -360,15 +360,15 @@ class Request {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['fromState'] = this.fromState;
-    data['fromTown'] = this.fromTown;
-    data['capacity'] = this.capacity;
-    data['toState'] = this.toState;
-    data['toTown'] = this.toTown;
-    data['travelTime'] = this.travelTime;
-    data['packageType'] = this.packageType;
-    data['transportMode'] = this.transportMode;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['fromState'] = fromState;
+    data['fromTown'] = fromTown;
+    data['capacity'] = capacity;
+    data['toState'] = toState;
+    data['toTown'] = toTown;
+    data['travelTime'] = travelTime;
+    data['packageType'] = packageType;
+    data['transportMode'] = transportMode;
     return data;
   }
 }

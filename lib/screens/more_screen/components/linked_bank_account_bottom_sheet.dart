@@ -24,7 +24,6 @@ class _BankAccountsBottomSheetState extends State<BankAccountsBottomSheet> {
     return ProfileSetUpDataListeningWidget(
       builder: (context, data) => CustomBottomSheet(
         title: "Linked bank account settings",
-        height: 452.h,
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

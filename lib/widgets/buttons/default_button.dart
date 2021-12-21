@@ -15,11 +15,13 @@ class DefaultButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: isActive ? onTap : () {},
       child: Container(
           padding: EdgeInsets.symmetric(vertical: 15.h),
           decoration: BoxDecoration(
-            color: isActive? Theme.of(context).colorScheme.primary:Theme.of(context).colorScheme.primaryVariant,
+            color: isActive
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.primaryVariant,
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(

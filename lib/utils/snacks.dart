@@ -14,18 +14,18 @@ const List<Color> _colors = [
 showSnack({
   required BuildContext context,
   required String message,
-  SnackType type = SnackType.Warning,
+  SnackType type = SnackType.warning,
   bool isFloating = true,
 }) {
   if (Platform.isIOS) {
     isFloating = false;
   }
-  Scaffold.of(context).showSnackBar(
+  ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(
         message,
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: const TextStyle(
           color: TravaColors.white,
         ),
       ),
@@ -34,4 +34,4 @@ showSnack({
   );
 }
 
-enum SnackType { Default, Error, Info, Success, Warning }
+enum SnackType { def, error, info, success, warning }
