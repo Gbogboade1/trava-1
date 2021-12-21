@@ -35,7 +35,7 @@ class _BankAccountsBottomSheetState extends State<BankAccountsBottomSheet> {
             ...List.generate(data?.user?.banks?.length ?? 0, (index) {
               return Dismissible(
                 direction: DismissDirection.endToStart,
-                key: ValueKey(index),
+                key: UniqueKey(),
                 background: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
