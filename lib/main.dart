@@ -74,7 +74,7 @@ class TravaApp extends StatelessWidget {
                 headline4: TextStyle(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
-                  color: Colors.white,
+                  color: TravaColors.black,
                 ),
                 headline5: TextStyle(
                   fontSize: 16.sp,
@@ -84,7 +84,7 @@ class TravaApp extends StatelessWidget {
                 bodyText1: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
-                  color: Colors.white,
+                  color:  TravaColors.black,
                 ),
                 bodyText2: TextStyle(
                   fontSize: 12.sp,

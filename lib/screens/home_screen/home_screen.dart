@@ -9,6 +9,7 @@ import 'package:trava/screens/home_screen/fund_wallet_screen/fund_wallet_screen.
 import 'package:trava/screens/home_screen/notifications_screen/notifications_screen.dart';
 import 'package:trava/screens/home_screen/withdrawal_screen/withdrawal_screen.dart';
 import 'package:trava/state/profile/auth_state.dart';
+import 'package:trava/style/colors.dart';
 import 'package:trava/utils/intl_formatter.dart';
 import 'components/buttons/request_to_deliver_button.dart';
 import 'components/buttons/send_packages_button.dart';
@@ -23,24 +24,24 @@ class HomeScreen extends HookWidget {
     final tabController = useTabController(initialLength: 2);
     return ProfileSetUpDataListeningWidget(
       builder: (context, profile) => Scaffold(
-        bottomSheet: Container(
-          height: 25.h,
-          color: Colors.white,
-          child: Center(
-            child: GestureDetector(
-              onTap: () {
-                model.current = tabController.index + 1;
-              },
-              child: Text(
-                "See all",
-                style: Theme.of(context).textTheme.headline4!.copyWith(
-                      decoration: TextDecoration.underline,
-                      color: const Color(0xff171718),
-                    ),
-              ),
-            ),
-          ),
-        ),
+        // bottomSheet: Container(
+        //   height: 25.h,
+        //   color: Colors.white,
+        //   child: Center(
+        //     child: GestureDetector(
+        //       onTap: () {
+        //         model.current = tabController.index + 1;
+        //       },
+        //       child: Text(
+        //         "See all",
+        //         style: Theme.of(context).textTheme.headline4!.copyWith(
+        //               decoration: TextDecoration.underline,
+        //               color: const Color(0xff171718),
+        //             ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
           child: Column(
@@ -75,7 +76,7 @@ class HomeScreen extends HookWidget {
                     SizedBox(height: 22.h),
                     Text(
                       "Trava Wallet Balance",
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(color: TravaColors.white),
                     ),
                     SizedBox(height: 12.h),
                     Text(
@@ -107,7 +108,7 @@ class HomeScreen extends HookWidget {
                     ),
                     SizedBox(height: 40.h),
                     Text("How can we help you earn and save money today?",
-                        style: Theme.of(context).textTheme.headline4),
+                        style: Theme.of(context).textTheme.headline4!.copyWith(color: TravaColors.white),),
                     SizedBox(height: 16.h),
                     const SendPackagesButton(),
                     SizedBox(height: 12.h),
@@ -151,7 +152,7 @@ class HomeScreen extends HookWidget {
                             Text("Transactions"),
                           ],
                         ),
-                        SizedBox(height: 24.0.h),
+                       
                         Expanded(
                           child: TabBarView(
                             controller: tabController,

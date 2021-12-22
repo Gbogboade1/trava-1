@@ -11,6 +11,7 @@ import 'package:trava/screens/history_screen/components/to_be_delivered_package_
 import 'package:trava/services/http/request/request_http_service.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/helpers.dart';
+import 'package:trava/widgets/empty_list_state.dart';
 
 class ToBeDeliveredTabView extends HookWidget {
   ToBeDeliveredTabView({
@@ -41,7 +42,8 @@ class ToBeDeliveredTabView extends HookWidget {
                         onRetry: () {},
                       );
                     }
-                    return ListView.builder(
+                    return snapshot.data!.data!.isNotEmpty
+                ?  ListView.builder(
                       itemCount: snapshot.data!.data?.length ?? 0,
                       itemBuilder: (context, index) {
                         return Padding(
@@ -92,7 +94,7 @@ class ToBeDeliveredTabView extends HookWidget {
                               ]),
                         );
                       },
-                    );
+                    ): const Center(child: EmptyListState());
                   });
             },
           ),
