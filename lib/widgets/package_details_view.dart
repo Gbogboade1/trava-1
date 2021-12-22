@@ -65,6 +65,7 @@ class PackageDetails extends StatelessWidget {
                   package.images ??
                       'https://cholatrek-9acb7.appspot.com.storage.googleapis.com/87b4e5ed-72d1-482a-9aa3-084a4c7d5950.png',
                 ),
+                fit: BoxFit.cover,
               ),
             ),
           ),

@@ -37,7 +37,7 @@ class PaymentHttpService extends HttpService {
   Future<SignUpResponse> withdrawal(int amt, String bankId) async {
     try {
       final req = await http.post(
-        "/deposit",
+        "/withdraw",
         data: {"bankId": bankId, "amount": amt},
       );
       // final data =

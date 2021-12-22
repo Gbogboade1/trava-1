@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/home_screen/fund_wallet_screen/components/add_new_card_button.dart';
@@ -35,7 +34,7 @@ class _CardSettingsBottomSheetState extends State<CardSettingsBottomSheet> {
           ...List.generate(2, (index) {
             return Dismissible(
               direction: DismissDirection.endToStart,
-              key: ValueKey(index),
+              key: UniqueKey(),
               background: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -73,7 +72,7 @@ class _CardSettingsBottomSheetState extends State<CardSettingsBottomSheet> {
                 },
               ),
               onDismissed: (direction) {
-               //TODO: implement ondimissed
+                //TODO: implement ondimissed
               },
             );
           }),

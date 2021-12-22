@@ -53,6 +53,13 @@ Route<dynamic> dynamicRoutes(RouteSettings settings) {
           return ResetCodeScreen(settings.arguments as OtpResponse);
         },
       );
+    case TrackPackageScreen.routeName:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) {
+          return TrackPackageScreen(settings.arguments as Data);
+        },
+      );
     case NewPasswordScreen.routeName:
       return MaterialPageRoute(
         settings: settings,
