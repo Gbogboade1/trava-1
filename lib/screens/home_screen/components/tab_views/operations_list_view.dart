@@ -8,6 +8,7 @@ import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/helpers.dart';
+import 'package:trava/widgets/empty_list_state.dart';
 
 class OperationsListView extends StatelessWidget {
   const OperationsListView({
@@ -34,32 +35,43 @@ class OperationsListView extends StatelessWidget {
                 onRetry: () {},
               );
             }
-            return ListView.builder(
-              itemCount: snapshot.data?.data?.length ?? 0,
-              itemBuilder: (context, index) {
-                Data packageDetails = snapshot.data!.data![index];
-                return Padding(
-                  padding: EdgeInsets.only(bottom: 12.h),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/speaker.svg',
-                      ),
-                      SizedBox(width: 16.w),
-                      Flexible(
-                        child: Text(
-                          "Your package (${packageDetails.deliveryCode})  to be delivered at ${packageDetails.deliveryHub}, ${packageDetails.destTown}, ${packageDetails.destState} State by  ${packageDetails.sender?.firstName ?? ''} ${packageDetails.sender?.lastName ?? ''}. ",
-                          style:
-                              Theme.of(context).textTheme.headline4!.copyWith(
-                                    color: const Color(0xff171718),
+            return snapshot.data!.data!.isNotEmpty
+                ? Column(
+                  children: [
+                     SizedBox(height: 24.0.h),
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: snapshot.data?.data?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            Data packageDetails = snapshot.data!.data![index];
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 12.h),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/images/speaker.svg',
                                   ),
+                                  SizedBox(width: 16.w),
+                                  Flexible(
+                                    child: Text(
+                                      "Your package (${packageDetails.deliveryCode})  to be delivered at ${packageDetails.deliveryHub}, ${packageDetails.destTown}, ${packageDetails.destState} State by  ${packageDetails.sender?.firstName ?? ''} ${packageDetails.sender?.lastName ?? ''}. ",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4!
+                                          .copyWith(
+                                            color: const Color(0xff171718),
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
+                    ),
+                  ],
+                )
+                : const EmptyListState();
           },
         );
       },

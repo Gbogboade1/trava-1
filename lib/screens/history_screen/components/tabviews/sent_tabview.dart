@@ -7,6 +7,7 @@ import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/screens/history_screen/components/history_tiles.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/helpers.dart';
+import 'package:trava/widgets/empty_list_state.dart';
 
 class SentTabView extends HookWidget {
   const SentTabView({
@@ -36,17 +37,20 @@ class SentTabView extends HookWidget {
                           onRetry: () {},
                         );
                       }
-                      return ListView.builder(
-                        itemCount: snapshot.data?.data?.length ?? 0,
-                        itemBuilder: (context, index) {
-                          return SentHistoryTile(
-                            packageDeliveryStatus: getpackaheDeliveryStatus(
-                              snapshot.data!.data![index],
-                            ),
-                            packageDetails: snapshot.data!.data![index],
-                          );
-                        },
-                      );
+                      return snapshot.data!.data!.isNotEmpty
+                          ? ListView.builder(
+                              itemCount: snapshot.data?.data?.length ?? 0,
+                              itemBuilder: (context, index) {
+                                return SentHistoryTile(
+                                  packageDeliveryStatus:
+                                      getpackaheDeliveryStatus(
+                                    snapshot.data!.data![index],
+                                  ),
+                                  packageDetails: snapshot.data!.data![index],
+                                );
+                              },
+                            )
+                          : const Center(child: EmptyListState());
                     });
               }),
         ),

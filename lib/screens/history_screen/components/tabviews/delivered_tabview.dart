@@ -10,6 +10,7 @@ import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/screens/history_screen/components/delivered_package_details_screen.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/helpers.dart';
+import 'package:trava/widgets/empty_list_state.dart';
 
 class DeliveredTabView extends StatelessWidget {
   const DeliveredTabView({
@@ -39,59 +40,62 @@ class DeliveredTabView extends StatelessWidget {
                       onRetry: () {},
                     );
                   }
-                  return ListView.builder(
-                    itemCount: snapshot.data?.data?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      Data? packageDetails = snapshot.data?.data?[index];
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 15.0.h),
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/images/baggage.svg',
-                              ),
-                              SizedBox(width: 17.w),
-                              Flexible(
-                                child: RichText(
-                                  text: TextSpan(
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2!
-                                        .copyWith(
-                                          color: const Color(0xff171718),
-                                        ),
-                                    children: [
-                                      TextSpan(
-                                          text:
-                                              "Your package (${packageDetails?.deliveryCode ?? ''})  to be delivered at ${packageDetails?.deliveryHub ?? ''}, ${packageDetails?.destTown ?? ''}, ${packageDetails?.destState ?? ''} State by ${packageDetails?.sender?.lastName ?? ''} ${packageDetails?.sender?.firstName ?? ''}. "),
-                                      TextSpan(
-                                        text: "See Details",
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            Navigator.pushNamed(
-                                                context,
-                                                DeliveredPackageDetailsScreen
-                                                    .routeName,
-                                                arguments: [1]);
-                                          },
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline4!
-                                            .copyWith(
-                                              color: const Color(0xff171718),
-                                              decoration:
-                                                  TextDecoration.underline,
+                  return snapshot.data!.data!.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: snapshot.data?.data?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            Data? packageDetails = snapshot.data?.data?[index];
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 15.0.h),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/baggage.svg',
+                                    ),
+                                    SizedBox(width: 17.w),
+                                    Flexible(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(
+                                                color: const Color(0xff171718),
+                                              ),
+                                          children: [
+                                            TextSpan(
+                                                text:
+                                                    "Your package (${packageDetails?.deliveryCode ?? ''})  to be delivered at ${packageDetails?.deliveryHub ?? ''}, ${packageDetails?.destTown ?? ''}, ${packageDetails?.destState ?? ''} State by ${packageDetails?.sender?.lastName ?? ''} ${packageDetails?.sender?.firstName ?? ''}. "),
+                                            TextSpan(
+                                              text: "See Details",
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () {
+                                                  Navigator.pushNamed(
+                                                      context,
+                                                      DeliveredPackageDetailsScreen
+                                                          .routeName,
+                                                      arguments: [1]);
+                                                },
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline4!
+                                                  .copyWith(
+                                                    color:
+                                                        const Color(0xff171718),
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  ),
                                             ),
+                                          ],
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ]),
-                      );
-                    },
-                  );
+                                    )
+                                  ]),
+                            );
+                          },
+                        )
+                      : const Center(child: EmptyListState());
                 },
               );
             },
