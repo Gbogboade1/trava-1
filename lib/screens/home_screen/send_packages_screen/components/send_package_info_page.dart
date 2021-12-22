@@ -1,8 +1,10 @@
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/screens/home_screen/send_packages_screen/components/add_new_package.dart';
+import 'package:trava/style/colors.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
@@ -238,27 +240,35 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
               shape: Shape.box,
               borderRadius: BorderRadius.circular(8.0),
             ),
-            child: Container(
-              color: const Color(0xffEFEFEF).withOpacity(0.5),
-              padding: EdgeInsets.symmetric(vertical: 33.h),
-              child: Center(
-                child: RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                        color: kGray3,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w300),
-                    children: [
-                      TextSpan(
-                          text: "Tap here",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4!
-                              .copyWith(
-                                  decoration: TextDecoration.underline,
-                                  color: kGray3)),
-                      const TextSpan(text: " to upload package picture"),
-                    ],
+            child: InkWell(
+              onTap: () async {
+                final ImagePicker _picker = ImagePicker();
+                final XFile? image =
+                    await _picker.pickImage(source: ImageSource.gallery);
+                //TODO: upload image
+              },
+              child: Container(
+                color: const Color(0xffEFEFEF).withOpacity(0.5),
+                padding: EdgeInsets.symmetric(vertical: 33.h),
+                child: Center(
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                          color: kGray3,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w300),
+                      children: [
+                        TextSpan(
+                            text: "Tap here",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(
+                                    decoration: TextDecoration.underline,
+                                    color: kGray3)),
+                        const TextSpan(text: " to upload package picture"),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -275,17 +285,22 @@ class _SendPackageInfoPageState extends State<SendPackageInfoPage> {
                   });
                 },
                 child: Container(
-                  height: 16.w,
-                  width: 16.w,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 1.0),
-                  ),
-                  child: isChecked
-                      ? const FittedBox(
-                          child: Icon(Icons.check_box_rounded),
-                        )
-                      : const SizedBox(),
-                ),
+                    height: 16.w,
+                    width: 16.w,
+                    decoration: BoxDecoration(
+                      color: isChecked ? TravaColors.black : TravaColors.white,
+                      border: Border.all(width: 1.0),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: isChecked
+                        ? const FittedBox(
+                            child: Icon(
+                              Icons.check,
+                              // size: 30.0,
+                              color: Colors.white,
+                            ),
+                          )
+                        : const SizedBox()),
               ),
               SizedBox(width: 8.w),
               const Text("Insure my packages at 400")

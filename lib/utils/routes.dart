@@ -39,7 +39,6 @@ final Map<String, WidgetBuilder> routes = {
   OnboardingScreen.routeName: (context) => const OnboardingScreen(),
   PackagesToPickUpScreen.routeName: (context) => const PackagesToPickUpScreen(),
   RegisterHubScreen.routeName: (context) =>  RegisterHubScreen(),
-  TrackPackageScreen.routeName: (context) => const TrackPackageScreen(),
   InventoryDeliveryScreen.routeName: (context) => const InventoryDeliveryScreen(),
   InventoryDropOffScreen.routeName: (context) => const InventoryDropOffScreen()
 };
