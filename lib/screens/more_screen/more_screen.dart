@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/more_screen/components/edit_profile_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/inventory_delivery_screen.dart';
+import 'package:trava/screens/more_screen/components/inventory/inventory_drop_off_screen/inventory_drop_off_screen.dart';
 
 import 'package:trava/screens/more_screen/components/linked_bank_account_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/linked_card_bottom_sheet.dart';
+import 'package:trava/screens/more_screen/components/more_list_tile.dart';
 import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
 import 'package:trava/screens/register_hub_screen/register_hub_screen.dart';
 import 'package:trava/screens/more_screen/components/password_settings_bottom_sheet.dart';
@@ -69,7 +71,7 @@ class MoreScreen extends StatelessWidget {
                                     title: "Drop-off",
                                     onTap: () {
                                       Navigator.pushNamed(context,
-                                          PackagesToPickUpScreen.routeName);
+                                          InventoryDropOffScreen.routeName);
                                     },
                                   ),
                                   SizedBox(height: 16.h),
@@ -176,30 +178,6 @@ class MoreScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class MoreListTile extends StatelessWidget {
-  const MoreListTile({
-    Key? key,
-    required this.title,
-    this.onTap,
-  }) : super(key: key);
-
-  final String title;
-  final VoidCallback? onTap;
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      onTap: onTap,
-      dense: true,
-      title: Text(title,
-          style:
-              Theme.of(context).textTheme.bodyText1!.copyWith(color: kBlack)),
-      contentPadding: EdgeInsets.zero,
-      trailing: Icon(Icons.arrow_forward_ios,
-          color: const Color(0xff4F4F4F), size: 10.h),
     );
   }
 }

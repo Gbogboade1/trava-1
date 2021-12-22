@@ -11,6 +11,7 @@ import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/utils/typedefs.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
+import 'package:trava/widgets/custom_bottom_sheet.dart';
 
 import 'helpers.dart';
 
@@ -191,3 +192,18 @@ Future showNotificationBottomSheet(BuildContext context,
         );
       });
 }
+
+
+  Future<dynamic> showTravaBottomSheet(BuildContext context,
+      {required String title, required Widget content}) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) => CustomBottomSheet(
+        title: title,
+        content: content,
+      ),
+    );
+  }
+

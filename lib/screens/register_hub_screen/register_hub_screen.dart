@@ -9,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/src/provider.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/constants.dart';
-import 'package:trava/utils/county_list.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/buttons/back_button.dart';

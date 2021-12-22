@@ -15,8 +15,9 @@ class TravaDateInput extends StatefulWidget {
   final bool? formatDate;
   final bool _isDate;
 
-  TravaDateInput(
+  const TravaDateInput(
     this.controller, {
+    Key? key,
     this.hintText = "Date",
     this.validator,
     this.isEnabled = true,
@@ -24,19 +25,21 @@ class TravaDateInput extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.formatDate = true,
-  })  : assert(controller != null),
-        this._isDate = true;
-  TravaDateInput.time(
+  })  : _isDate = true,
+        super(key: key);
+
+  const TravaDateInput.time(
     this.controller, {
+    Key? key,
     this.hintText = "Date",
     this.validator,
     this.isEnabled = true,
     this.formatDate = true,
-  })  : assert(controller != null),
-        this._isDate = false,
-        this.initialDate = null,
-        this.firstDate = null,
-        this.lastDate = null;
+  })  : _isDate = false,
+        initialDate = null,
+        firstDate = null,
+        lastDate = null,
+        super(key: key);
 
   @override
   State<StatefulWidget> createState() => _TravaDateInputState();

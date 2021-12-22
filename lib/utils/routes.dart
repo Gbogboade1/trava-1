@@ -18,6 +18,7 @@ import 'package:trava/screens/more_screen/components/inventory/inventory_deliver
 import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/component/verify_delivery_screen/verify_delivery_screen.dart';
 import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/component/verify_pickup_screen/verify_pickup_screen.dart';
 import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/inventory_delivery_screen.dart';
+import 'package:trava/screens/more_screen/components/inventory/inventory_drop_off_screen/inventory_drop_off_screen.dart';
 import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
 import 'package:trava/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:trava/screens/register_hub_screen/register_hub_screen.dart';
@@ -38,8 +39,8 @@ final Map<String, WidgetBuilder> routes = {
   OnboardingScreen.routeName: (context) => const OnboardingScreen(),
   PackagesToPickUpScreen.routeName: (context) => const PackagesToPickUpScreen(),
   RegisterHubScreen.routeName: (context) =>  RegisterHubScreen(),
-  TrackPackageScreen.routeName: (context) => const TrackPackageScreen(),
-  InventoryDeliveryScreen.routeName: (context) => const InventoryDeliveryScreen()
+  InventoryDeliveryScreen.routeName: (context) => const InventoryDeliveryScreen(),
+  InventoryDropOffScreen.routeName: (context) => const InventoryDropOffScreen()
 };
 
 Route<dynamic> dynamicRoutes(RouteSettings settings) {

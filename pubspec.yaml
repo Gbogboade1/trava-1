@@ -38,7 +38,6 @@ dependencies:
   image_cropper:
   image_picker:
   flutter_hooks: ^0.18.0
-
   flutter_svg:
   grouped_list: ^4.1.0
   provider:
@@ -47,7 +46,7 @@ dependencies:
   dio:
   dotted_decoration: ^2.0.0
   intl:
-  flutter_polyline_points:
+  # flutter_polyline_points:
   google_maps_flutter:
 
 dev_dependencies:
