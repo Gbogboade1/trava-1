@@ -10,6 +10,7 @@ import 'package:trava/screens/history_screen/components/sent_package_details_scr
 import 'package:trava/screens/history_screen/components/track_package_screen.dart';
 import 'package:trava/screens/home_screen/fund_wallet_screen/fund_wallet_screen.dart';
 import 'package:trava/screens/home_screen/notifications_screen/notifications_screen.dart';
+import 'package:trava/screens/home_screen/request_to_deliver_screen/components/package_available_for_delivery.dart';
 import 'package:trava/screens/home_screen/request_to_deliver_screen/request_to_deliver_screen.dart';
 import 'package:trava/screens/home_screen/send_packages_screen/send_packages_screen.dart';
 import 'package:trava/screens/home_screen/withdrawal_screen/withdrawal_screen.dart';
@@ -33,14 +34,15 @@ final Map<String, WidgetBuilder> routes = {
   Navigation.routeName: (context) => const Navigation(),
   FundWalletScreen.routeName: (context) => const FundWalletScreen(),
   WithdrawalScreen.routeName: (context) => const WithdrawalScreen(),
-  SendPackagesScreen.routeName: (context) => SendPackagesScreen(),
+  SendPackagesScreen.routeName: (context) => const SendPackagesScreen(),
   RequestToDeliverScreen.routeName: (context) => RequestToDeliverScreen(),
   NotificationsScreen.routeName: (context) => const NotificationsScreen(),
   OnboardingScreen.routeName: (context) => const OnboardingScreen(),
   PackagesToPickUpScreen.routeName: (context) => const PackagesToPickUpScreen(),
   RegisterHubScreen.routeName: (context) =>  RegisterHubScreen(),
   InventoryDeliveryScreen.routeName: (context) => const InventoryDeliveryScreen(),
-  InventoryDropOffScreen.routeName: (context) => const InventoryDropOffScreen()
+  InventoryDropOffScreen.routeName: (context) => const InventoryDropOffScreen(),
+  PackagesAvailableForDeliveryScreen.routeName: (context) => const PackagesAvailableForDeliveryScreen()
 };
 
 Route<dynamic> dynamicRoutes(RouteSettings settings) {
