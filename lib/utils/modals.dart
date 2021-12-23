@@ -11,6 +11,7 @@ import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/utils/typedefs.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
+import 'package:trava/widgets/buttons/outlined_button.dart';
 import 'package:trava/widgets/custom_bottom_sheet.dart';
 
 import 'helpers.dart';
@@ -132,8 +133,12 @@ showSelectionSheet(
 }
 
 Future showNotificationBottomSheet(BuildContext context,
-    {String? title, String? message}) {
-      Navigator.pop(context);
+    {String? title,
+    String? message,
+    String gif = "assets/images/success.gif",
+    bool popContext = true,
+    String buttonLabel = "Thank You"}) {
+  if (popContext) Navigator.pop(context);
   return showModalBottomSheet(
       context: context,
       isDismissible: false,
@@ -148,62 +153,116 @@ Future showNotificationBottomSheet(BuildContext context,
               top: Radius.circular(8),
             ),
           ),
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(24.w, 29.h, 24.w, 27.h),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  height: 120.h,
-                  width: 120.w,
-                ),
-                SizedBox(
-                  height: 24.h,
-                ),
-                Text(
-                  title!,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                SizedBox(
-                  height: 9.h,
-                ),
-                message != null
-                    ? Text(
-                        message,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                              color: TravaColors.black,
-                            ),
-                      )
-                    : const SizedBox(),
-                SizedBox(
-                  height: 40.h,
-                ),
-                DefaultButton(
-                  isActive: true,
-                  buttonLabel: "Thank You",
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                gif,
+                height: 120.h,
+                width: 120.w,
+              ),
+              SizedBox(
+                height: 24.h,
+              ),
+              Text(
+                title!,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              SizedBox(
+                height: 9.h,
+              ),
+              message != null
+                  ? Text(
+                      message,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                            color: TravaColors.black,
+                          ),
+                    )
+                  : const SizedBox(),
+              SizedBox(
+                height: 40.h,
+              ),
+              DefaultButton(
+                isActive: true,
+                buttonLabel: buttonLabel,
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
           ),
         );
       });
 }
 
-
-  Future<dynamic> showTravaBottomSheet(BuildContext context,
-      {required String title, required Widget content}) {
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
+Future<dynamic> showAreYouSureBottomSheet(BuildContext context,
+    {required String description,
+    VoidCallback? onNoTap,
+    VoidCallback? onYesTap}) {
+  return showModalBottomSheet(
       context: context,
-      builder: (context) => CustomBottomSheet(
-        title: title,
-        content: content,
-      ),
-    );
-  }
+      isDismissible: false,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.fromLTRB(25.w, 29.h, 25.w, 44.h),
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(8),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset("assets/images/question.gif", width: 120.h),
+              SizedBox(
+                height: 24.h,
+              ),
+              Text(
+                description,
+                style: Theme.of(context).textTheme.headline5,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 40.h,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30.0.w),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TravaOutlinedButton(
+                          buttonLabel: "No", onTap: onNoTap),
+                    ),
+                    SizedBox(width: 56.w),
+                    Expanded(
+                      child: DefaultButton(
+                        buttonLabel: "Yes",
+                        isActive: true,
+                        onTap: onYesTap,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      });
+}
 
+Future<dynamic> showTravaBottomSheet(BuildContext context,
+    {required String title, required Widget content}) {
+  return showModalBottomSheet(
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    context: context,
+    builder: (context) => CustomBottomSheet(
+      title: title,
+      content: content,
+    ),
+  );
+}

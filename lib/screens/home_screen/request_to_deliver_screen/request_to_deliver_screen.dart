@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:trava/components/fragments/spacers/app_date_input.dart';
 import 'package:trava/models/https/request/pick_package_request.dart';
 import 'package:trava/models/podos/selection_data.dart';
+import 'package:trava/screens/home_screen/request_to_deliver_screen/components/package_available_for_delivery.dart';
 
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/constants.dart';
@@ -241,28 +242,30 @@ class RequestToDeliverScreen extends HookWidget {
               DefaultButton(
                 isActive: true,
                 onTap: () {
-                  if (formKey.currentState?.validate() ?? false) {
-                    String time =
-                        "${leaveDate.text} ${leaveTime.text.substring(0, leaveTime.text.length - 3)}:00 ${leaveTime.text.substring(leaveTime.text.length - 2)} Z";
-                    final formatter =
-                        DateFormat(r'''dd-MMM-yyyy hh:mm:ss a Z''');
+                  // if (formKey.currentState?.validate() ?? false) {
+                  //   String time =
+                  //       "${leaveDate.text} ${leaveTime.text.substring(0, leaveTime.text.length - 3)}:00 ${leaveTime.text.substring(leaveTime.text.length - 2)} Z";
+                  //   final formatter =
+                  //       DateFormat(r'''dd-MMM-yyyy hh:mm:ss a Z''');
 
-                    final dateTimeFromStr = formatter.parse(time);
+                  //   final dateTimeFromStr = formatter.parse(time);
 
-                    model.deliveryRequest(
-                      PickPackageRequest(
-                        capacity: int.tryParse(capacity.text),
-                        fromState: departureState.text,
-                        fromTown: departureTown.text,
-                        toState: destinationState.text,
-                        toTown: destinationTown.text,
-                        packageType: weightLevel.text,
-                        transportMode: transportMode.text,
-                        travelTime: dateTimeFromStr.toString(),
-                      ),
-                      context,
-                    );
-                  }
+                  //   model.deliveryRequest(
+                  //     PickPackageRequest(
+                  //       capacity: int.tryParse(capacity.text),
+                  //       fromState: departureState.text,
+                  //       fromTown: departureTown.text,
+                  //       toState: destinationState.text,
+                  //       toTown: destinationTown.text,
+                  //       packageType: weightLevel.text,
+                  //       transportMode: transportMode.text,
+                  //       travelTime: dateTimeFromStr.toString(),
+                  //     ),
+                  //     context,
+                  //   );
+                  // }
+                  Navigator.pushNamed(
+                      context, PackagesAvailableForDeliveryScreen.routeName);
                 },
                 buttonLabel: "Request to deliver",
               )
