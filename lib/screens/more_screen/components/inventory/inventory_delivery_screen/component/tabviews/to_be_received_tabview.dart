@@ -20,31 +20,33 @@ class ToBeReceivedTabView extends HookWidget {
     return Expanded(
       child: SizedBox(
         child: Scrollbar(
-           child: 
-          // ValueListenableBuilder<Future<HistorySentResponse?>?>(
-          //     valueListenable: model.sent,
-          //     builder: (context, data, ___) {
-          //       return FutureBuilder<HistorySentResponse?>(
-          //           future: data,
-          //           builder: (context, snapshot) {
-          //             if (snapshot.connectionState == ConnectionState.waiting &&
-          //                 snapshot.data == null) return const Apploader();
-          //             if (snapshot.hasError && snapshot.data == null) {
-          //               return TravaErrorState(
-          //                 errorMessage: parseError(
-          //                   snapshot.error,
-          //                   "We could not fetch sent history",
-          //                 ),
-          //                 onRetry: () {},
-          //               );
-          //             }
-                       ListView.builder(
-                        itemCount: 10,//snapshot.data?.data?.length ?? 0,
-                        itemBuilder: (context, index) {
-                          return const ToBeReceivedTile();
-                        },
-                     
-              ),
+          child: ValueListenableBuilder<Future<HistorySentResponse?>?>(
+            valueListenable: model.toBeReceived,
+            builder: (context, data, ___) {
+              return FutureBuilder<HistorySentResponse?>(
+                future: data,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting &&
+                      snapshot.data == null) return const Apploader();
+                  if (snapshot.hasError && snapshot.data == null) {
+                    return TravaErrorState(
+                      errorMessage: parseError(
+                        snapshot.error,
+                        "We could not fetch to be received",
+                      ),
+                      onRetry: () {},
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data?.data?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return ToBeReceivedTile(snapshot.data!.data![index]);
+                    },
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );

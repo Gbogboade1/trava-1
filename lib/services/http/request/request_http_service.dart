@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:trava/models/https/payment/tranaction_history.dart';
+import 'package:trava/models/https/request/availabale_packages.dart';
 import 'package:trava/models/https/request/cancel_delivery_response.dart';
 import 'package:trava/models/https/request/deliever_request_response.dart';
 import 'package:trava/models/https/request/delivered_response.dart';
@@ -24,23 +25,12 @@ class RequestHttpService extends HttpService {
 
   Future<SendPackageResponse> sendPackage(SendPackageRequest data) async {
     try {
-      var formData = FormData.fromMap({
-        'name': 'wendux',
-        'age': 25,
-        'file':
-            await MultipartFile.fromFile('./text.txt', filename: 'upload.txt'),
-        'files': [
-          await MultipartFile.fromFile('./text1.txt', filename: 'text1.txt'),
-          await MultipartFile.fromFile('./text2.txt', filename: 'text2.txt'),
-        ]
-      });
+      var formData = FormData.fromMap(data.toJson());
       final req = await http.post(
         "/send",
-        data: data.toJson(),
+        data: formData,
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return SendPackageResponse.fromJson(req.data);
     } on DioError catch (e) {
@@ -59,8 +49,6 @@ class RequestHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return RequestDelieverResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -70,16 +58,14 @@ class RequestHttpService extends HttpService {
     }
   }
 
-  Future<SignOutResponse> availablePackages() async {
+  Future<AvailablePackages> availablePackages() async {
     try {
       final req = await http.get(
         "/pick",
       );
       // final data =
 
-      log("my new data -${req.data}");
-
-      return SignOutResponse.fromJson(req.data);
+      return AvailablePackages.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
@@ -94,8 +80,6 @@ class RequestHttpService extends HttpService {
         "/pick/$packageId",
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return PickAPackageResponse.fromJson(req.data);
     } on DioError catch (e) {
@@ -113,8 +97,6 @@ class RequestHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return CancelDeliveryResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -130,8 +112,6 @@ class RequestHttpService extends HttpService {
         "/delete/$packageId",
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return ProfileData.fromJson(req.data);
     } on DioError catch (e) {
@@ -149,8 +129,6 @@ class RequestHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return ProfileData.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -166,8 +144,6 @@ class RequestHttpService extends HttpService {
         "/all",
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return ProfileData.fromJson(req.data);
     } on DioError catch (e) {
@@ -185,8 +161,6 @@ class RequestHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return HistorySentResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -202,8 +176,6 @@ class RequestHttpService extends HttpService {
         "/tbd",
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return HistoryTBDResponse.fromJson(req.data);
     } on DioError catch (e) {
@@ -221,8 +193,6 @@ class RequestHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return HistoryDeliveredResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -238,8 +208,6 @@ class RequestHttpService extends HttpService {
         "/pickup",
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return ItemsToPickUpResponse.fromJson(req.data);
     } on DioError catch (e) {

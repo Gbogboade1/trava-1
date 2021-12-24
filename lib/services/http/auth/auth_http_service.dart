@@ -31,8 +31,6 @@ class AuthHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return SignUpResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -54,8 +52,6 @@ class AuthHttpService extends HttpService {
         },
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return SignUpResponse.fromJson(req.data);
     } on DioError catch (e) {
@@ -85,8 +81,6 @@ class AuthHttpService extends HttpService {
 
       LocalStorage.setItem(key: LocalStorage.userData, value: req.data);
 
-      log("my new data -${req.data}");
-
       return result;
     } on DioError catch (e) {
       throw {
@@ -102,8 +96,6 @@ class AuthHttpService extends HttpService {
         "/signout",
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return SignOutResponse.fromJson(req.data);
     } on DioError catch (e) {
@@ -121,8 +113,6 @@ class AuthHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return ProfileData.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -138,8 +128,6 @@ class AuthHttpService extends HttpService {
         "/profile/$id",
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return ProfileData.fromJson(req.data);
     } on DioError catch (e) {
@@ -207,6 +195,46 @@ class AuthHttpService extends HttpService {
       final req = await http.patch(
         "/update_profile",
         data: data.toJson(),
+      );
+      return ProfileData.fromJson(req.data);
+
+      // final data =
+
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<ProfileData> removeCard(
+    String data,
+  ) async {
+    try {
+      final req = await http.delete(
+        "/card/remove",
+        data: {"cardId": data},
+      );
+      return ProfileData.fromJson(req.data);
+
+      // final data =
+
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<ProfileData> removeBank(
+    String data,
+  ) async {
+    try {
+      final req = await http.delete(
+        "/bank/remove",
+        data: {"bankId": data},
       );
       return ProfileData.fromJson(req.data);
 

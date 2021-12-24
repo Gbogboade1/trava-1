@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:trava/models/https/payment/top_up.dart';
+import 'package:trava/models/https/payment/top_up_wallet_response.dart';
 import 'package:trava/models/https/payment/tranaction_history.dart';
 import 'package:trava/models/https/users/sign_in_request.dart';
 import 'package:trava/models/https/users/sign_in_response.dart';
@@ -15,7 +17,7 @@ class PaymentHttpService extends HttpService {
           collectionUrl: "/payment",
         );
 
-  Future<SignUpResponse> topUp(SignUpRequest data) async {
+  Future<TopUpWalletResponse> topUp(TopUpWallet data) async {
     try {
       final req = await http.post(
         "/deposit",
@@ -23,9 +25,7 @@ class PaymentHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
-      return SignUpResponse.fromJson(req.data);
+      return TopUpWalletResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
@@ -41,8 +41,6 @@ class PaymentHttpService extends HttpService {
         data: {"bankId": bankId, "amount": amt},
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return SignUpResponse.fromJson(req.data);
     } on DioError catch (e) {
@@ -61,8 +59,6 @@ class PaymentHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return SignInResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -78,8 +74,6 @@ class PaymentHttpService extends HttpService {
         "/transactions",
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return TransactionHistory.fromJson(req.data);
     } on DioError catch (e) {

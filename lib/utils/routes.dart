@@ -32,17 +32,19 @@ final Map<String, WidgetBuilder> routes = {
   SignUpScreen.routeName: (context) => SignUpScreen(),
   ForgetPasswordScreen.routeName: (context) => ForgetPasswordScreen(),
   Navigation.routeName: (context) => const Navigation(),
-  FundWalletScreen.routeName: (context) => const FundWalletScreen(),
+  FundWalletScreen.routeName: (context) => FundWalletScreen(),
   WithdrawalScreen.routeName: (context) => const WithdrawalScreen(),
-  SendPackagesScreen.routeName: (context) => const SendPackagesScreen(),
+  SendPackagesScreen.routeName: (context) => SendPackagesScreen(),
   RequestToDeliverScreen.routeName: (context) => RequestToDeliverScreen(),
   NotificationsScreen.routeName: (context) => const NotificationsScreen(),
   OnboardingScreen.routeName: (context) => const OnboardingScreen(),
   PackagesToPickUpScreen.routeName: (context) => const PackagesToPickUpScreen(),
-  RegisterHubScreen.routeName: (context) =>  RegisterHubScreen(),
-  InventoryDeliveryScreen.routeName: (context) => const InventoryDeliveryScreen(),
+  RegisterHubScreen.routeName: (context) => RegisterHubScreen(),
+  InventoryDeliveryScreen.routeName: (context) =>
+      const InventoryDeliveryScreen(),
   InventoryDropOffScreen.routeName: (context) => const InventoryDropOffScreen(),
-  PackagesAvailableForDeliveryScreen.routeName: (context) => const PackagesAvailableForDeliveryScreen()
+  PackagesAvailableForDeliveryScreen.routeName: (context) =>
+      const PackagesAvailableForDeliveryScreen()
 };
 
 Route<dynamic> dynamicRoutes(RouteSettings settings) {
@@ -96,7 +98,7 @@ Route<dynamic> dynamicRoutes(RouteSettings settings) {
           return VerifyPickUpScreen(settings.arguments as List);
         },
       );
-       case PickedUpScreen.routeName:
+    case PickedUpScreen.routeName:
       return MaterialPageRoute(
         settings: settings,
         builder: (context) {

@@ -37,11 +37,15 @@ dependencies:
   google_fonts: ^2.1.0
   image_cropper:
   image_picker:
+  flutterwave: ^1.0.1
   flutter_hooks: ^0.18.0
+  location: ^4.3.0
   flutter_svg:
+  socket_io_client: ^1.0.2
   grouped_list: ^4.1.0
   provider:
   hive:
+  # geocoder:
   hive_flutter:
   dio:
   dotted_decoration: ^2.0.0

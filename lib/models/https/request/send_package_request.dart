@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 class SendPackageRequest {
   String? deliveryHub;
   String? pickupLocation;
@@ -12,7 +14,7 @@ class SendPackageRequest {
   String? sendTown;
   String? sendState;
 
-  String? images;
+  MultipartFile? images;
 
   SendPackageRequest(
       {this.deliveryHub,

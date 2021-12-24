@@ -7,7 +7,7 @@ class Transformer extends DefaultTransformer {
   Transformer() : super(jsonDecodeCallback: parseJson);
 }
 
-const baseUrl = "https://travaapp.herokuapp.com"; 
+const baseUrl = "https://travaapp.herokuapp.com";
 
 class HttpService {
   // final NavigationService _navigationService = locator<NavigationService>();
@@ -38,44 +38,11 @@ class HttpService {
             "body": opts.data,
             "params": opts.queryParameters,
           });
-          //uncomment this two lines as well.
+
           TravaTokenManager _tokenManager = TravaTokenManager.instance;
 
-          
           var tokens = await _tokenManager.tokens;
-          // if (tokens.accessToken != null &&
-          //     DateTime.now().difference(tokens.createdAt!).inMinutes >= 5) {
-          //   http.interceptors.requestLock.lock();
-          //   try {
-          //     // // // final _nuToken = await tokenHandler.post(
-          //     // // //   "/refreshtoken",
-          //     // // //   data: {
-          //     // // //     "mobileNumber": tokens.mobileNumber,
-          //     // // //     "MobileNumber": tokens.mobileNumber,
-          //     // // //     "refreshToken": tokens.refreshToken,
-          //     // // //   },
-          //     // //   options: Options(
-          //     // //     headers: {
-          //     // //       "Authorization": "Bearer ${tokens.accessToken}",
-          //     // //     },
-          //     // //   ),
-          //     // // );
-          //     // _tokenManager.setToken(
-          //     //   accessToken: _nuToken.data["message"],
-          //     //   refreshToken: tokens.refreshToken,
-          //     //   mobileNumber: tokens.mobileNumber,
-          //     // );
-          //     // tokens = await _tokenManager.tokens;
-          //     http.interceptors.requestLock.unlock();
-          //   } catch (error) {
-          //     print({
-          //       "err": error,
-          //       //     "data": e?.response.data ?? {"message": e.error ?? e}
-          //     });
-          //     http.interceptors.requestLock.unlock();
-          //   }
-          // }
-          //uncomment
+
           opts.headers["trava_access_token"] = "${tokens.accessToken}";
           log("auth :${tokens.accessToken}");
           return handler.next(opts);
@@ -87,19 +54,14 @@ class HttpService {
           });
           if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
             log("godndjdnd");
-            // return _navigationService.navigateTo(
-            //   TravaRoutes.login,
-            // );
           }
           if (e.response?.statusCode == 404) {
-            // todo: return service not found
             DioError response = e;
             response.response?.statusMessage =
                 "Service is presntly unavailable at the moment";
             return handler.next(response);
           }
           if (e.response?.statusCode == 400) {
-            // todo: return bad request.
             DioError response = e;
             response.response?.statusMessage =
                 "Request sent is bad formmatted, please try again.";

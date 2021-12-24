@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:trava/models/https/hubs/hubs.dart';
+import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/models/https/users/sign_in_request.dart';
 import 'package:trava/models/https/users/sign_in_response.dart';
@@ -34,8 +36,6 @@ class HubHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return SignUpResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -53,8 +53,6 @@ class HubHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return SignInResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -70,8 +68,6 @@ class HubHttpService extends HttpService {
         "/signout",
       );
       // final data =
-
-      log("my new data -${req.data}");
 
       return SignOutResponse.fromJson(req.data);
     } on DioError catch (e) {
@@ -89,8 +85,6 @@ class HubHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return ProfileData.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -107,8 +101,6 @@ class HubHttpService extends HttpService {
       );
       // final data =
 
-      log("my new data -${req.data}");
-
       return ProfileData.fromJson(req.data);
     } on DioError catch (e) {
       throw {
@@ -118,16 +110,14 @@ class HubHttpService extends HttpService {
     }
   }
 
-  Future<ProfileData> getPickedUp(String id) async {
+  Future<HistorySentResponse> getPickedUp(String id) async {
     try {
       final req = await http.get(
         "/picked/$id",
       );
       // final data =
 
-      log("my new data -${req.data}");
-
-      return ProfileData.fromJson(req.data);
+      return HistorySentResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
@@ -136,16 +126,14 @@ class HubHttpService extends HttpService {
     }
   }
 
-  Future<ProfileData> getToBeReceived(String id) async {
+  Future<HistorySentResponse> getToBeReceived(String id) async {
     try {
       final req = await http.get(
         "/tbr/$id",
       );
       // final data =
 
-      log("my new data -${req.data}");
-
-      return ProfileData.fromJson(req.data);
+      return HistorySentResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
@@ -154,16 +142,30 @@ class HubHttpService extends HttpService {
     }
   }
 
-  Future<ProfileData> getToBePickedUp(String id) async {
+  Future<HistorySentResponse> getToBePickedUp(String id) async {
     try {
       final req = await http.get(
         "/tbp/$id",
       );
       // final data =
 
-      log("my new data -${req.data}");
+      return HistorySentResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
 
-      return ProfileData.fromJson(req.data);
+  Future<Hubs> getAllHubs() async {
+    try {
+      final req = await http.get(
+        "/hubs",
+      );
+      // final data =
+
+      return Hubs.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
@@ -172,3 +174,4 @@ class HubHttpService extends HttpService {
     }
   }
 }
+// /

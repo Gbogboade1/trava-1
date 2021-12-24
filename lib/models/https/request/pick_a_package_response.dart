@@ -241,7 +241,7 @@ class Sender {
       });
     }
     wallet = json['wallet'];
-    log("error don happen");
+
     joinDate = json['joinDate'];
     if (json['banks'] != null) {
       banks = [];
@@ -261,7 +261,6 @@ class Sender {
     request =
         json['request'] != null ? Request.fromJson(json['request']) : null;
 
-    log("error don happen");
     hubs = json['hubs'].cast<String>();
   }
 

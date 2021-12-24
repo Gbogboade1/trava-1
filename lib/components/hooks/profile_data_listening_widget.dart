@@ -36,7 +36,7 @@ class ProfileSetUpDataListeningWidget extends HookWidget {
                 onRetry: () {},
               );
             }
-
+            model.startTracking();
             return builder(context, task.data);
           },
         );

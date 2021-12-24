@@ -72,7 +72,6 @@ class VerifyPackageBottomSheet extends HookWidget {
   Widget build(BuildContext context) {
     final codeController = useTextEditingController();
     return CustomBottomSheet(
-      
       title: "Verify Package Delivery",
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

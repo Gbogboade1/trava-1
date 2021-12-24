@@ -43,58 +43,66 @@ class ToBeDeliveredTabView extends HookWidget {
                       );
                     }
                     return snapshot.data!.data!.isNotEmpty
-                ?  ListView.builder(
-                      itemCount: snapshot.data!.data?.length ?? 0,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: 15.0.h),
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/images/baggage.svg',
-                                ),
-                                SizedBox(width: 17.w),
-                                Flexible(
-                                  child: RichText(
-                                    text: TextSpan(
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                            color: const Color(0xff171718),
-                                          ),
-                                      children: [
-                                        TextSpan(
-                                            text:
-                                                "You’re to deliver package (${snapshot.data!.data![index].deliveryCode})  for ${snapshot.data!.data![index].sender?.firstName ?? ''} ${snapshot.data!.data![index].sender?.lastName ?? ''}  at ${snapshot.data!.data![index].deliveryHub ?? ''}, ${snapshot.data!.data![index].destTown ?? ''}, ${snapshot.data!.data![index].destState ?? ''} State. Package delivery code is ${snapshot.data!.data![index].deliveryCode}. "),
-                                        TextSpan(
-                                          text: "See Details",
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () {
-                                              Navigator.pushNamed(
-                                                  context,
-                                                  ToBeDeliveredPackageDetailsScreen
-                                                      .routeName,
-                                                  arguments: [1]);
-                                            },
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4!
-                                              .copyWith(
-                                                color: const Color(0xff171718),
-                                                decoration:
-                                                    TextDecoration.underline,
+                        ? ListView.builder(
+                            itemCount: snapshot.data!.data?.length ?? 0,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(bottom: 15.0.h),
+                                child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/baggage.svg',
+                                      ),
+                                      SizedBox(width: 17.w),
+                                      Flexible(
+                                        child: RichText(
+                                          text: TextSpan(
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .copyWith(
+                                                  color:
+                                                      const Color(0xff171718),
+                                                ),
+                                            children: [
+                                              TextSpan(
+                                                  text:
+                                                      "You’re to deliver package (${snapshot.data!.data![index].deliveryCode})  for ${snapshot.data!.data![index].sender?.firstName ?? ''} ${snapshot.data!.data![index].sender?.lastName ?? ''}  at ${snapshot.data!.data![index].deliveryHub ?? ''}, ${snapshot.data!.data![index].destTown ?? ''}, ${snapshot.data!.data![index].destState ?? ''} State. Package delivery code is ${snapshot.data!.data![index].deliveryCode}. "),
+                                              TextSpan(
+                                                text: "See Details",
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        Navigator.pushNamed(
+                                                          context,
+                                                          ToBeDeliveredPackageDetailsScreen
+                                                              .routeName,
+                                                          arguments: snapshot
+                                                              .data!
+                                                              .data![index],
+                                                        );
+                                                      },
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline4!
+                                                    .copyWith(
+                                                      color: const Color(
+                                                          0xff171718),
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                    ),
                                               ),
+                                            ],
+                                          ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ]),
-                        );
-                      },
-                    ): const Center(child: EmptyListState());
+                                      )
+                                    ]),
+                              );
+                            },
+                          )
+                        : const Center(child: EmptyListState());
                   });
             },
           ),

@@ -1,17 +1,28 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:flutter/material.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 import 'package:trava/components/fragments/state/avatar_sheet.dart';
+import 'package:trava/models/https/hubs/hubs.dart';
+import 'package:trava/models/https/payment/top_up.dart';
+import 'package:trava/models/https/payment/top_up_wallet_response.dart';
 import 'package:trava/models/https/payment/tranaction_history.dart';
+import 'package:trava/models/https/request/availabale_packages.dart';
 import 'package:trava/models/https/request/delivered_response.dart';
 import 'package:trava/models/https/request/items_to_pick_up_response.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/models/https/request/pick_package_request.dart';
+import 'package:trava/models/https/request/send_package_request.dart';
+import 'package:trava/models/https/request/send_package_response.dart';
 import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/models/https/request/tbd_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/models/podos/selection_data.dart';
+import 'package:trava/models/podos/send_package_controllers.dart';
+import 'package:trava/screens/home_screen/request_to_deliver_screen/components/package_available_for_delivery.dart';
 import 'package:trava/screens/splash_screen/splash_screen.dart';
 import 'package:trava/services/http/auth/auth_http_service.dart';
 import 'package:trava/services/http/hub/hub_http_service.dart';
@@ -23,6 +34,8 @@ import 'package:trava/utils/image_utils.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/snacks.dart';
 import 'package:trava/utils/token_manager.dart';
+import 'package:location/location.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class AuthState extends ChangeNotifier {
   static AuthState? _instance;
@@ -31,13 +44,21 @@ class AuthState extends ChangeNotifier {
     return _instance!;
   }
 
+  late Location location;
+
+  IO.Socket? socket;
+
   final ValueNotifier<File?> _image = ValueNotifier(null);
   final AuthHttpService _http = AuthHttpService();
   final PaymentHttpService _paymentHttp = PaymentHttpService();
   final HubHttpService _hubHttp = HubHttpService();
   final RequestHttpService _requestHttp = RequestHttpService();
 
-  final ValueNotifier<Future<ProfileData?>?> _profileStatus = ValueNotifier(null);
+  final ValueNotifier<Future<ProfileData?>?> _profileStatus =
+      ValueNotifier(null);
+  final ValueNotifier<Future<AvailablePackages?>?> _availablePackages =
+      ValueNotifier(null);
+  final ValueNotifier<Future<Hubs?>?> _hubs = ValueNotifier(null);
   final ValueNotifier<Future<TransactionHistory?>?> _transactions =
       ValueNotifier(null);
   final ValueNotifier<Future<ItemsToPickUpResponse?>?> _itemsToBePicked =
@@ -45,6 +66,12 @@ class AuthState extends ChangeNotifier {
   final ValueNotifier<Future<HistorySentResponse?>?> _sentHistory =
       ValueNotifier(null);
   final ValueNotifier<Future<HistoryTBDResponse?>?> _toBeDeliveredHistory =
+      ValueNotifier(null);
+  final ValueNotifier<Future<HistorySentResponse?>?> _itemsToBePickedInventory =
+      ValueNotifier(null);
+  final ValueNotifier<Future<HistorySentResponse?>?> _receivedInventory =
+      ValueNotifier(null);
+  final ValueNotifier<Future<HistorySentResponse?>?> _pickedInventory =
       ValueNotifier(null);
   final ValueNotifier<Future<HistoryDeliveredResponse?>?> _deliveriedHistory =
       ValueNotifier(null);
@@ -62,6 +89,111 @@ class AuthState extends ChangeNotifier {
     return _profileStatus;
   }
 
+  ValueNotifier<Future<Hubs?>?> get hubs {
+    if (_hubs.value == null) {
+      log("here --- ");
+      _hubs.value = getHubsStatus();
+      log("there --- ");
+    }
+
+    return _hubs;
+  }
+
+  startTracking() {
+    if (socket == null) {
+      log("socket ooooo");
+      status.value?.then((value) {
+        socket = IO.io(
+          'https://travaapp.herokuapp.com/',
+          OptionBuilder().setTransports(['websocket']) // for Flutter or Dart VM
+              // .disableAutoConnect() // disable auto-connection
+              // .setExtraHeaders({'foo': 'bar'}) // optional
+              .build(),
+        );
+        socket!.onConnect((_) {
+          log("connected haaaa");
+          sendLoc(value!.user!.sId!);
+        });
+        socket!.onError((data) => log("socket error -- $data"));
+        socket!.onConnecting((data) => log("socket onConnecting -- $data"));
+        socket!.onReconnectError((data) => log("socket $data"));
+        socket!.on("new location", (data) => null);
+      });
+    }
+  }
+
+  sendLoc(String userId) async {
+    location = Location();
+
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData _locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted == PermissionStatus.granted ||
+          _permissionGranted == PermissionStatus.grantedLimited) {
+        log("bam bammmm");
+        location.onLocationChanged.listen(
+          (LocationData currentLocation) {
+            log("sleepy time--- ${currentLocation.latitude} ${currentLocation.longitude}");
+            socket!.emit(
+              "set location",
+              {
+                "userId": userId,
+                "longitude": currentLocation.longitude,
+                "latitude": currentLocation.latitude
+              },
+            );
+          },
+        );
+
+        location.enableBackgroundMode(enable: true);
+      } else {
+        log("not granted...");
+      }
+    } else if (_permissionGranted == PermissionStatus.granted ||
+        _permissionGranted == PermissionStatus.grantedLimited) {
+      log("bam bammmm");
+      location.onLocationChanged.listen(
+        (LocationData currentLocation) {
+          log("sleepy time--- ${currentLocation.latitude} ${currentLocation.longitude}");
+          socket!.emit(
+            "set location",
+            {
+              "userId": userId,
+              "longitude": currentLocation.longitude,
+              "latitude": currentLocation.latitude
+            },
+          );
+        },
+      );
+
+      location.enableBackgroundMode(enable: true);
+    }
+  }
+
+  setNewLoc(String packageId) {
+    socket!.emit("get location", (msg) {
+      log("new data ---- $msg");
+    });
+  }
+
+  getNewLoc(String packageId) {
+    socket!.on("send location", (msg) {
+      log("new data ---- $msg");
+    });
+  }
+
   ValueNotifier<File?> get image => _image;
 
   set status(value) => _profileStatus.value = value;
@@ -76,6 +208,20 @@ class AuthState extends ChangeNotifier {
 
   Future<ProfileData> getProfileStatusFromOnline() async {
     final data = _http.getProfile();
+
+    return data;
+  }
+
+  Future<Hubs?> getHubsStatus() async {
+    if (_hubs.value != null) {
+      return _hubs.value;
+    } else {
+      return await getHubsFromOnline();
+    }
+  }
+
+  Future<Hubs> getHubsFromOnline() async {
+    final data = _hubHttp.getAllHubs();
 
     return data;
   }
@@ -127,7 +273,6 @@ class AuthState extends ChangeNotifier {
 
     return data;
   }
-//sent
 
   ValueNotifier<Future<HistorySentResponse?>?> get sent {
     if (_sentHistory.value == null) {
@@ -152,7 +297,6 @@ class AuthState extends ChangeNotifier {
 
     return data;
   }
-  //to be delievered
 
   ValueNotifier<Future<HistoryTBDResponse?>?> get toBeDeliveried {
     if (_toBeDeliveredHistory.value == null) {
@@ -177,7 +321,110 @@ class AuthState extends ChangeNotifier {
 
     return data;
   }
-// delivered
+
+  ValueNotifier<Future<HistorySentResponse?>?> get toBeReceived {
+    if (_receivedInventory.value == null) {
+      log("here --- ");
+      _receivedInventory.value = getPackagesToBeReceived();
+      log("there --- ");
+    }
+
+    return _receivedInventory;
+  }
+
+  Future<HistorySentResponse?> getPackagesToBeReceived() async {
+    if (_receivedInventory.value != null) {
+      return _receivedInventory.value;
+    } else {
+      return await getPackagesToBeReceivedFromOnline();
+    }
+  }
+
+  Future<HistorySentResponse?> getPackagesToBeReceivedFromOnline() async {
+    ProfileData? user;
+    await status.value?.then((value) {
+      user = value;
+    });
+    if (user?.user?.hubs?.isNotEmpty ?? false) {
+      final data = _hubHttp.getToBeReceived(user!.user!.hubs!.first);
+      return data;
+    } else {
+      return null;
+    }
+  }
+
+  ValueNotifier<Future<HistorySentResponse?>?> get toBePickedInventory {
+    if (_itemsToBePickedInventory.value == null) {
+      log("here --- ");
+      _itemsToBePickedInventory.value = getToBePickedInventory();
+      log("there --- ");
+    }
+
+    return _itemsToBePickedInventory;
+  }
+
+  Future<HistorySentResponse?> getToBePickedInventory() async {
+    if (_itemsToBePickedInventory.value != null) {
+      return _itemsToBePickedInventory.value;
+    } else {
+      return await getToBePickedInventoryFromOnline();
+    }
+  }
+
+  Future<HistorySentResponse?> getToBePickedInventoryFromOnline() async {
+    ProfileData? user;
+    await status.value?.then((value) {
+      user = value;
+    });
+    if (user?.user?.hubs?.isNotEmpty ?? false) {
+      final data = _hubHttp.getToBePickedUp(user!.user!.hubs!.first);
+      return data;
+    } else {
+      return null;
+    }
+  }
+
+  ValueNotifier<Future<HistorySentResponse?>?> get pickedUpInventory {
+    if (_pickedInventory.value == null) {
+      log("here --- ");
+      _pickedInventory.value = getPackagesPickedUpInventory();
+      log("there --- ");
+    }
+
+    return _pickedInventory;
+  }
+
+  Future<HistorySentResponse?> getPackagesPickedUpInventory() async {
+    if (_pickedInventory.value != null) {
+      return _pickedInventory.value;
+    } else {
+      return await getPackagesPickedUpInventoryFromOnline();
+    }
+  }
+
+  Future<HistorySentResponse?> getPackagesPickedUpInventoryFromOnline() async {
+    ProfileData? user;
+    await status.value?.then((value) {
+      user = value;
+    });
+    if (user?.user?.hubs?.isNotEmpty ?? false) {
+      final data = _hubHttp.getPickedUp(user!.user!.hubs!.first);
+      return data;
+    } else {
+      return null;
+    }
+  }
+
+// availablepacaes
+  ValueNotifier<Future<AvailablePackages?>?> get availablePackages {
+    _availablePackages.value = getAvailablePackages();
+
+    return _availablePackages;
+  }
+
+  Future<AvailablePackages?> getAvailablePackages() async {
+    return await _requestHttp.availablePackages();
+  }
 
   ValueNotifier<Future<HistoryDeliveredResponse?>?> get delievered {
     if (_deliveriedHistory.value == null) {
@@ -212,6 +459,7 @@ class AuthState extends ChangeNotifier {
   clearOut() {
     TravaTokenManager _tokenManager = TravaTokenManager.instance;
     _tokenManager.clearTokens();
+    _image.value = null;
     current = 0;
   }
 
@@ -223,8 +471,9 @@ class AuthState extends ChangeNotifier {
     );
 
     if (doRoute != null) {
-      Navigator.pop(
+      Navigator.pushNamed(
         context,
+        PackagesAvailableForDeliveryScreen.routeName,
       );
     }
   }
@@ -234,22 +483,20 @@ class AuthState extends ChangeNotifier {
     List<SelectionData> result = [];
 
     for (var e in county) {
-      // log('value--- $e');
       if (!a.contains(e['state'])) {
         a.add("${e['state']}");
       }
     }
-    // log("a--- ${a.length}");
+
     a.sort();
     for (var e in a) {
       result.add(SelectionData(e, e));
     }
-    // log("rsult --- ${result.length}");
+
     return result;
   }
 
   void selectImage(BuildContext context) async {
-    // final curPic = avatar.value;
     log("hfdjjhvjkd");
     try {
       final isGal = await showModalBottomSheet<bool>(
@@ -262,55 +509,20 @@ class AuthState extends ChangeNotifier {
         },
       );
       if (isGal == null) {
-        // showSnack(
-        //   context: context,
-        //   message: "Please select an image source",
-        //   type: SnackType.Info,
-        // );
         return;
       }
       final imgData = await pickImage(isGal: isGal);
       if (imgData != null) {
         final cropImg = await cropImage(imgData);
         if (cropImg == null) {
-          // isUploading.value = false;
-          // showSnack(
-          //   context: context,
-          //   message: "Profile picture update was cancelled",
-          //   type: SnackType.Info,
-          // );
           return;
         }
-        // avatar.value = cropImg;
-        // isUploading.value = true;
-        // showSnack(
-        //   context: context,
-        //   message: "Your profile picture is being uploaded",
-        //   type: SnackType.Info,
-        // );
+
         try {
           _image.value = cropImg;
-          // await http.addAvatar(cropImg);
-          // isUploading.value = false;
-          // showSnack(
-          //   context: context,
-          //   message: "Profile picture update was successful",
-          //   type: SnackType.Success,
-          // );
-          // _cacheAvatar(cropImg);
-        } catch (e) {
-          // isUploading.value = false;
-          // avatar.value = curPic;
-          // showSnack(
-          //   context: context,
-          //   message: "Profile picture update failed, please try again",
-          //   type: SnackType.Error,
-          // );
-        }
+        } catch (e) {}
       }
     } catch (_) {
-      // isUploading.value = false;
-      // avatar.value = curPic;
       showSnack(
         context: context,
         message: "Profile picture update failed, please try again",
@@ -343,5 +555,41 @@ class AuthState extends ChangeNotifier {
 
   addBankAccount(String bankName, String accountNumber, String accountName) {
     return _http.addBank(bankName, accountNumber, accountName);
+  }
+
+  Future<TopUpWalletResponse> fundCard(TopUpWallet data) async {
+    return _paymentHttp.topUp(data);
+  }
+
+  Future<ProfileData> deleteCard(String s) async {
+    return _http.removeCard(s);
+  }
+
+  Future<ProfileData> deleteBank(String s) async {
+    return _http.removeBank(s);
+  }
+
+  Future<SendPackageResponse> sendPackage(SendControllers element) async {
+    SendPackageRequest data = SendPackageRequest(
+      deliveryDate: element.leaveDate.text,
+      deliveryHub: element.preferredHub.text,
+      destState: element.destinationState.text,
+      description: element.packageDescription.text,
+      quantity: element.capacity.text,
+      sendState: element.departureState.text,
+      destTown: element.destinationTown.text,
+      images: await MultipartFile.fromFile(
+        element.image.value!.path,
+      ),
+      pickupLocation: element.location.text,
+      type: element.weightLevel.text,
+      sendTown: element.departureTown.text,
+      deliveryMode: element.transportMode.text,
+      pickupTime: element.leaveTime.text,
+    );
+
+    log("send package --- ${data.toJson()}");
+
+    return await _requestHttp.sendPackage(data);
   }
 }

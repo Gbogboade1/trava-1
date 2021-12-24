@@ -2,13 +2,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/component/verify_delivery_screen/verify_delivery_screen.dart';
 
 class ToBeReceivedTile extends StatelessWidget {
-  const ToBeReceivedTile({
+  const ToBeReceivedTile(
+    this.data, {
     Key? key,
   }) : super(key: key);
-
+  final Data data;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,9 +27,9 @@ class ToBeReceivedTile extends StatelessWidget {
                     color: const Color(0xff171718),
                   ),
               children: [
-                const TextSpan(
+                TextSpan(
                     text:
-                        "Package (154) is to be delivered to your hub by Aladetimi Tomiwa. You will be paid ₦300 for this delivery. "),
+                        "Package (${data.deliveryCode}) is to be delivered to your hub by  ${data.deliverer!.firstName} ${data.deliverer!.lastName} . You will be paid ₦300 for this delivery. "),
                 TextSpan(
                   text: "Verify Package Delivery ",
                   recognizer: TapGestureRecognizer()

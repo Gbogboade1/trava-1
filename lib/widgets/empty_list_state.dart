@@ -12,7 +12,7 @@ class EmptyListState extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          height: 180.w,
+          height: 140.w,
           width: 180.w,
         ),
         SizedBox(height: 15.h),

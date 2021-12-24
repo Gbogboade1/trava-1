@@ -72,10 +72,12 @@ class DeliveredTabView extends StatelessWidget {
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = () {
                                                   Navigator.pushNamed(
-                                                      context,
-                                                      DeliveredPackageDetailsScreen
-                                                          .routeName,
-                                                      arguments: [1]);
+                                                    context,
+                                                    DeliveredPackageDetailsScreen
+                                                        .routeName,
+                                                    arguments: snapshot
+                                                        .data!.data![index],
+                                                  );
                                                 },
                                               style: Theme.of(context)
                                                   .textTheme
