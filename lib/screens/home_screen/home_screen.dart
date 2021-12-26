@@ -64,8 +64,11 @@ class HomeScreen extends HookWidget {
                               ),
                         ),
                         InkWell(
-                          onTap: () => Navigator.pushNamed(
-                              context, NotificationsScreen.routeName),
+                          onTap: () async {
+                            Navigator.pushNamed(
+                                context, NotificationsScreen.routeName);
+                            model.updateNotifications = null;
+                          },
                           child: const Icon(
                             Icons.notifications_active_rounded,
                             color: Colors.white,
@@ -76,7 +79,10 @@ class HomeScreen extends HookWidget {
                     SizedBox(height: 22.h),
                     Text(
                       "Trava Wallet Balance",
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(color: TravaColors.white),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(color: TravaColors.white),
                     ),
                     SizedBox(height: 12.h),
                     Text(
@@ -107,8 +113,13 @@ class HomeScreen extends HookWidget {
                       ],
                     ),
                     SizedBox(height: 40.h),
-                    Text("How can we help you earn and save money today?",
-                        style: Theme.of(context).textTheme.headline4!.copyWith(color: TravaColors.white),),
+                    Text(
+                      "How can we help you earn and save money today?",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(color: TravaColors.white),
+                    ),
                     SizedBox(height: 16.h),
                     const SendPackagesButton(),
                     SizedBox(height: 12.h),
@@ -152,7 +163,6 @@ class HomeScreen extends HookWidget {
                             Text("Transactions"),
                           ],
                         ),
-                       
                         Expanded(
                           child: TabBarView(
                             controller: tabController,

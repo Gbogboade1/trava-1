@@ -57,7 +57,7 @@ class PackagesToPickUpScreen extends StatelessWidget {
                           return TravaErrorState(
                             errorMessage: parseError(
                               snapshot.error,
-                              "We could not fetch sent history",
+                              "We could not fetch packages",
                             ),
                             onRetry: () {},
                           );

@@ -97,21 +97,21 @@ Route<dynamic> dynamicRoutes(RouteSettings settings) {
       return MaterialPageRoute(
         settings: settings,
         builder: (context) {
-          return VerifyDeliveryScreen(settings.arguments as List);
+          return VerifyDeliveryScreen(settings.arguments as Data);
         },
       );
     case VerifyPickUpScreen.routeName:
       return MaterialPageRoute(
         settings: settings,
         builder: (context) {
-          return VerifyPickUpScreen(settings.arguments as List);
+          return VerifyPickUpScreen(settings.arguments as Data);
         },
       );
     case PickedUpScreen.routeName:
       return MaterialPageRoute(
         settings: settings,
         builder: (context) {
-          return PickedUpScreen(settings.arguments as List);
+          return PickedUpScreen(settings.arguments as Data);
         },
       );
     default:

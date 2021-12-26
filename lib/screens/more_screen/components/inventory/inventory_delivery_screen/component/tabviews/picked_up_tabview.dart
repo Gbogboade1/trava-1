@@ -72,7 +72,8 @@ class PickedUpTabView extends StatelessWidget {
                                           ..onTap = () {
                                             Navigator.pushNamed(context,
                                                 PickedUpScreen.routeName,
-                                                arguments: [1]);
+                                                arguments: snapshot
+                                                    .data!.data![index]);
                                           },
                                         style: Theme.of(context)
                                             .textTheme

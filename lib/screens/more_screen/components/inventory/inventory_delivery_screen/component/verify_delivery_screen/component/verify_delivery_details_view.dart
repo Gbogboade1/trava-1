@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/style/colors.dart';
+import 'package:trava/utils/intl_formatter.dart';
 import 'package:trava/widgets/package_detail_field.dart';
 
 class VerifyDeliveryDetailsView extends StatelessWidget {
   const VerifyDeliveryDetailsView({
     Key? key,
-    required this.packageList,
+    required this.package,
   }) : super(key: key);
-  final List packageList;
+  final Data package;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,10 @@ class VerifyDeliveryDetailsView extends StatelessWidget {
             text: TextSpan(
               style: Theme.of(context).textTheme.headline2,
               children: [
-                const TextSpan(text: "Package 023 Details "),
+                TextSpan(text: "Package ${package.deliveryCode} Details "),
                 TextSpan(
-                  text: "(₦1,570)",
+                  text:
+                      "(${TravaFormatter.formatCurrency(package.amount.toString())})",
                   style: Theme.of(context).textTheme.headline2!.copyWith(
                         color: TravaColors.red,
                       ),
@@ -32,49 +35,20 @@ class VerifyDeliveryDetailsView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 15.h),
-        Expanded(
-          child: packageList.length <= 1
-              ? const VerifyDeliveryDetails()
-              : ListView.builder(
-                  itemCount: packageList.length,
-                  itemBuilder: (context, index) {
-                    String packageRank = () {
-                      switch (index) {
-                        case 0:
-                          return "1st";
-                        case 1:
-                          return "2nd";
-                        case 2:
-                          return "3rd";
-                        default:
-                          return "${index + 1}th";
-                      }
-                    }();
-                    return ExpansionTile(
-                      maintainState: true,
-                      initiallyExpanded:
-                          packageList[index] == packageList.last ? true : false,
-                      title: Text("$packageRank Package Details"),
-                      children: const [
-                        VerifyDeliveryDetails(),
-                      ],
-                    );
-                  },
-                ),
-        ),
+        Expanded(child: VerifyDeliveryDetails(package)),
       ],
     );
   }
 }
 
 class VerifyDeliveryDetails extends StatefulWidget {
-  const VerifyDeliveryDetails({
+  const VerifyDeliveryDetails(
+    this.package, {
     Key? key,
   }) : super(key: key);
-
+  final Data package;
   @override
-  State<VerifyDeliveryDetails> createState() =>
-      _VerifyDeliveryDetailsState();
+  State<VerifyDeliveryDetails> createState() => _VerifyDeliveryDetailsState();
 }
 
 class _VerifyDeliveryDetailsState extends State<VerifyDeliveryDetails> {
@@ -105,90 +79,94 @@ class _VerifyDeliveryDetailsState extends State<VerifyDeliveryDetails> {
         ),
         SizedBox(height: 2.h),
         Text(
-          "Two boxes of sophisticated wine. A box contain 8 bottles.",
+          "${widget.package.description}",
           style: Theme.of(context).textTheme.bodyText2,
         ),
         SizedBox(height: 16.h),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: PackageDetailField(
                 title: "Package Type:",
-                value: "Normal Weight",
+                value: "${widget.package.type} Weight",
               ),
             ),
             Expanded(
               child: PackageDetailField(
                 title: "Package Quantity:",
-                value: "2",
+                value: "${widget.package.quantity}",
               ),
             ),
           ],
         ),
         SizedBox(height: 16.h),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: PackageDetailField(
                 title: "Package Destination:",
-                value: "Ilesha, Osun State",
+                value:
+                    "${widget.package.destTown}, ${widget.package.destState} State",
               ),
             ),
             Expanded(
               child: PackageDetailField(
                 title: "Package Delivery Date:",
-                value: "23-12-2021",
+                value: TravaFormatter.formatDate(
+                    widget.package.deliveryDate ?? DateTime.now().toString()),
               ),
             ),
           ],
         ),
         SizedBox(height: 16.h),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: PackageDetailField(
                 title: "Preferred Mode of Transport:",
-                value: "Private Car",
+                value: "${widget.package.deliveryMode}",
               ),
             ),
             Expanded(
               child: PackageDetailField(
                 title: "Preferred Delivery Hub:",
-                value: "DHL Hub, Asaba, Delta State.",
+                value: "${widget.package.deliveryHub}",
               ),
             ),
           ],
         ),
         SizedBox(height: 16.h),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: PackageDetailField(
                 title: "Deliever’s Name:",
-                value: "Boluwatife Akinlabi",
+                value:
+                    "${widget.package.deliverer?.firstName} ${widget.package.deliverer?.lastName}",
               ),
             ),
             Expanded(
               child: PackageDetailField(
                 title: "Deliverer’s Phone Number:",
-                value: "08136279876",
+                value: "${widget.package.deliverer?.phone}",
               ),
             ),
           ],
         ),
         SizedBox(height: 16.h),
         Row(
-          children: const [
+          children: [
             Expanded(
               child: PackageDetailField(
                 title: "Sender’s Name:",
-                value: "Boluwatife Akinlabi",
+                value:
+                    "${widget.package.sender?.firstName} ${widget.package.sender?.lastName}",
               ),
             ),
             Expanded(
               child: PackageDetailField(
                 title: "Sender’s Phone Number:",
-                value: "08136279876",
+                value: "${widget.package.sender?.phone}",
               ),
             ),
           ],

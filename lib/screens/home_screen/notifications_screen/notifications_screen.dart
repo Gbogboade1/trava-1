@@ -10,6 +10,7 @@ import 'package:trava/models/https/users/notifications.dart';
 import 'package:trava/screens/home_screen/notifications_screen/components/notification_tile.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/helpers.dart';
+import 'package:trava/utils/intl_formatter.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 
 enum NotificationType {
@@ -51,7 +52,7 @@ class NotificationsScreen extends StatelessWidget {
               ),
               SizedBox(height: 24.h),
               Text(
-                "12-05-2021",
+                TravaFormatter.formatDate('${DateTime.now()}'),
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w600,
@@ -63,8 +64,8 @@ class NotificationsScreen extends StatelessWidget {
                 child: ValueListenableBuilder<Future<Notifications?>?>(
                     valueListenable: model.notifications,
                     builder: (context, data, ___) {
-                      return FutureBuilder<Notifications>(
-                          future: null,
+                      return FutureBuilder<Notifications?>(
+                          future: data,
                           builder: (context, task) {
                             if (task.connectionState ==
                                     ConnectionState.waiting &&
@@ -73,14 +74,14 @@ class NotificationsScreen extends StatelessWidget {
                               return TravaErrorState(
                                 errorMessage: parseError(
                                   task.error,
-                                  "We could not fetch profile",
+                                  "We could not fetch notifications",
                                 ),
                                 onRetry: () {},
                               );
                             }
-                            d.log("tyu --${task.data?.user?.length ?? '9'}");
+                            d.log("tyu --${task.data}");
                             return ListView.builder(
-                              itemCount: task.data?.user?.length ?? 0,
+                              itemCount: task.data?.user?.length,
                               itemBuilder: (context, index) {
                                 NotificationType notificationType =
                                     NotificationType.values[Random().nextInt(

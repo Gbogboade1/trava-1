@@ -437,7 +437,7 @@ class AuthState extends ChangeNotifier {
     return _availablePackages;
   }
 
-  set updateAvailablePackages(Future<AvailablePackages?> value) {
+  set updateAvailablePackages(value) {
     _availablePackages.value = value;
   }
 
@@ -470,16 +470,15 @@ class AuthState extends ChangeNotifier {
   }
 
   ValueNotifier<Future<Notifications?>?> get notifications {
+    // if (_notifications.value != null) return _notifications;
     _notifications.value = getNotifications();
 
     return _notifications;
   }
 
-  Future<Notifications?> getNotifications() async {
-    return await getNotificationsFromOnline();
-  }
+  set updateNotifications(value) => _notifications.value = value;
 
-  Future<Notifications> getNotificationsFromOnline() async {
+  Future<Notifications?> getNotifications() async {
     return await _http.notifications();
   }
 
@@ -493,6 +492,17 @@ class AuthState extends ChangeNotifier {
     TravaTokenManager _tokenManager = TravaTokenManager.instance;
     _tokenManager.clearTokens();
     _image.value = null;
+    _availablePackages.value = null;
+    _deliveriedHistory.value = null;
+    _itemsToBePicked.value = null;
+    _itemsToBePickedInventory.value = null;
+    _notifications.value = null;
+    _pickedInventory.value = null;
+    _profileStatus.value = null;
+    _receivedInventory.value = null;
+    _sentHistory.value = null;
+    _toBeDeliveredHistory.value = null;
+    _transactions.value = null;
     current = 0;
   }
 
@@ -504,6 +514,7 @@ class AuthState extends ChangeNotifier {
     );
 
     if (doRoute != null) {
+      updateAvailablePackages = null;
       Navigator.pushReplacementNamed(
         context,
         PackagesAvailableForDeliveryScreen.routeName,
@@ -635,5 +646,21 @@ class AuthState extends ChangeNotifier {
 
   Future<PickAPackageResponse> acceptPackage(String sId) {
     return _requestHttp.pickAPackage(sId);
+  }
+
+  Future<PickAPackageResponse> verifyPickup(Map<String, String?> map) {
+    return _hubHttp.verifyPickup(map);
+  }
+
+  Future<PickAPackageResponse> verifyReceived(Map<String, String?> map) {
+    return _hubHttp.verifyReceived(map);
+  }
+
+  Future<PickAPackageResponse> verifyDelivery(Map<String, String?> map) {
+    return _hubHttp.verifyDelivery(map);
+  }
+
+  Future<PickAPackageResponse> verifyDropOff(Map<String, String?> map) {
+    return _hubHttp.verifyDropOff(map);
   }
 }

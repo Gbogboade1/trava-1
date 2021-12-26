@@ -76,7 +76,7 @@ class MoreScreen extends StatelessWidget {
                             //           onTap: () {
                             //             Navigator.pop(ctx);
                             //             Navigator.pushNamed(context,
-                            //                 InventoryDropOffScreen.routeName);
+                            // InventoryDropOffScreen.routeName);
                             //           },
                             //         ),
                             //         SizedBox(height: 16.h),

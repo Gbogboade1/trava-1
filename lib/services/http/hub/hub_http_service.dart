@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:trava/models/https/hubs/hubs.dart';
+import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/models/https/users/sign_in_request.dart';
@@ -166,6 +167,74 @@ class HubHttpService extends HttpService {
       // final data =
 
       return Hubs.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<PickAPackageResponse> verifyPickup(Map<String, String?> map) async {
+    try {
+      final req = await http.patch(
+        "/logistics/pickup",
+        data: map,
+      );
+      // final data =
+
+      return PickAPackageResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<PickAPackageResponse> verifyDelivery(Map<String, String?> map) async {
+    try {
+      final req = await http.patch(
+        "/logistics/delivery",
+        data: map,
+      );
+      // final data =
+
+      return PickAPackageResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<PickAPackageResponse> verifyReceived(Map<String, String?> map) async {
+    try {
+      final req = await http.patch(
+        "/logistics/receive",
+        data: map,
+      );
+      // final data =
+
+      return PickAPackageResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<PickAPackageResponse> verifyDropOff(Map<String, String?> map) async {
+    try {
+      final req = await http.patch(
+        "/logistics/dropoff",
+        data: map,
+      );
+      // final data =
+
+      return PickAPackageResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,

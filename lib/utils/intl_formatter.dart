@@ -111,7 +111,7 @@ class TravaFormatter {
   }
 
   static String formatCurrency(String amount,
-      {bool spaceIcon = true, bool ignoreSymbol = false, String symbol = 'N'}) {
+      {bool spaceIcon = true, bool ignoreSymbol = false, String symbol = '₦'}) {
     final formatter = NumberFormat.currency(
       locale: "en_NG",
       name: ignoreSymbol ? '' : symbol, //?? '\$',
