@@ -33,6 +33,7 @@ class TravaApp extends StatelessWidget {
               selectedIconTheme: const IconThemeData(
                 color: Color(0XFF17123B),
               ),
+              
               unselectedIconTheme: const IconThemeData(
                 color: Color(0XFFBDBDBD),
               ),
@@ -84,7 +85,7 @@ class TravaApp extends StatelessWidget {
                 bodyText1: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
-                  color:  TravaColors.black,
+                  color: TravaColors.black,
                 ),
                 bodyText2: TextStyle(
                   fontSize: 12.sp,

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trava/screens/history_screen/history_screen.dart';
 import 'package:trava/screens/home_screen/home_screen.dart';
 import 'package:trava/screens/more_screen/more_screen.dart';
@@ -34,18 +35,35 @@ class _NavigationState extends State<Navigation> {
           type: BottomNavigationBarType.fixed,
           currentIndex: index,
           onTap: (i) {
-            log('waitn dea happen');
+            // log('waitn dea happen');
             model.current = i;
-            log('waitn dea happen ${model.currentIndex.value}');
+            // log('waitn dea happen ${model.currentIndex.value}');
           },
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          items: [
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.article), label: "History"),
+                icon: SvgPicture.asset(
+                  "assets/images/history.svg",
+                ),
+                activeIcon: SvgPicture.asset(
+                  "assets/images/history.svg",
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                label: "History"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_balance), label: "Transactions"),
+                icon: SvgPicture.asset("assets/images/transactions.svg"),
+                activeIcon: SvgPicture.asset(
+                  "assets/images/transactions.svg",
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                label: "Transactions"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.settings_input_component_rounded),
+                icon: SvgPicture.asset("assets/images/more.svg"),
+                activeIcon: SvgPicture.asset(
+                  "assets/images/more.svg",
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 label: "More"),
           ],
         ),
