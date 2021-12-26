@@ -11,6 +11,7 @@ import 'package:trava/screens/home_screen/notifications_screen/components/bottom
 import 'package:trava/screens/home_screen/notifications_screen/components/notification_button.dart';
 
 import 'package:trava/screens/more_screen/components/more_list_tile.dart';
+import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/utils/helpers.dart';
@@ -69,7 +70,19 @@ class PackagesAvailableForDeliveryScreen extends StatelessWidget {
                         onTap: () {
                           showAreYouSureBottomSheet(context,
                               description:
-                                  "Are you sure you want to turn off your delivery request?");
+                                  "Are you sure you want to turn off your delivery request?",
+                              onYesTap: () async {
+                            Navigator.pop(context);
+
+                            final doRoute = await formSubmitDialog(
+                                context: context,
+                                future: model.turnOffDeliveryRequest(),
+                                prompt: "Turning off Delivery Request...");
+
+                            if (doRoute != null) {
+                              Navigator.pop(context);
+                            }
+                          });
                         },
                       ),
                       SizedBox(height: 16.h),
@@ -86,6 +99,7 @@ class PackagesAvailableForDeliveryScreen extends StatelessWidget {
                         child: ListView.builder(
                             itemCount: snapshot.data?.data?.length ?? 0,
                             itemBuilder: (context, index) {
+                              Data package = snapshot.data!.data![index];
                               return Padding(
                                 padding: EdgeInsets.only(bottom: 12.h),
                                 child: Row(
@@ -109,9 +123,9 @@ class PackagesAvailableForDeliveryScreen extends StatelessWidget {
                                                           0xff171718),
                                                     ),
                                                 children: [
-                                                  const TextSpan(
+                                                  TextSpan(
                                                       text:
-                                                          "Package (154) is going your way on 28-03-2021. It is to be picked up at DHL Hub, Akure, Ondo State within the hours of 9am-6pm on 27-03-2021 and it’s to be delivered at DHL Hub, Asaba, Delta State on 28-03-2021. You’ll be paid ₦1,570 after successful delivery.  "),
+                                                          "Package (${package.deliveryCode}) is going your way on ${TravaFormatter.formatDateShort(package.deliveryDate ?? DateTime.now().toString())}. It is to be picked up at ${package.pickupLocation} on ${TravaFormatter.formatDateShort(package.pickupTime ?? DateTime.now().toString())} and it’s to be delivered at ${package.deliveryHub} on ${TravaFormatter.formatDateShort(package.pickupTime ?? DateTime.now().toString())}. You’ll be paid ${TravaFormatter.formatCurrency(package.amount.toString())} after successful delivery.  "),
                                                   TextSpan(
                                                     text: "See Details",
                                                     recognizer:
@@ -125,7 +139,9 @@ class PackagesAvailableForDeliveryScreen extends StatelessWidget {
                                                                       .transparent,
                                                               context: context,
                                                               builder: (context) =>
-                                                                  const DeliverPackageBottomSheet(),
+                                                                  DeliverPackageBottomSheet(
+                                                                package,
+                                                              ),
                                                             );
                                                           },
                                                     style: Theme.of(context)
@@ -151,7 +167,16 @@ class PackagesAvailableForDeliveryScreen extends StatelessWidget {
                                                     const Color(0xffF45050)
                                                         .withOpacity(0.1),
                                                 textColor: TravaColors.red,
-                                                onTap: () {},
+                                                onTap: () {
+                                                  snapshot.data!.data!
+                                                      .removeWhere((element) =>
+                                                          element.sId ==
+                                                          package.sId);
+
+                                                  model.updateAvailablePackages =
+                                                      Future.value(
+                                                          snapshot.data!);
+                                                },
                                                 text: 'Ignore',
                                               ),
                                               SizedBox(width: 30.w),
@@ -161,16 +186,37 @@ class PackagesAvailableForDeliveryScreen extends StatelessWidget {
                                                         .colorScheme
                                                         .primary,
                                                 textColor: Colors.white,
-                                                onTap: () {
-                                                  showNotificationBottomSheet(
+                                                onTap: () async {
+                                                  final result =
+                                                      await formSubmitDialog(
+                                                    context: context,
+                                                    future: model.acceptPackage(
+                                                      package.sId!,
+                                                    ),
+                                                    prompt:
+                                                        "Please wait while we accept your package...",
+                                                  );
+
+                                                  if (result != null) {
+                                                    showNotificationBottomSheet(
                                                       context,
                                                       popContext: false,
+                                                      onTap: () {
+                                                        Navigator
+                                                            .pushReplacementNamed(
+                                                          context,
+                                                          PackagesToPickUpScreen
+                                                              .routeName,
+                                                        );
+                                                      },
                                                       title: "Success!",
                                                       message:
-                                                          "You’ve successfully accepted to deliver Package (234). Please don’t forget to pick it up at DHL Hub, Akure, Ondo State within the hours of 9am-6pm on 27-03-2021 ",
+                                                          "You’ve successfully accepted to deliver Package (${package.deliveryCode}). Please don’t forget to pick it up at ${package.pickupLocation} on ${TravaFormatter.formatDateShort(package.pickupTime ?? DateTime.now().toString())} ",
                                                       gif:
                                                           "assets/images/congratulation_icon.gif",
-                                                      buttonLabel: "Okay");
+                                                      buttonLabel: "Okay",
+                                                    );
+                                                  }
                                                 },
                                                 text: "I’ll deliver package",
                                               ),

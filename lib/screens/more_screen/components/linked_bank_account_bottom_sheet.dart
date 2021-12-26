@@ -83,11 +83,15 @@ class _BankAccountsBottomSheetState extends State<BankAccountsBottomSheet> {
                     if (groupValue == "$index") {
                       groupValue = null;
                     }
-                    await formSubmitDialog(
+                    final result = await formSubmitDialog(
                         context: context,
                         prompt: "Removing bank, please wait...",
-                        future:
-                            model.deleteBank("${data.user!.cards![index]}"));
+                        future: model
+                            .deleteBank("${data.user!.banks![index].bankId}"));
+
+                    if (result != null) {
+                      model.status.value = Future.value(result);
+                    }
                   },
                 );
               },

@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:trava/components/fragments/state/avatar_sheet.dart';
 import 'package:trava/models/https/hubs/hubs.dart';
@@ -11,6 +13,7 @@ import 'package:trava/models/https/payment/top_up.dart';
 import 'package:trava/models/https/payment/top_up_wallet_response.dart';
 import 'package:trava/models/https/payment/tranaction_history.dart';
 import 'package:trava/models/https/request/availabale_packages.dart';
+import 'package:trava/models/https/request/cancel_delivery_response.dart';
 import 'package:trava/models/https/request/delivered_response.dart';
 import 'package:trava/models/https/request/items_to_pick_up_response.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
@@ -19,6 +22,7 @@ import 'package:trava/models/https/request/send_package_request.dart';
 import 'package:trava/models/https/request/send_package_response.dart';
 import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/models/https/request/tbd_response.dart';
+import 'package:trava/models/https/users/notifications.dart';
 import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/models/podos/send_package_controllers.dart';
@@ -31,6 +35,7 @@ import 'package:trava/services/http/request/request_http_service.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/utils/county_list.dart';
 import 'package:trava/utils/image_utils.dart';
+import 'package:trava/utils/intl_formatter.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/snacks.dart';
 import 'package:trava/utils/token_manager.dart';
@@ -39,6 +44,8 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class AuthState extends ChangeNotifier {
   static AuthState? _instance;
+
+  String packageId = "";
   static AuthState get instance {
     _instance ??= AuthState();
     return _instance!;
@@ -55,6 +62,10 @@ class AuthState extends ChangeNotifier {
   final RequestHttpService _requestHttp = RequestHttpService();
 
   final ValueNotifier<Future<ProfileData?>?> _profileStatus =
+      ValueNotifier(null);
+  final ValueNotifier<LatLng> positions =
+      ValueNotifier(LatLng(8.376736, 3.939786));
+  final ValueNotifier<Future<Notifications?>?> _notifications =
       ValueNotifier(null);
   final ValueNotifier<Future<AvailablePackages?>?> _availablePackages =
       ValueNotifier(null);
@@ -117,7 +128,19 @@ class AuthState extends ChangeNotifier {
         socket!.onError((data) => log("socket error -- $data"));
         socket!.onConnecting((data) => log("socket onConnecting -- $data"));
         socket!.onReconnectError((data) => log("socket $data"));
-        socket!.on("new location", (data) => null);
+        socket!.on(
+          "send location",
+          (msg) {
+            positions.value = LatLng(
+              double.parse("${msg["latitude"]}"),
+              double.parse("${msg["longitude"]}"),
+            );
+          },
+        );
+        socket!.on("new location", (data) {
+          log("sending new location $packageId tyi");
+          socket!.emit("get location", {"packageId": packageId});
+        });
       });
     }
   }
@@ -142,10 +165,10 @@ class AuthState extends ChangeNotifier {
       _permissionGranted = await location.requestPermission();
       if (_permissionGranted == PermissionStatus.granted ||
           _permissionGranted == PermissionStatus.grantedLimited) {
-        log("bam bammmm");
+        // log("bam bammmm");
         location.onLocationChanged.listen(
           (LocationData currentLocation) {
-            log("sleepy time--- ${currentLocation.latitude} ${currentLocation.longitude}");
+            // log("sleepy time--- ${currentLocation.latitude} ${currentLocation.longitude}");
             socket!.emit(
               "set location",
               {
@@ -166,7 +189,7 @@ class AuthState extends ChangeNotifier {
       log("bam bammmm");
       location.onLocationChanged.listen(
         (LocationData currentLocation) {
-          log("sleepy time--- ${currentLocation.latitude} ${currentLocation.longitude}");
+          // log("sleepy time--- ${currentLocation.latitude} ${currentLocation.longitude}");
           socket!.emit(
             "set location",
             {
@@ -180,18 +203,6 @@ class AuthState extends ChangeNotifier {
 
       location.enableBackgroundMode(enable: true);
     }
-  }
-
-  setNewLoc(String packageId) {
-    socket!.emit("get location", (msg) {
-      log("new data ---- $msg");
-    });
-  }
-
-  getNewLoc(String packageId) {
-    socket!.on("send location", (msg) {
-      log("new data ---- $msg");
-    });
   }
 
   ValueNotifier<File?> get image => _image;
@@ -417,9 +428,17 @@ class AuthState extends ChangeNotifier {
 
 // availablepacaes
   ValueNotifier<Future<AvailablePackages?>?> get availablePackages {
-    _availablePackages.value = getAvailablePackages();
+    if (_availablePackages.value != null) {
+      return _availablePackages;
+    } else {
+      _availablePackages.value = getAvailablePackages();
+    }
 
     return _availablePackages;
+  }
+
+  set updateAvailablePackages(Future<AvailablePackages?> value) {
+    _availablePackages.value = value;
   }
 
   Future<AvailablePackages?> getAvailablePackages() async {
@@ -450,6 +469,20 @@ class AuthState extends ChangeNotifier {
     return data;
   }
 
+  ValueNotifier<Future<Notifications?>?> get notifications {
+    _notifications.value = getNotifications();
+
+    return _notifications;
+  }
+
+  Future<Notifications?> getNotifications() async {
+    return await getNotificationsFromOnline();
+  }
+
+  Future<Notifications> getNotificationsFromOnline() async {
+    return await _http.notifications();
+  }
+
   logout(BuildContext context) async {
     clearOut();
     await Navigator.pushNamedAndRemoveUntil(
@@ -471,7 +504,7 @@ class AuthState extends ChangeNotifier {
     );
 
     if (doRoute != null) {
-      Navigator.pushNamed(
+      Navigator.pushReplacementNamed(
         context,
         PackagesAvailableForDeliveryScreen.routeName,
       );
@@ -553,7 +586,8 @@ class AuthState extends ChangeNotifier {
     );
   }
 
-  addBankAccount(String bankName, String accountNumber, String accountName) {
+  Future<ProfileData> addBankAccount(
+      String bankName, String accountNumber, String accountName) {
     return _http.addBank(bankName, accountNumber, accountName);
   }
 
@@ -571,7 +605,8 @@ class AuthState extends ChangeNotifier {
 
   Future<SendPackageResponse> sendPackage(SendControllers element) async {
     SendPackageRequest data = SendPackageRequest(
-      deliveryDate: element.leaveDate.text,
+      deliveryDate:
+          "${TravaFormatter.formatDateNormalForSend(element.leaveDate.text)}",
       deliveryHub: element.preferredHub.text,
       destState: element.destinationState.text,
       description: element.packageDescription.text,
@@ -585,11 +620,20 @@ class AuthState extends ChangeNotifier {
       type: element.weightLevel.text,
       sendTown: element.departureTown.text,
       deliveryMode: element.transportMode.text,
-      pickupTime: element.leaveTime.text,
+      pickupTime:
+          "${TravaFormatter.formatDateNormalForSend(element.leaveTime.text)}",
     );
 
     log("send package --- ${data.toJson()}");
 
     return await _requestHttp.sendPackage(data);
+  }
+
+  Future<CancelDeliveryResponse> turnOffDeliveryRequest() async {
+    return _requestHttp.cancelRequest();
+  }
+
+  Future<PickAPackageResponse> acceptPackage(String sId) {
+    return _requestHttp.pickAPackage(sId);
   }
 }

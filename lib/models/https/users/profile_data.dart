@@ -32,7 +32,7 @@ class User {
   String? phone;
   String? profileImg;
   String? password;
-  List<Packages>? packages;
+  List? packages;
   List? deliveries;
   num? wallet;
   String? joinDate;
@@ -79,7 +79,7 @@ class User {
     if (json['packages'] != null) {
       packages = [];
       json['packages'].forEach((v) {
-        packages!.add(Packages.fromJson(v));
+        (v is String) ? packages!.add(v) : packages!.add(Packages.fromJson(v));
       });
     }
     if (json['deliveries'] != null) {

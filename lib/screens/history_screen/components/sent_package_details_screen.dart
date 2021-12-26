@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:trava/screens/history_screen/components/track_package_screen.dart';
+import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/package_details_view.dart';
@@ -17,6 +19,7 @@ class SentPackageDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // List packageList = arguments;
+    final model = context.watch<AuthState>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -43,6 +46,7 @@ class SentPackageDetailsScreen extends StatelessWidget {
                 isActive: true,
                 buttonLabel: "Track package",
                 onTap: () {
+                  model.packageId = arguments.sId ?? "";
                   Navigator.pushNamed(
                     context,
                     TrackPackageScreen.routeName,

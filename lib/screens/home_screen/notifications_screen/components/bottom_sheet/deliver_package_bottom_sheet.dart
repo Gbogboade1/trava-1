@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:trava/models/enums/is_bloody.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/screens/home_screen/notifications_screen/components/notification_button.dart';
+import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
+import 'package:trava/utils/intl_formatter.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/widgets/package_details_view.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
+import 'package:trava/state/profile/auth_state.dart';
 
 class DeliverPackageBottomSheet extends StatelessWidget {
-  const DeliverPackageBottomSheet({
+  const DeliverPackageBottomSheet(
+    this.package, {
     Key? key,
   }) : super(key: key);
 
+  final Data package;
+
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AuthState>();
     return SingleChildScrollView(
       child: SizedBox(
         height: 718.h,
@@ -52,7 +61,8 @@ class DeliverPackageBottomSheet extends StatelessWidget {
                   children: [
                     Expanded(
                         child: PackageDetailsView(
-                      package: Data(),
+                      package: package,
+                      bloody: isBloody.yellow,
                     )),
                     SizedBox(height: 40.h),
                     Row(
@@ -61,7 +71,15 @@ class DeliverPackageBottomSheet extends StatelessWidget {
                           backgroundColor:
                               const Color(0xffF45050).withOpacity(0.1),
                           textColor: TravaColors.red,
-                          onTap: () {},
+                          onTap: () {
+                            model.availablePackages.value!.then((value) {
+                              value!.data!.removeWhere(
+                                  (element) => element.sId == package.sId);
+
+                              model.updateAvailablePackages =
+                                  Future.value(value);
+                            });
+                          },
                           text: 'Ignore',
                         ),
                         SizedBox(width: 30.w),
@@ -71,12 +89,31 @@ class DeliverPackageBottomSheet extends StatelessWidget {
                           textColor: Colors.white,
                           onTap: () {
                             Navigator.pop(context);
-                            showNotificationBottomSheet(
-                              context,
-                              title: "Success!",
-                              message:
-                                  "You’ve successfully accepted to deliver Package (234). You’ll be notified at intervals before pickup time. You can also check the More Tab to keep track of items you need to pickup.",
+
+                            final result = formSubmitDialog(
+                              context: context,
+                              future: model.acceptPackage(package.sId!),
+                              prompt:
+                                  "Please wait while we accept your package...",
                             );
+
+                            if (result != null) {
+                              showNotificationBottomSheet(
+                                context,
+                                popContext: false,
+                                onTap: () {
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    PackagesToPickUpScreen.routeName,
+                                  );
+                                },
+                                title: "Success!",
+                                message:
+                                    "You’ve successfully accepted to deliver Package (${package.deliveryCode}). Please don’t forget to pick it up at ${package.pickupLocation} on ${TravaFormatter.formatDateShort(package.pickupTime ?? DateTime.now().toString())} ",
+                                gif: "assets/images/congratulation_icon.gif",
+                                buttonLabel: "Okay",
+                              );
+                            }
                           },
                           text: "I’ll deliver package",
                         ),

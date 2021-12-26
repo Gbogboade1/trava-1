@@ -58,7 +58,7 @@ class MoreScreen extends StatelessWidget {
                           context, PackagesToPickUpScreen.routeName);
                     },
                   ),
-                  (data?.user?.hubs?.isEmpty ?? false)
+                  (data?.user?.hubs?.isNotEmpty ?? false)
                       ? MoreListTile(
                           title: "Inventory",
                           onTap: () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/enums/is_bloody.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/widgets/package_details_view.dart';
@@ -34,6 +35,7 @@ class ToBeDeliveredPackageDetailsScreen extends StatelessWidget {
               Expanded(
                 child: PackageDetailsView(
                   package: arguments,
+                  bloody: isBloody.lightGreen,
                 ),
               ),
             ],

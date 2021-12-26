@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +9,7 @@ import 'package:trava/components/fragments/spacers/text_styles.dart';
 import 'package:trava/components/fragments/state/app_error_state.dart';
 import 'package:trava/models/https/request/items_to_pick_up_response.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
+import 'package:trava/screens/more_screen/components/pick_up_details_bottom_sheet.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/utils/helpers.dart';
@@ -86,14 +88,46 @@ class PackagesToPickUpScreen extends StatelessWidget {
                                   ),
                                   SizedBox(width: 17.w),
                                   Flexible(
-                                    child: Text(
-                                      "You’re to pickup Package (${element.deliveryCode}) to be delivered at ${element.deliveryHub}, ${element.destTown}, ${element.destState} State  on ${TravaFormatter.formatDate(element.deliveryDate ?? DateTime.now().toString())}. by  ${TravaFormatter.formatTime(element.deliveryDate ?? DateTime.now().toString())} today. pickup code is ${element.pickupCode}.",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                            color: const Color(0xff171718),
+                                    child: RichText(
+                                      text: TextSpan(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                              color: const Color(0xff171718),
+                                            ),
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                "You’re to pickup Package (${element.deliveryCode}) to be delivered at ${element.deliveryHub}, ${element.destTown}, ${element.destState} State  on ${TravaFormatter.formatDate(element.deliveryDate ?? DateTime.now().toString())}. by  ${TravaFormatter.formatTime(element.deliveryDate ?? DateTime.now().toString())} today. pickup code is ${element.pickupCode}.",
                                           ),
+                                          TextSpan(
+                                            text: "See Package Details",
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () async {
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      PickUpDetailsBottomSheet(
+                                                    element,
+                                                  ),
+                                                );
+                                              },
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline4!
+                                                .copyWith(
+                                                  color:
+                                                      const Color(0xff171718),
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ]),

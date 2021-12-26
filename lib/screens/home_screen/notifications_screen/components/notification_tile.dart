@@ -99,32 +99,32 @@ class GoingYourWayNotificationTile extends StatelessWidget {
                         ),
                   ),
                 ),
-                SizedBox(height: 16.h),
-                Row(
-                  children: [
-                    NotificationButton(
-                      backgroundColor: const Color(0xffF45050).withOpacity(0.1),
-                      textColor: TravaColors.red,
-                      onTap: () {},
-                      text: 'Ignore',
-                    ),
-                    SizedBox(width: 30.w),
-                    NotificationButton(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      textColor: Colors.white,
-                      onTap: () {
-                        showModalBottomSheet(
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          context: context,
-                          builder: (context) =>
-                              const DeliverPackageBottomSheet(),
-                        );
-                      },
-                      text: "I’ll deliver package",
-                    ),
-                  ],
-                ),
+                SizedBox(height: 2.h),
+                // Row(
+                //   children: [
+                //     NotificationButton(
+                //       backgroundColor: const Color(0xffF45050).withOpacity(0.1),
+                //       textColor: TravaColors.red,
+                //       onTap: () {},
+                //       text: 'Ignore',
+                //     ),
+                //     SizedBox(width: 30.w),
+                //     NotificationButton(
+                //       backgroundColor: Theme.of(context).colorScheme.primary,
+                //       textColor: Colors.white,
+                //       onTap: () {
+                //         showModalBottomSheet(
+                //           isScrollControlled: true,
+                //           backgroundColor: Colors.transparent,
+                //           context: context,
+                //           builder: (context) =>
+                //               const DeliverPackageBottomSheet(),
+                //         );
+                //       },
+                //       text: "I’ll deliver package",
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),
@@ -159,32 +159,32 @@ class ReadyToPickUpNotificationTile extends StatelessWidget {
                       ),
                 ),
                 SizedBox(height: 16.h),
-                InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (context) =>
-                          const ReadyToPickUpPackageBottomSheet(),
-                    );
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 8.h),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40.0),
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Pay (₦1,570)",
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                              color: Colors.white,
-                            ),
-                      ),
-                    ),
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {
+                //     showModalBottomSheet(
+                //       isScrollControlled: true,
+                //       backgroundColor: Colors.transparent,
+                //       context: context,
+                //       builder: (context) =>
+                //           const ReadyToPickUpPackageBottomSheet(),
+                //     );
+                //   },
+                //   child: Container(
+                //     padding: EdgeInsets.symmetric(vertical: 8.h),
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(40.0),
+                //       color: Theme.of(context).colorScheme.primary,
+                //     ),
+                //     child: Center(
+                //       child: Text(
+                //         "Pay (₦1,570)",
+                //         style: Theme.of(context).textTheme.headline4!.copyWith(
+                //               color: Colors.white,
+                //             ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

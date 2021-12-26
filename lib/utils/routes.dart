@@ -7,6 +7,7 @@ import 'package:trava/screens/forget_password_screen/new_password_screen.dart';
 import 'package:trava/screens/forget_password_screen/reset_code_screen.dart';
 import 'package:trava/screens/history_screen/components/delivered_package_details_screen.dart';
 import 'package:trava/screens/history_screen/components/sent_package_details_screen.dart';
+import 'package:trava/screens/history_screen/components/to_be_delivered_package_details_screen.dart';
 import 'package:trava/screens/history_screen/components/track_package_screen.dart';
 import 'package:trava/screens/home_screen/fund_wallet_screen/fund_wallet_screen.dart';
 import 'package:trava/screens/home_screen/notifications_screen/notifications_screen.dart';
@@ -77,6 +78,14 @@ Route<dynamic> dynamicRoutes(RouteSettings settings) {
           return SentPackageDetailsScreen(settings.arguments as Data);
         },
       );
+    case ToBeDeliveredPackageDetailsScreen.routeName:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) {
+          return ToBeDeliveredPackageDetailsScreen(settings.arguments as Data);
+        },
+      );
+//
     case DeliveredPackageDetailsScreen.routeName:
       return MaterialPageRoute(
         settings: settings,

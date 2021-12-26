@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/enums/is_bloody.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/utils/intl_formatter.dart';
@@ -8,8 +9,10 @@ class PackageDetailsView extends StatelessWidget {
   const PackageDetailsView({
     Key? key,
     required this.package,
+    this.bloody = isBloody.red,
   }) : super(key: key);
   final Data package;
+  final isBloody bloody;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,7 +28,13 @@ class PackageDetailsView extends StatelessWidget {
                   text:
                       "(${TravaFormatter.formatCurrency('${package.amount}')})",
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: TravaColors.red,
+                        color: bloody == isBloody.red
+                            ? TravaColors.red
+                            : bloody == isBloody.lightGreen
+                                ? TravaColors.greenLight
+                                : bloody == isBloody.yellow
+                                    ? TravaColors.yellowDark
+                                    : TravaColors.green,
                       ),
                 ),
               ],
@@ -149,10 +158,9 @@ class PackageDetails extends StatelessWidget {
                 title: "Pickup Time:",
                 value: TravaFormatter.formatTime("${package.pickupTime}"),
               ),
-            ),],
-          ),
-         
-        
+            ),
+          ],
+        ),
         SizedBox(height: 16.h),
         Row(
           children: [

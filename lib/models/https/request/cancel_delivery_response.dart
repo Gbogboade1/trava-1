@@ -37,7 +37,7 @@ class Data {
   String? password;
   List<String>? packages;
   List? deliveries;
-  int? wallet;
+  num? wallet;
   String? joinDate;
   List? banks;
   List? cards;

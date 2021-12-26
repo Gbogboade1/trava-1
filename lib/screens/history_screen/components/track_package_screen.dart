@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:async';
+import 'package:geocoding/geocoding.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,30 +25,29 @@ class _TrackPackageScreenState extends State<TrackPackageScreen> {
   late BitmapDescriptor customIcon;
   static const _initialCameraPosition =
       CameraPosition(target: LatLng(8.376736, 3.939786), zoom: 17.0);
+  final Completer<GoogleMapController> _controller = Completer();
 
+  String address = "";
   @override
   initState() {
     super.initState();
 
     BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(
-        devicePixelRatio: 2.5,
-        size: Size(
-          50,
-          50,
-        ),
+        devicePixelRatio: 1.5,
+        size: Size(10, 10),
       ),
-      'assets/images/baggage.svg',
+      'assets/images/driving_pin.png',
     ).then((d) {
       customIcon = d;
       _markers.add(
         Marker(
-          markerId: MarkerId(
-            _initialCameraPosition.toString(),
+          markerId: const MarkerId(
+            'sourcePin',
           ),
           position: _initialCameraPosition.target,
           // infoWindow: InfoWindow(title: address, snippet: "go here"),
-          icon: customIcon,
+          icon: d,
         ),
       );
       if (mounted) setState(() {});
@@ -55,117 +57,165 @@ class _TrackPackageScreenState extends State<TrackPackageScreen> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AuthState>();
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(24.0.w),
-              child: Row(
-                children: [
-                  const CustomBackButton(),
-                  const Spacer(),
-                  Text("Track Package",
-                      style: Theme.of(context).textTheme.headline2),
-                  const Spacer()
-                ],
-              ),
-            ),
-            Expanded(
-              child: GoogleMap(
-                myLocationEnabled: false,
-                markers: _markers,
-                mapToolbarEnabled: true,
-                zoomControlsEnabled: !false,
-                initialCameraPosition: _initialCameraPosition,
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomSheet: Container(
-        // height: 200,
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 26.w, vertical: 24.h),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(30),
-          ),
-          color: TravaColors.white,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Package ${widget.package.deliveryCode} Tracking Details ",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline2!
-                  .copyWith(fontSize: 14.sp),
-            ),
-            SizedBox(height: 17.h),
-            Row(
+    return ValueListenableBuilder<LatLng>(
+      valueListenable: model.positions,
+      builder: (context, position, child) {
+        updatePinOnMap(position);
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
               children: [
-                const Icon(Icons.my_location_outlined,
-                    color: Color(0xff1A1AF2)),
-                SizedBox(width: 20.w),
+                Padding(
+                  padding: EdgeInsets.all(24.0.w),
+                  child: Row(
+                    children: [
+                      const CustomBackButton(),
+                      const Spacer(),
+                      Text("Track Package",
+                          style: Theme.of(context).textTheme.headline2),
+                      const Spacer()
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: GoogleMap(
+                    myLocationEnabled: false,
+                    markers: _markers,
+                    mapToolbarEnabled: true,
+                    zoomControlsEnabled: !false,
+                    onMapCreated: (controller) {
+                      _controller.complete(controller);
+                      showPinsOnMap(position);
+                    },
+                    initialCameraPosition: _initialCameraPosition,
+                  ),
+                )
+              ],
+            ),
+          ),
+          bottomSheet: Container(
+            // height: 200,
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 26.w, vertical: 24.h),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(30),
+              ),
+              color: TravaColors.white,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
                 Text(
-                  "${widget.package.sendTown}, ${widget.package.sendState} State",
+                  "Package ${widget.package.deliveryCode} Tracking Details ",
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
-                      .copyWith(color: TravaColors.black),
+                      .headline2!
+                      .copyWith(fontSize: 14.sp),
                 ),
-              ],
-            ),
-            Container(
-                margin: EdgeInsets.only(left: 11.w),
-                height: 40.h,
-                decoration: DottedDecoration(
-                  shape: Shape.line,
-                  linePosition: LinePosition.left,
-                )),
-            Row(
-              children: [
-                const Icon(Icons.local_taxi_sharp, color: Color(0xffFFD80B)),
-                SizedBox(width: 20.w),
-                Flexible(
-                  child: Text(
-                    "Ife, Osun State (2 hours out to delivery location)",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(color: TravaColors.black),
+                SizedBox(height: 17.h),
+                Row(
+                  children: [
+                    const Icon(Icons.my_location_outlined,
+                        color: Color(0xff1A1AF2)),
+                    SizedBox(width: 20.w),
+                    Text(
+                      "${widget.package.sendTown}, ${widget.package.sendState} State",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(color: TravaColors.black),
+                    ),
+                  ],
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: 11.w),
+                    height: 40.h,
+                    decoration: DottedDecoration(
+                      shape: Shape.line,
+                      linePosition: LinePosition.left,
+                    )),
+                Row(
+                  children: [
+                    const Icon(Icons.local_taxi_sharp,
+                        color: Color(0xffFFD80B)),
+                    SizedBox(width: 20.w),
+                    Flexible(
+                      child: Text(
+                        address,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(color: TravaColors.black),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 11.w),
+                  height: 40.h,
+                  decoration: DottedDecoration(
+                    shape: Shape.line,
+                    linePosition: LinePosition.left,
                   ),
                 ),
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 11.w),
-              height: 40.h,
-              decoration: DottedDecoration(
-                shape: Shape.line,
-                linePosition: LinePosition.left,
-              ),
-            ),
-            Row(
-              children: [
-                const Icon(Icons.location_on, color: Color(0xff06B248)),
-                SizedBox(width: 20.w),
-                Flexible(
-                  child: Text(
-                    "${widget.package.destTown}, ${widget.package.destState} State",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(color: TravaColors.black),
-                  ),
+                Row(
+                  children: [
+                    const Icon(Icons.location_on, color: Color(0xff06B248)),
+                    SizedBox(width: 20.w),
+                    Flexible(
+                      child: Text(
+                        "${widget.package.destTown}, ${widget.package.destState} State",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(color: TravaColors.black),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
+  }
+
+  void showPinsOnMap(LatLng pinPosition) {
+    _markers.add(Marker(
+      markerId: MarkerId('sourcePin'),
+      position: pinPosition,
+      icon: customIcon,
+    ));
+  }
+
+  void updatePinOnMap(LatLng pinPosition) async {
+    CameraPosition cPosition = CameraPosition(
+      zoom: 17.0,
+      bearing: 30,
+      target: pinPosition,
+    );
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(cPosition));
+
+    List<Placemark> result = await placemarkFromCoordinates(
+        pinPosition.latitude, pinPosition.longitude);
+
+    address = result.first.locality ??
+        result.first.subLocality ??
+        result.first.thoroughfare ??
+        result.first.subThoroughfare ??
+        "";
+    setState(() {
+      _markers.removeWhere((m) => m.markerId.value == 'sourcePin');
+      _markers.add(
+        Marker(
+          markerId: MarkerId('sourcePin'),
+          position: pinPosition,
+          icon: customIcon,
+        ),
+      );
+    });
   }
 }

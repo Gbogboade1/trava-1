@@ -1,8 +1,15 @@
 import 'dart:math';
+import 'dart:developer' as d;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/src/provider.dart';
+import 'package:trava/components/fragments/indicators/app_loader.dart';
+import 'package:trava/components/fragments/state/app_error_state.dart';
+import 'package:trava/models/https/users/notifications.dart';
 import 'package:trava/screens/home_screen/notifications_screen/components/notification_tile.dart';
+import 'package:trava/state/profile/auth_state.dart';
+import 'package:trava/utils/helpers.dart';
 import 'package:trava/widgets/buttons/back_button.dart';
 
 enum NotificationType {
@@ -22,6 +29,7 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AuthState>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -52,27 +60,49 @@ class NotificationsScreen extends StatelessWidget {
               ),
               SizedBox(height: 8.h),
               Expanded(
-                child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    NotificationType notificationType = NotificationType.values[
-                        Random().nextInt(NotificationType.values.length)];
-                    switch (notificationType) {
-                      case NotificationType.funded:
-                        return const FundedNotificationTile();
-                      case NotificationType.paid:
-                        return const PaidNotificationTile();
-                      case NotificationType.goingYourWay:
-                        return const GoingYourWayNotificationTile();
-                      case NotificationType.readyToPickup:
-                        return const ReadyToPickUpNotificationTile();
-                      default:
-                        return const FundedNotificationTile();
-                    }
+                child: ValueListenableBuilder<Future<Notifications?>?>(
+                    valueListenable: model.notifications,
+                    builder: (context, data, ___) {
+                      return FutureBuilder<Notifications>(
+                          future: null,
+                          builder: (context, task) {
+                            if (task.connectionState ==
+                                    ConnectionState.waiting &&
+                                task.data == null) return const Apploader();
+                            if (task.hasError && task.data == null) {
+                              return TravaErrorState(
+                                errorMessage: parseError(
+                                  task.error,
+                                  "We could not fetch profile",
+                                ),
+                                onRetry: () {},
+                              );
+                            }
+                            d.log("tyu --${task.data?.user?.length ?? '9'}");
+                            return ListView.builder(
+                              itemCount: task.data?.user?.length ?? 0,
+                              itemBuilder: (context, index) {
+                                NotificationType notificationType =
+                                    NotificationType.values[Random().nextInt(
+                                        NotificationType.values.length)];
+                                switch (notificationType) {
+                                  case NotificationType.funded:
+                                    return const FundedNotificationTile();
+                                  case NotificationType.paid:
+                                    return const PaidNotificationTile();
+                                  case NotificationType.goingYourWay:
+                                    return const GoingYourWayNotificationTile();
+                                  case NotificationType.readyToPickup:
+                                    return const ReadyToPickUpNotificationTile();
+                                  default:
+                                    return const FundedNotificationTile();
+                                }
 
-                    //  return const PaidNotificationTile();
-                  },
-                ),
+                                //  return const PaidNotificationTile();
+                              },
+                            );
+                          });
+                    }),
               )
             ],
           ),

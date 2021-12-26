@@ -65,6 +65,7 @@ class TravaColors {
   static const Color greenPale = Color(0xFFDEFFEC);
   static const Color greenPaleDark = Color(0xFFB9FFD7);
   static const Color greenDark = Color(0xFF219653);
+  static const Color greenLight = Color(0xFF7DE0A8);
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF171718);
   static const Color divider = Color(0xFFDADADA);

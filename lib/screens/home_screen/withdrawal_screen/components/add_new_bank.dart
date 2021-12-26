@@ -165,6 +165,8 @@ class _AddNewBankBottomSheetState extends State<AddNewBankBottomSheet> {
                                   prompt: "Adding banking details",
                                 );
                                 if (request != null) {
+                                  model.status.value = Future.value(request);
+
                                   showNotificationBottomSheet(
                                     context,
                                     title: "Account Added Successfully!",

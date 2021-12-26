@@ -190,6 +190,7 @@ class RegisterHubScreen extends HookWidget {
                       prompt: "Registering your hub.");
 
                   if (register != null) {
+                    model.status.value = null;
                     showNotificationBottomSheet(
                       context,
                       title: "Hub Successful Registered",

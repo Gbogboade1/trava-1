@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:trava/models/https/users/notifications.dart';
 import 'package:trava/models/https/users/otp_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/models/https/users/profile_update_request.dart';
@@ -40,7 +41,7 @@ class AuthHttpService extends HttpService {
     }
   }
 
-  Future<SignUpResponse> addBank(
+  Future<ProfileData> addBank(
       String bankname, String accountNumber, String accountName) async {
     try {
       final req = await http.post(
@@ -53,7 +54,7 @@ class AuthHttpService extends HttpService {
       );
       // final data =
 
-      return SignUpResponse.fromJson(req.data);
+      return ProfileData.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,
@@ -247,6 +248,23 @@ class AuthHttpService extends HttpService {
       };
     }
   }
+
+  Future<Notifications> notifications() async {
+    try {
+      final req = await http.get(
+        "/notifications",
+      );
+      return Notifications.fromJson(req.data);
+
+      // final data =
+
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
 }
 // 
-// 
+// /

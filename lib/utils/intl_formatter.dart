@@ -82,6 +82,10 @@ class TravaFormatter {
     return formatString(date, format: ('dd, MMMM yyyy'));
   }
 
+  static DateTime formatDateNormalForSend(String date) {
+    return formatString(date, format: ('yyyy-MM-ddTH:mm:s'));
+  }
+
   static String capitalise(String text) {
     try {
       if (text.isEmpty) {

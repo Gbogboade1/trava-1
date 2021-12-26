@@ -2,9 +2,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:trava/components/hooks/profile_data_listening_widget.dart';
 import 'package:trava/models/https/users/profile_update_request.dart';
 import 'package:trava/services/http/auth/auth_http_service.dart';
+import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/validators.dart';
@@ -20,6 +22,7 @@ class EditProfileBottomSheet extends HookWidget {
   static final GlobalKey<FormState> _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AuthState>();
     final emailController = useTextEditingController();
     final firstNameController = useTextEditingController();
     final lastNameController = useTextEditingController();
@@ -117,6 +120,7 @@ class EditProfileBottomSheet extends HookWidget {
                       prompt: "Kindly wait while we update your profile",
                     );
                     if (changePassword != null) {
+                      model.status.value = Future.value(changePassword);
                       showNotificationBottomSheet(context,
                           title: "Profile updated!");
                     }

@@ -15,36 +15,7 @@ class PickedUpDetailsView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: packageList.length <= 1
-              ? const VerifyPickUpDetails()
-              : ListView.builder(
-                  itemCount: packageList.length,
-                  itemBuilder: (context, index) {
-                    String packageRank = () {
-                      switch (index) {
-                        case 0:
-                          return "1st";
-                        case 1:
-                          return "2nd";
-                        case 2:
-                          return "3rd";
-                        default:
-                          return "${index + 1}th";
-                      }
-                    }();
-                    return ExpansionTile(
-                      maintainState: true,
-                      initiallyExpanded:
-                          packageList[index] == packageList.last ? true : false,
-                      title: Text("$packageRank Package Details"),
-                      children: const [
-                        VerifyPickUpDetails(),
-                      ],
-                    );
-                  },
-                ),
-        ),
+        Expanded(child: VerifyPickUpDetails()),
       ],
     );
   }

@@ -136,6 +136,7 @@ Future showNotificationBottomSheet(BuildContext context,
     {String? title,
     String? message,
     String gif = "assets/images/success.gif",
+    Function? onTap,
     bool popContext = true,
     String buttonLabel = "Thank You"}) {
   if (popContext) Navigator.pop(context);
@@ -188,6 +189,7 @@ Future showNotificationBottomSheet(BuildContext context,
                 buttonLabel: buttonLabel,
                 onTap: () {
                   Navigator.pop(context);
+                  onTap ?? () {};
                 },
               )
             ],
@@ -235,7 +237,8 @@ Future<dynamic> showAreYouSureBottomSheet(BuildContext context,
                   children: [
                     Expanded(
                       child: TravaOutlinedButton(
-                          buttonLabel: "No", onTap: onNoTap),
+                          buttonLabel: "No",
+                          onTap: onNoTap ?? () => Navigator.pop(context)),
                     ),
                     SizedBox(width: 56.w),
                     Expanded(
