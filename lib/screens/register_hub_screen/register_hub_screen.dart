@@ -83,7 +83,7 @@ class RegisterHubScreen extends HookWidget {
                     .copyWith(color: kGray1),
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: "A short information of your hub",
+                  hintText: "eg. 22 Gberikoko opposite ondo fuel station",
                   hintStyle: TextStyle(
                       color: const Color(0xff828282),
                       fontSize: 12.sp,

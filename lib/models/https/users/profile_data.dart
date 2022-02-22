@@ -37,7 +37,7 @@ class User {
   num? wallet;
   String? joinDate;
   List<Banks>? banks;
-  List? cards;
+  List<Cards>? cards;
   String? createdAt;
   String? updatedAt;
   int? iV;
@@ -99,7 +99,7 @@ class User {
     if (json['cards'] != null) {
       cards = [];
       json['cards'].forEach((v) {
-        cards!.add((v));
+        cards!.add(Cards.fromJson(v));
       });
     }
     createdAt = json['createdAt'];
@@ -369,6 +369,43 @@ class Request {
     data['travelTime'] = travelTime;
     data['packageType'] = packageType;
     data['transportMode'] = transportMode;
+    return data;
+  }
+}
+
+class Cards {
+  String? sId;
+  String? brand;
+  String? last4;
+  int? expyear;
+  int? expmonth;
+  String? token;
+
+  Cards(
+      {this.sId,
+      this.brand,
+      this.last4,
+      this.expyear,
+      this.expmonth,
+      this.token});
+
+  Cards.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    brand = json['brand'];
+    last4 = json['last4'];
+    expyear = json['expyear'];
+    expmonth = json['expmonth'];
+    token = json['token'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['brand'] = this.brand;
+    data['last4'] = this.last4;
+    data['expyear'] = this.expyear;
+    data['expmonth'] = this.expmonth;
+    data['token'] = this.token;
     return data;
   }
 }

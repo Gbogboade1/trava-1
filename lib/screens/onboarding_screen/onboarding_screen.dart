@@ -93,7 +93,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             () {
                               switch (index) {
                                 case 0:
-                                  return "Send packages to anyone in any city and state within 24 hours and half the cost of shipping through logistics companies.";
+                                  return "Send packages to anyone in any city and state within 24 hours and half the cost of shipping through logistic companies.";
                                 case 1:
                                   return 'Pick up packages to deliver at your traveling destination and earn while at it.';
                                 case 2:

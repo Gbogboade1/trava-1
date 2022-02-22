@@ -9,18 +9,18 @@ class TopUpWalletResponse {
   TopUpWalletResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
     token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['token'] = this.token;
+    data['token'] = token;
     return data;
   }
 }
@@ -134,23 +134,26 @@ class Meta {
   String? userId;
   String? fullname;
   String? email;
-  String? paymentId;
+  String? transactionId;
+  String? allow;
 
-  Meta({this.userId, this.fullname, this.email, this.paymentId});
+  Meta({this.userId, this.fullname, this.email, this.transactionId});
 
   Meta.fromJson(Map<String, dynamic> json) {
     userId = json['userId'];
     fullname = json['fullname'];
     email = json['email'];
-    paymentId = json['paymentId'];
+    transactionId = json['transactionId'];
+    allow = json['allow'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userId'] = this.userId;
-    data['fullname'] = this.fullname;
-    data['email'] = this.email;
-    data['paymentId'] = this.paymentId;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['userId'] = userId;
+    data['fullname'] = fullname;
+    data['email'] = email;
+    data['transactionId'] = this.transactionId;
+    data['allow'] = this.allow;
     return data;
   }
 }

@@ -25,6 +25,7 @@ class LoginScreen extends HookWidget {
   Widget build(BuildContext context) {
     final emailController = useTextEditingController();
     final pwdController = useTextEditingController();
+    final visibliity = useState(true);
     return CustomScaffold(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -65,12 +66,20 @@ class LoginScreen extends HookWidget {
                 SizedBox(height: 8.h),
                 TextFormField(
                   controller: pwdController,
+                  obscureText: visibliity.value,
                   decoration: kTextFieldDecoration.copyWith(
                     hintText: "Your password",
-                    suffixIcon: Icon(
-                      Icons.visibility_outlined,
-                      color: const Color(0xffBDBDBD),
-                      size: 20.h,
+                    suffixIcon: InkWell(
+                      onTap: () {
+                        visibliity.value = !visibliity.value;
+                      },
+                      child: Icon(
+                        visibliity.value
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        color: const Color(0xffBDBDBD),
+                        size: 20.h,
+                      ),
                     ),
                   ),
                 ),
@@ -110,15 +119,15 @@ class LoginScreen extends HookWidget {
                     final doRoute = await formSubmitDialog(
                       context: context,
                       errorMessage: "An error occured while processing.",
-                      prompt: "Please wait while we login you in",
+                      prompt: "Please wait while we log you in",
                       future: authService.signIn(
                         SignInRequest(
                           email: emailController.text.trim(),
                           password: pwdController.text,
-                          ),
+                        ),
                       ),
                     );
-                    
+
                     if (doRoute != null && (doRoute.status ?? false)) {
                       Navigator.pushNamedAndRemoveUntil(
                         context,

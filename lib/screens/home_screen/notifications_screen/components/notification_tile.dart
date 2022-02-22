@@ -8,10 +8,11 @@ import 'package:trava/screens/home_screen/notifications_screen/components/notifi
 import 'package:trava/style/colors.dart';
 
 class PaidNotificationTile extends StatelessWidget {
-  const PaidNotificationTile({
+  const PaidNotificationTile(
+    this.desc, {
     Key? key,
   }) : super(key: key);
-
+  final String desc;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,7 +23,7 @@ class PaidNotificationTile extends StatelessWidget {
           SizedBox(width: 7.w),
           Flexible(
             child: Text(
-              "You paid ₦1,570 to send your package (023) with to Timi Akinlaja to DHL Hub, Asaba, Delta State at 12:02pm",
+              desc,
               style: Theme.of(context).textTheme.headline4!.copyWith(
                     color: const Color(0xff171718),
                   ),
@@ -35,10 +36,11 @@ class PaidNotificationTile extends StatelessWidget {
 }
 
 class FundedNotificationTile extends StatelessWidget {
-  const FundedNotificationTile({
+  const FundedNotificationTile(
+    this.desc, {
     Key? key,
   }) : super(key: key);
-
+  final String desc;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,7 +51,7 @@ class FundedNotificationTile extends StatelessWidget {
           SizedBox(width: 7.w),
           Flexible(
             child: Text(
-              "You funded your Trava wallet ₦1,570 at 12:02pm",
+              desc,
               style: Theme.of(context).textTheme.headline4!.copyWith(
                     color: const Color(0xff171718),
                   ),
@@ -62,10 +64,12 @@ class FundedNotificationTile extends StatelessWidget {
 }
 
 class GoingYourWayNotificationTile extends StatelessWidget {
-  const GoingYourWayNotificationTile({
+  const GoingYourWayNotificationTile(
+    this.desc, {
     Key? key,
   }) : super(key: key);
 
+  final String desc;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -82,9 +86,9 @@ class GoingYourWayNotificationTile extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     children: [
-                      const TextSpan(
-                          text:
-                              "Package (154) is going your way on 28-03-2021 and it is be delivered at DHL Hub, Asaba, Delta State. You’ll be paid ₦1,570 after successful delivery. "),
+                      TextSpan(
+                        text: desc,
+                      ),
                       TextSpan(
                         text: "See Details",
                         recognizer: TapGestureRecognizer()..onTap = () {},
@@ -135,10 +139,11 @@ class GoingYourWayNotificationTile extends StatelessWidget {
 }
 
 class ReadyToPickUpNotificationTile extends StatelessWidget {
-  const ReadyToPickUpNotificationTile({
+  const ReadyToPickUpNotificationTile(
+    this.desc, {
     Key? key,
   }) : super(key: key);
-
+  final String desc;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -153,38 +158,12 @@ class ReadyToPickUpNotificationTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Aladetimi Tolu is ready to pickup Package (154) to be delivered at DHL Hub, Asaba, Delta State on 28-03-2021.",
+                  desc,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                         color: TravaColors.black,
                       ),
                 ),
                 SizedBox(height: 16.h),
-                // InkWell(
-                //   onTap: () {
-                //     showModalBottomSheet(
-                //       isScrollControlled: true,
-                //       backgroundColor: Colors.transparent,
-                //       context: context,
-                //       builder: (context) =>
-                //           const ReadyToPickUpPackageBottomSheet(),
-                //     );
-                //   },
-                //   child: Container(
-                //     padding: EdgeInsets.symmetric(vertical: 8.h),
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(40.0),
-                //       color: Theme.of(context).colorScheme.primary,
-                //     ),
-                //     child: Center(
-                //       child: Text(
-                //         "Pay (₦1,570)",
-                //         style: Theme.of(context).textTheme.headline4!.copyWith(
-                //               color: Colors.white,
-                //             ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),

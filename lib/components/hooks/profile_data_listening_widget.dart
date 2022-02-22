@@ -33,7 +33,9 @@ class ProfileSetUpDataListeningWidget extends HookWidget {
                   task.error,
                   "We could not fetch profile",
                 ),
-                onRetry: () {},
+                onRetry: () {
+                  model.status = model.getProfileStatus();
+                },
               );
             }
             model.startTracking();

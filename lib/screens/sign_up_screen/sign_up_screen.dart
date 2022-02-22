@@ -28,6 +28,8 @@ class SignUpScreen extends HookWidget {
     final pwdController = useTextEditingController();
 
     final firstNameController = useTextEditingController();
+
+    final visibliity = useState(true);
     final lastNameController = useTextEditingController();
     final phoneNumberCobtroller = useTextEditingController();
     return CustomScaffold(
@@ -97,13 +99,19 @@ class SignUpScreen extends HookWidget {
                 SizedBox(height: 8.h),
                 TextFormField(
                   controller: pwdController,
+                  obscureText: visibliity.value,
                   validator: TravaValidators.passwordValidator,
                   decoration: kTextFieldDecoration.copyWith(
                     hintText: "Your password",
-                    suffixIcon: Icon(
-                      Icons.visibility_outlined,
-                      color: const Color(0xffBDBDBD),
-                      size: 20.h,
+                    suffixIcon: InkWell(
+                      onTap: () => visibliity.value = !visibliity.value,
+                      child: Icon(
+                        visibliity.value
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        color: const Color(0xffBDBDBD),
+                        size: 20.h,
+                      ),
                     ),
                   ),
                 ),

@@ -68,7 +68,8 @@ class _CardSettingsBottomSheetState extends State<CardSettingsBottomSheet> {
                   ),
                 ),
                 child: CreditCardTile(
-                  selectorValue: "${data!.user!.cards![index]}",
+                  card: data!.user!.cards![index],
+                  selectorValue: "${data.user!.cards![index]}",
                   groupValue: groupValue,
                   onChanged: (value) {
                     setState(() {

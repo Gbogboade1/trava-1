@@ -1,6 +1,7 @@
-class SelectionData<T> {
+class SelectionData {
   final String title;
-  final T selectedData;
+  final String selectedData;
+  final String? description;
 
-  SelectionData(this.title, this.selectedData);
+  SelectionData(this.title, this.selectedData, {this.description});
 }

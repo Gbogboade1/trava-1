@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/screens/forget_password_screen/reset_code_screen.dart';
 import 'package:trava/services/http/auth/auth_http_service.dart';
+import 'package:trava/state/profile/auth_state.dart';
+import 'package:provider/src/provider.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
@@ -19,7 +21,7 @@ class ForgetPasswordScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emailController = useTextEditingController();
+    final model = context.watch<AuthState>();
 
     return CustomScaffold(
       child: Column(
@@ -48,7 +50,7 @@ class ForgetPasswordScreen extends HookWidget {
           ),
           SizedBox(height: 8.h),
           TextFormField(
-            controller: emailController,
+            controller: model.emailController,
             decoration: kTextFieldDecoration.copyWith(
               hintText: "e.g bolu@gmail.com",
             ),
@@ -61,7 +63,7 @@ class ForgetPasswordScreen extends HookWidget {
               final doRoute = await formSubmitDialog(
                   context: context,
                   future: authHttpService
-                      .forgotPassword(emailController.text.trim()));
+                      .forgotPassword(model.emailController.text.trim()));
 
               if (doRoute != null && (doRoute.status ?? false)) {
                 Navigator.pushNamed(

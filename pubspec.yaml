@@ -36,7 +36,7 @@ dependencies:
   flutter_screenutil: ^5.0.0+2
   google_fonts: ^2.1.0
   image_cropper:
-  image_picker:
+  image_picker: ^0.6.2
   flutterwave_standard: ^1.0.3
   flutter_hooks: ^0.18.0
   location: ^4.3.0

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/components/fragments/spacers/app_selection_full_sheet.dart';
 
 import 'package:trava/components/fragments/spacers/app_text_field.dart';
 import 'package:trava/models/podos/selection_data.dart';
@@ -26,14 +27,14 @@ class TownDropDownInput extends StatefulWidget {
 }
 
 class TownDropDownInputState extends State<TownDropDownInput> {
-  List<SelectionData<String>> get lgas {
+  List<SelectionData> get lgas {
     if (widget.state == null || (widget.state?.isEmpty ?? true)) return [];
     final json = county.where(
       (it) => '${it["state"]}'.toLowerCase() == widget.state!.toLowerCase(),
     );
-    log("here=  ${json.length}");
+    log("here=  ${json}");
     return json
-        .map((it) => SelectionData<String>(it['city'].toString().toLowerCase(),
+        .map((it) => SelectionData(it['city'].toString().toLowerCase(),
             it['city'].toString().toLowerCase()))
         .toList();
   }
@@ -59,11 +60,12 @@ class TownDropDownInputState extends State<TownDropDownInput> {
   }
 }
 
-class TravaDropdown<T> extends StatefulWidget {
+class TravaDropdown extends StatefulWidget {
   final String hintText;
   final TextEditingController controller;
   final OnValidate<String>? validator;
-  final List<SelectionData<T>>? items;
+  final isHub;
+  final List<SelectionData>? items;
   final OnChanged<SelectionData>? onChanged;
   final bool pop;
   final bool isEnabled;
@@ -74,16 +76,17 @@ class TravaDropdown<T> extends StatefulWidget {
     this.hintText = "Dropdown",
     this.validator,
     this.items,
+    this.isHub = false,
     this.isEnabled = true,
     this.onChanged,
     this.pop = false,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => TravaDropdownInputState<T>();
+  State<StatefulWidget> createState() => TravaDropdownInputState();
 }
 
-class TravaDropdownInputState<T> extends State<TravaDropdown> {
+class TravaDropdownInputState extends State<TravaDropdown> {
   late TextEditingController _localCtrl;
 
   @override
@@ -95,10 +98,14 @@ class TravaDropdownInputState<T> extends State<TravaDropdown> {
 
   void _populateCtrl() {
     if (widget.controller.text.isNotEmpty) {
-      final SelectionData? selection = widget.items?.firstWhere(
-        (it) => (it.title == widget.controller.text),
-      );
-
+      widget.items!
+          .forEach((e) => log("message ${widget.controller.text} ${e.title}"));
+      final selection = widget.items?.firstWhere((it) {
+        log("it--- ${it.title.toLowerCase()}");
+        log("it bool --- ${widget.controller.text.toLowerCase()} ${it.title.toLowerCase() == widget.controller.text.toLowerCase()}");
+        return (it.title.toLowerCase() == widget.controller.text.toLowerCase());
+      }, orElse: () => SelectionData('', ''));
+      // log("locla -- ${selection?.title}");
       _localCtrl = TextEditingController(text: selection?.title ?? '');
     } else {
       _localCtrl = TextEditingController();
@@ -112,6 +119,27 @@ class TravaDropdownInputState<T> extends State<TravaDropdown> {
         return InkWell(
           onTap: widget.isEnabled
               ? () async {
+                  if (widget.isHub) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FullSelectionBottomSheet(
+                          title: widget.hintText,
+                          onSelect: (SelectionData s) {
+                            widget.controller.text = s.title ?? "";
+                            _localCtrl.text = s.title ?? "";
+                            if (widget.onChanged != null &&
+                                widget.items != null) {
+                              widget.onChanged!(s);
+                            }
+                          },
+                          items: widget.items ?? [],
+                        ),
+                        fullscreenDialog: true,
+                      ),
+                    );
+                    return;
+                  }
                   FocusScope.of(context).requestFocus(FocusNode());
                   showSelectionSheet(
                     context,

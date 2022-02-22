@@ -32,7 +32,7 @@ class OperationsListView extends StatelessWidget {
                   snapshot.error,
                   "We could not fetch sent history",
                 ),
-                onRetry: () {},
+                onRetry: () {model.sent = ValueNotifier(model.geSentHistory());},
               );
             }
             return snapshot.data!.data!.isNotEmpty

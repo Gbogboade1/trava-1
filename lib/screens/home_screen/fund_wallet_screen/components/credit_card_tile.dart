@@ -1,16 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/widgets/buttons/selector.dart';
 
 class CreditCardTile extends StatelessWidget {
   const CreditCardTile({
     Key? key,
     required this.selectorValue,
+    required this.card,
     required this.groupValue,
     required this.onChanged,
   }) : super(key: key);
   final String selectorValue;
+  final Cards card;
   final String? groupValue;
   final ValueChanged<String?> onChanged;
 
@@ -53,13 +55,13 @@ class CreditCardTile extends StatelessWidget {
               children: [
                 //card number
                 Text(
-                  "**** **** **** 2378",
+                  "**** **** **** ${card.last4}",
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 SizedBox(height: 5.h),
                 //expiry date of card
                 Text(
-                  "Expires: 03/21",
+                  "Expires: ${card.expmonth}/${card.expyear}",
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         color: const Color(0xff828282),
                       ),

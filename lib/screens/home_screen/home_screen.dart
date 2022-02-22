@@ -24,24 +24,6 @@ class HomeScreen extends HookWidget {
     final tabController = useTabController(initialLength: 2);
     return ProfileSetUpDataListeningWidget(
       builder: (context, profile) => Scaffold(
-        // bottomSheet: Container(
-        //   height: 25.h,
-        //   color: Colors.white,
-        //   child: Center(
-        //     child: GestureDetector(
-        //       onTap: () {
-        //         model.current = tabController.index + 1;
-        //       },
-        //       child: Text(
-        //         "See all",
-        //         style: Theme.of(context).textTheme.headline4!.copyWith(
-        //               decoration: TextDecoration.underline,
-        //               color: const Color(0xff171718),
-        //             ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
           child: Column(

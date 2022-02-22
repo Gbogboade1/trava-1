@@ -9,8 +9,10 @@ import 'package:trava/utils/constants.dart';
 
 class OtpField extends HookWidget {
   final TextEditingController controller;
+  final VoidCallback onValueChanged;
   OtpField(
-    this.controller, {
+    this.controller,
+    this.onValueChanged, {
     Key? key,
   }) : super(key: key);
 
@@ -80,7 +82,7 @@ class OtpField extends HookWidget {
                         nextField(value, focus[index + 1],
                             index == 0 ? null : focus[index - 1]);
                       }
-
+                      onValueChanged();
                       log(controller.text);
                     },
                   ),

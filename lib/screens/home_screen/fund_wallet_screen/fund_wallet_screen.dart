@@ -6,6 +6,7 @@ import 'package:trava/components/fragments/indicators/app_loader.dart';
 import 'package:trava/components/fragments/state/app_error_state.dart';
 import 'package:trava/components/hooks/profile_data_listening_widget.dart';
 import 'package:trava/models/https/payment/top_up.dart';
+import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/screens/home_screen/fund_wallet_screen/components/add_new_card_button.dart';
 import 'package:trava/screens/home_screen/fund_wallet_screen/components/credit_card_tile.dart';
 import 'package:trava/state/profile/auth_state.dart';
@@ -28,7 +29,6 @@ class FundWalletScreen extends HookWidget {
         MediaQuery.of(context).padding.bottom;
     final groupValue = useState<String?>(null);
     final entered = useState<String>('');
-    final cards = useState<List?>(null);
     final model = context.watch<AuthState>();
     final fundWalletController = useTextEditingController();
 
@@ -67,6 +67,7 @@ class FundWalletScreen extends HookWidget {
                               (index) {
                             return CreditCardTile(
                               selectorValue: "$index",
+                              card: data!.user!.cards![index],
                               groupValue: groupValue.value,
                               onChanged: (value) {
                                 groupValue.value = value!;
@@ -120,9 +121,11 @@ class FundWalletScreen extends HookWidget {
                                       context: context,
                                       future: model.fundCard(
                                         TopUpWallet(
-                                          cardId: data!.user!.cards![
+                                          cardId: data!
+                                              .user!
+                                              .cards![
                                                   int.parse(groupValue.value!)]
-                                              ["sId"],
+                                              .sId,
                                           amount: extractAmount(
                                                 fundWalletController.text,
                                               )?.toInt() ??

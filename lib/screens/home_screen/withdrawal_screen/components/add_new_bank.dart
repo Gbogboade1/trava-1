@@ -117,7 +117,7 @@ class _AddNewBankBottomSheetState extends State<AddNewBankBottomSheet> {
                               .map(
                                 (e) => SelectionData(
                                   e['Name']!,
-                                  e['Code'],
+                                  e['Code'] ?? '',
                                 ),
                               )
                               .toList(),

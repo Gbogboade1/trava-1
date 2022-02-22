@@ -271,7 +271,7 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
           config.publicKey ?? "FLWPUBK-49bc5365ed9e6995b66697431a902ff4-X",
       currency: config.currency!,
       txRef: config.txRef!.toString(),
-      paymentPlanId: config.meta!.paymentId,
+      // paymentPlanId: config.meta!.paymentId,
       meta: config.meta!.toJson(),
       amount: config.amount!.toString(),
       customer: customer,

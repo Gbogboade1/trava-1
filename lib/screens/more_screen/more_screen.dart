@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/components/hooks/profile_data_listening_widget.dart';
+import 'package:trava/screens/manage_hub_screen/manage_hub_screen.dart';
 import 'package:trava/screens/more_screen/components/edit_profile_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/inventory_delivery_screen.dart';
 import 'package:trava/screens/more_screen/components/inventory/inventory_drop_off_screen/inventory_drop_off_screen.dart';
@@ -63,34 +64,9 @@ class MoreScreen extends StatelessWidget {
                           title: "Inventory",
                           onTap: () {
                             Navigator.pushNamed(
-                                context, InventoryDeliveryScreen.routeName);
-                            // showModalBottomSheet(
-                            //   isScrollControlled: true,
-                            //   backgroundColor: Colors.transparent,
-                            //   context: context,
-                            //   builder: (ctx) => CustomBottomSheet(
-                            //       title: "Inventory Categories",
-                            //       content: Column(children: [
-                            //         MoreListTile(
-                            //           title: "Drop-off",
-                            //           onTap: () {
-                            //             Navigator.pop(ctx);
-                            //             Navigator.pushNamed(context,
-                            // InventoryDropOffScreen.routeName);
-                            //           },
-                            //         ),
-                            //         SizedBox(height: 16.h),
-                            //         MoreListTile(
-                            //           title: "Delivery",
-                            //           onTap: () {
-                            //             Navigator.pop(ctx);
-
-                            //             Navigator.pushNamed(context,
-                            //                 InventoryDeliveryScreen.routeName);
-                            //           },
-                            //         ),
-                            //       ])),
-                            // );
+                              context,
+                              InventoryDeliveryScreen.routeName,
+                            );
                           },
                         )
                       : const SizedBox(),
@@ -137,7 +113,7 @@ class MoreScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 73.5.h),
-                  if (data?.user?.hubs?.isEmpty ?? true) ...[
+                  if ((data?.user?.hubs?.isEmpty ?? true)) ...[
                     Text(
                       "Want to serve as an Hub for Trava?",
                       style: Theme.of(context).textTheme.headline5!.copyWith(
@@ -152,6 +128,44 @@ class MoreScreen extends StatelessWidget {
                       buttonLabel: "Register as a hub",
                       onTap: () => Navigator.pushNamed(
                           context, RegisterHubScreen.routeName),
+                    ),
+                  ] else ...[
+                    Text(
+                      "Want to manage your Hub?",
+                      style: Theme.of(context).textTheme.headline5!.copyWith(
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        text: "Manage your hub by tapping ",
+                        style: Theme.of(context).textTheme.headline3!.copyWith(
+                            color: Theme.of(context).colorScheme.primary),
+                        children: [
+                          TextSpan(
+                            text: "\"Manage my hub\"",
+                            style:
+                                Theme.of(context).textTheme.headline4!.copyWith(
+                                      color: const Color(0xff171718),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                          ),
+                          TextSpan(
+                            text: " button below",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 24.h),
+                    TravaOutlinedButton(
+                      buttonLabel: "Manage my hub",
+                      onTap: () => Navigator.pushNamed(
+                          context, ManageHubScreen.routeName),
                     ),
                   ],
                   const Spacer(),

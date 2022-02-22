@@ -16,6 +16,7 @@ import 'package:trava/screens/home_screen/request_to_deliver_screen/request_to_d
 import 'package:trava/screens/home_screen/send_packages_screen/send_packages_screen.dart';
 import 'package:trava/screens/home_screen/withdrawal_screen/withdrawal_screen.dart';
 import 'package:trava/screens/login_screen/login_screen.dart';
+import 'package:trava/screens/manage_hub_screen/manage_hub_screen.dart';
 import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/component/picked_up_screen/pickedup_screen.dart';
 import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/component/verify_delivery_screen/verify_delivery_screen.dart';
 import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/component/verify_pickup_screen/verify_pickup_screen.dart';
@@ -41,6 +42,7 @@ final Map<String, WidgetBuilder> routes = {
   OnboardingScreen.routeName: (context) => const OnboardingScreen(),
   PackagesToPickUpScreen.routeName: (context) => const PackagesToPickUpScreen(),
   RegisterHubScreen.routeName: (context) => RegisterHubScreen(),
+  ManageHubScreen.routeName: (context) => ManageHubScreen(),
   InventoryDeliveryScreen.routeName: (context) =>
       const InventoryDeliveryScreen(),
   InventoryDropOffScreen.routeName: (context) => const InventoryDropOffScreen(),

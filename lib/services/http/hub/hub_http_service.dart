@@ -46,6 +46,33 @@ class HubHttpService extends HttpService {
     }
   }
 
+  Future<SignUpResponse> manageHub(String hubId, String town, String name,
+      description, state, File file) async {
+    try {
+      var formData = FormData.fromMap({
+        'town': town,
+        'name': name,
+        'description': description,
+        'state': state,
+        'images': await MultipartFile.fromFile(
+          file.path,
+        ),
+      });
+      final req = await http.patch(
+        "/update/$hubId",
+        data: formData,
+      );
+      // final data =
+
+      return SignUpResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
   Future<SignInResponse> signIn(SignInRequest data) async {
     try {
       final req = await http.post(
@@ -163,6 +190,22 @@ class HubHttpService extends HttpService {
     try {
       final req = await http.get(
         "/hubs",
+      );
+      // final data =
+
+      return Hubs.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  Future<Hubs> getMyHubs() async {
+    try {
+      final req = await http.get(
+        "/myhubs",
       );
       // final data =
 

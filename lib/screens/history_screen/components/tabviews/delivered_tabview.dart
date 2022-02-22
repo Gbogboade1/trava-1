@@ -37,7 +37,10 @@ class DeliveredTabView extends StatelessWidget {
                         snapshot.error,
                         "We could not fetch delivery history",
                       ),
-                      onRetry: () {},
+                      onRetry: () {
+                        model.delievered =
+                            ValueNotifier(model.getPackagesDelievered());
+                      },
                     );
                   }
                   return snapshot.data!.data!.isNotEmpty

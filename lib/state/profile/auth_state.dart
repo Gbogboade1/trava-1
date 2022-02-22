@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:trava/components/fragments/state/avatar_sheet.dart';
 import 'package:trava/models/https/hubs/hubs.dart';
@@ -60,7 +62,7 @@ class AuthState extends ChangeNotifier {
   final PaymentHttpService _paymentHttp = PaymentHttpService();
   final HubHttpService _hubHttp = HubHttpService();
   final RequestHttpService _requestHttp = RequestHttpService();
-
+  final emailController = TextEditingController();
   final ValueNotifier<Future<ProfileData?>?> _profileStatus =
       ValueNotifier(null);
   final ValueNotifier<LatLng> positions =
@@ -70,13 +72,14 @@ class AuthState extends ChangeNotifier {
   final ValueNotifier<Future<AvailablePackages?>?> _availablePackages =
       ValueNotifier(null);
   final ValueNotifier<Future<Hubs?>?> _hubs = ValueNotifier(null);
+  final ValueNotifier<Future<Hubs?>?> _myHubs = ValueNotifier(null);
   final ValueNotifier<Future<TransactionHistory?>?> _transactions =
       ValueNotifier(null);
   final ValueNotifier<Future<ItemsToPickUpResponse?>?> _itemsToBePicked =
       ValueNotifier(null);
-  final ValueNotifier<Future<HistorySentResponse?>?> _sentHistory =
+  ValueNotifier<Future<HistorySentResponse?>?> _sentHistory =
       ValueNotifier(null);
-  final ValueNotifier<Future<HistoryTBDResponse?>?> _toBeDeliveredHistory =
+  ValueNotifier<Future<HistoryTBDResponse?>?> _toBeDeliveredHistory =
       ValueNotifier(null);
   final ValueNotifier<Future<HistorySentResponse?>?> _itemsToBePickedInventory =
       ValueNotifier(null);
@@ -84,7 +87,7 @@ class AuthState extends ChangeNotifier {
       ValueNotifier(null);
   final ValueNotifier<Future<HistorySentResponse?>?> _pickedInventory =
       ValueNotifier(null);
-  final ValueNotifier<Future<HistoryDeliveredResponse?>?> _deliveriedHistory =
+  ValueNotifier<Future<HistoryDeliveredResponse?>?> _deliveriedHistory =
       ValueNotifier(null);
   set profile(value) => _profileStatus.value = Future.value(value);
   ValueNotifier<int> currentIndex = ValueNotifier(0);
@@ -108,6 +111,14 @@ class AuthState extends ChangeNotifier {
     }
 
     return _hubs;
+  }
+
+  ValueNotifier<Future<Hubs?>?> get myHubs {
+    log("here --- ");
+    _myHubs.value = getMyHubsFromOnline();
+    log("there --- ");
+
+    return _myHubs;
   }
 
   startTracking() {
@@ -237,6 +248,12 @@ class AuthState extends ChangeNotifier {
     return data;
   }
 
+  Future<Hubs> getMyHubsFromOnline() async {
+    final data = _hubHttp.getMyHubs();
+
+    return data;
+  }
+
   ValueNotifier<Future<TransactionHistory?>?> get transactions {
     if (_transactions.value == null) {
       log("here --- ");
@@ -295,6 +312,7 @@ class AuthState extends ChangeNotifier {
     return _sentHistory;
   }
 
+  set sent(ValueNotifier<Future<HistorySentResponse?>?> v) => _sentHistory = v;
   Future<HistorySentResponse?> geSentHistory() async {
     if (_sentHistory.value != null) {
       return _sentHistory.value;
@@ -319,6 +337,8 @@ class AuthState extends ChangeNotifier {
     return _toBeDeliveredHistory;
   }
 
+  set toBeDeliveried(ValueNotifier<Future<HistoryTBDResponse?>?> v) =>
+      _toBeDeliveredHistory = v;
   Future<HistoryTBDResponse?> getPackagesToBeDelivered() async {
     if (_toBeDeliveredHistory.value != null) {
       return _toBeDeliveredHistory.value;
@@ -455,6 +475,8 @@ class AuthState extends ChangeNotifier {
     return _deliveriedHistory;
   }
 
+  set delievered(ValueNotifier<Future<HistoryDeliveredResponse?>?> v) =>
+      _deliveriedHistory = v;
   Future<HistoryDeliveredResponse?> getPackagesDelievered() async {
     if (_deliveriedHistory.value != null) {
       return _deliveriedHistory.value;
@@ -590,6 +612,23 @@ class AuthState extends ChangeNotifier {
     );
   }
 
+  Future manageHub(
+    hubId,
+    town,
+    name,
+    description,
+    stateDes,
+  ) async {
+    return _hubHttp.manageHub(
+      hubId,
+      town,
+      name,
+      description,
+      stateDes,
+      image.value!,
+    );
+  }
+
   Future withdraw(String bankId, int amt) async {
     return _paymentHttp.withdrawal(
       amt,
@@ -662,5 +701,28 @@ class AuthState extends ChangeNotifier {
 
   Future<PickAPackageResponse> verifyDropOff(Map<String, String?> map) {
     return _hubHttp.verifyDropOff(map);
+  }
+
+  void networkToFile(String? s) async {
+    if (s != null) {
+      final Response res = await Dio().get<List<int>>(
+        s,
+        options: Options(
+          responseType: ResponseType.bytes,
+        ),
+      );
+
+      /// Get App local storage
+      final Directory appDir = await getApplicationDocumentsDirectory();
+
+      /// Generate Image Name
+      final String imageName = s.split('/').last;
+
+      /// Create Empty File in app dir & fill with new image
+      final File file = File(join(appDir.path, imageName));
+
+      file.writeAsBytesSync(res.data as List<int>);
+      image.value = file;
+    }
   }
 }

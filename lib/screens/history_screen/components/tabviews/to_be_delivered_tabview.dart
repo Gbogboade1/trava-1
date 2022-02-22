@@ -39,7 +39,10 @@ class ToBeDeliveredTabView extends HookWidget {
                           snapshot.error,
                           "We could not fetch sent history",
                         ),
-                        onRetry: () {},
+                        onRetry: () {
+                          model.toBeDeliveried =
+                              ValueNotifier(model.getPackagesToBeDelivered());
+                        },
                       );
                     }
                     return snapshot.data!.data!.isNotEmpty

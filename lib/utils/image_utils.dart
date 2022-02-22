@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 Future<File?> pickImage({bool isGal = true}) async {
   try {
-    final image = await ImagePicker().pickImage(
+    final image = await ImagePicker.pickImage(
         source: isGal ? ImageSource.gallery : ImageSource.camera,
         imageQuality: 80);
     if (image != null) return File(image.path);

@@ -6,6 +6,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/models/https/users/otp_response.dart';
 import 'package:trava/screens/forget_password_screen/new_password_screen.dart';
+import 'package:trava/utils/modals.dart';
+import 'package:trava/services/http/auth/auth_http_service.dart';
+import 'package:trava/state/profile/auth_state.dart';
+import 'package:provider/src/provider.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/custom_scaffold.dart';
 
@@ -16,15 +20,19 @@ class ResetCodeScreen extends HookWidget {
   static const String routeName = "/reset_code";
 
   final OtpResponse argument;
-const ResetCodeScreen(this.argument, {Key? key}) : super(key: key);
+  ResetCodeScreen(this.argument, {Key? key}) : super(key: key);
+
+  final AuthHttpService authHttpService = AuthHttpService();
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AuthState>();
     final animationController =
         useAnimationController(duration: const Duration(seconds: 30));
     final animation = useAnimation(
         Tween<double>(begin: 30, end: 0).animate(animationController));
     final pinController = useTextEditingController();
+    final state = useState(false);
     return CustomScaffold(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +59,13 @@ const ResetCodeScreen(this.argument, {Key? key}) : super(key: key);
             style: Theme.of(context).textTheme.headline3,
           ),
           SizedBox(height: 8.h),
-          OtpField(pinController),
+          OtpField(pinController, () {
+            if (pinController.text.length == 5) {
+              state.value = true;
+            } else {
+              state.value = false;
+            }
+          }),
           SizedBox(height: 40.h),
           Center(
             child: Row(
@@ -63,12 +77,16 @@ const ResetCodeScreen(this.argument, {Key? key}) : super(key: key);
                       TextSpan(
                         text: "Resend code",
                         recognizer: TapGestureRecognizer()
-                          ..onTap = () {
+                          ..onTap = () async {
                             //TODO: Implement resend code
                             if (!animationController.isAnimating ||
                                 animationController.isCompleted) {
                               animationController.forward();
                             }
+                            final doRoute = await formSubmitDialog(
+                                context: context,
+                                future: authHttpService.forgotPassword(
+                                    model.emailController.text.trim()));
                           },
                         style: Theme.of(context).textTheme.headline3!.copyWith(
                               color: animationController.isAnimating
@@ -98,9 +116,12 @@ const ResetCodeScreen(this.argument, {Key? key}) : super(key: key);
           ),
           SizedBox(height: 56.h),
           DefaultButton(
-            isActive: pinController.text.length == 5,
+            isActive: state.value,
             buttonLabel: "Submit",
             onTap: () {
+              if (!state.value) {
+                return;
+              }
               log("text --- ${pinController.text}");
               if (pinController.text.trim() == argument.otp) {
                 Navigator.pushNamed(

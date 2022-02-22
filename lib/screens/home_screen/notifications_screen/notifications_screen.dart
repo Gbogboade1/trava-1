@@ -79,24 +79,31 @@ class NotificationsScreen extends StatelessWidget {
                                 onRetry: () {},
                               );
                             }
-                            d.log("tyu --${task.data}");
+                            d.log("tyu --${task.data!.toJson()}");
                             return ListView.builder(
                               itemCount: task.data?.user?.length,
                               itemBuilder: (context, index) {
                                 NotificationType notificationType =
-                                    NotificationType.values[Random().nextInt(
-                                        NotificationType.values.length)];
+                                    task.data!.user![index].category == "debit"
+                                        ? NotificationType.paid
+                                        : task.data!.user![index].category ==
+                                                "credit"
+                                            ? NotificationType.funded
+                                            : NotificationType.readyToPickup;
                                 switch (notificationType) {
                                   case NotificationType.funded:
-                                    return const FundedNotificationTile();
+                                    return FundedNotificationTile(
+                                        task.data!.user![index].description!);
                                   case NotificationType.paid:
-                                    return const PaidNotificationTile();
-                                  case NotificationType.goingYourWay:
-                                    return const GoingYourWayNotificationTile();
+                                    return PaidNotificationTile(
+                                        task.data!.user![index].description!);
+
                                   case NotificationType.readyToPickup:
-                                    return const ReadyToPickUpNotificationTile();
+                                    return ReadyToPickUpNotificationTile(
+                                        task.data!.user![index].description!);
                                   default:
-                                    return const FundedNotificationTile();
+                                    return FundedNotificationTile(
+                                        task.data!.user![index].description!);
                                 }
 
                                 //  return const PaidNotificationTile();

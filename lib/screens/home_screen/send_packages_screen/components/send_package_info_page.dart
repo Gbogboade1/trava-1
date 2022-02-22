@@ -235,22 +235,13 @@ class SendPackageInfoPage extends HookWidget {
             TravaDropdown(
               controllers.location,
               validator: TravaValidators.required,
+              isHub: true,
               items: hubs.data!
-                  .map((e) => SelectionData(e.name ?? "", e.sId ?? ""))
+                  .map((e) => SelectionData(e.name ?? "", e.sId ?? "",
+                      description: e.description))
                   .toList(),
               hintText: "e,g DHL, office, Ilesha",
-            ), // TextFormField(
-            //   controller: controllers.location,
-            //   validator: TravaValidators.required,
-            //   style: Theme.of(context)
-            //       .textTheme
-            //       .headline5!
-            //       .copyWith(color: kGray1),
-            //   keyboardType: TextInputType.number,
-            //   decoration: kTextFieldDecoration.copyWith(
-            //     hintText: "Where should the deliverer come pickup the package?",
-            //   ),
-            // ),
+            ),
             SizedBox(height: 24.h),
             //Select your preferred delivery hub
             Text(
@@ -261,9 +252,16 @@ class SendPackageInfoPage extends HookWidget {
             SizedBox(height: 8.h),
             TravaDropdown(
               controllers.preferredHub,
+              isHub: true,
               validator: TravaValidators.required,
               items: hubs.data!
-                  .map((e) => SelectionData(e.name ?? "", e.sId ?? ""))
+                  .map(
+                    (e) => SelectionData(
+                      e.name ?? "",
+                      e.sId ?? "",
+                      description: e.description,
+                    ),
+                  )
                   .toList(),
               hintText: "e,g DHL, office, Ilesha",
             ),
