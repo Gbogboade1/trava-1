@@ -164,8 +164,10 @@ class MoreScreen extends StatelessWidget {
                     SizedBox(height: 24.h),
                     TravaOutlinedButton(
                       buttonLabel: "Manage my hub",
-                      onTap: () => Navigator.pushNamed(
-                          context, ManageHubScreen.routeName),
+                      onTap: () {
+
+ Navigator.pushNamed(
+                          context, ManageHubScreen.routeName);},
                     ),
                   ],
                   const Spacer(),
