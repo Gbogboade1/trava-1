@@ -278,7 +278,7 @@ class ManageHubScreen extends HookWidget {
                               model.image.value != null) {
                             final register = await formSubmitDialog(
                                 context: context,
-                                future: model.registerHub(
+                                future: model. manageHub(
                                   town.text,
                                   name.text,
                                   description.text,
