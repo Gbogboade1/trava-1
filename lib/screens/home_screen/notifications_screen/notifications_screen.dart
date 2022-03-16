@@ -76,7 +76,8 @@ class NotificationsScreen extends StatelessWidget {
                                   task.error,
                                   "We could not fetch notifications",
                                 ),
-                                onRetry: () {},
+                                onRetry: () => model.updateNotifications =
+                                    model.getNotifications(),
                               );
                             }
                             d.log("tyu --${task.data!.toJson()}");

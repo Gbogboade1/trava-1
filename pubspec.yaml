@@ -34,9 +34,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_screenutil: ^5.0.0+2
-  google_fonts: ^2.1.0
+  google_fonts: 2.1.1
   image_cropper:
-  image_picker: ^0.6.2
+  image_picker: ^0.8.4+9
   flutterwave_standard: ^1.0.3
   flutter_hooks: ^0.18.0
   location: ^4.3.0
@@ -51,8 +51,7 @@ dependencies:
   dotted_decoration: ^2.0.0
   intl:
   # flutter_polyline_points:
-  google_maps_flutter:
-
+  google_maps_flutter: ^2.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

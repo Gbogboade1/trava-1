@@ -48,7 +48,8 @@ class PackagesAvailableForDeliveryScreen extends StatelessWidget {
                         snapshot.error,
                         "We could not fetch available packages",
                       ),
-                      onRetry: () {},
+                      onRetry: () => model.updateAvailablePackages =
+                          model.getAvailablePackages(),
                     );
                   }
 

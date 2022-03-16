@@ -37,7 +37,8 @@ class PickedUpTabView extends StatelessWidget {
                         snapshot.error,
                         "We could not fetch delivery history",
                       ),
-                      onRetry: () {},
+                      onRetry: () => model.pickedUpInventory =
+                          ValueNotifier(model.getPackagesPickedUpInventory()),
                     );
                   }
                   return ListView.builder(

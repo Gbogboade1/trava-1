@@ -59,7 +59,8 @@ class PackagesToPickUpScreen extends StatelessWidget {
                               snapshot.error,
                               "We could not fetch packages",
                             ),
-                            onRetry: () {},
+                            onRetry: () => model.toBePicked =
+                                ValueNotifier(model.getPackagesToBePicked()),
                           );
                         }
 

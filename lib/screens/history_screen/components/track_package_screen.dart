@@ -42,7 +42,7 @@ class _TrackPackageScreenState extends State<TrackPackageScreen> {
       customIcon = d;
       _markers.add(
         Marker(
-          markerId: const MarkerId(
+          markerId: MarkerId(
             'sourcePin',
           ),
           position: _initialCameraPosition.target,

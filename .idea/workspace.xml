@@ -2,31 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4d82eb8-974b-4522-a573-05c88008b135" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-v21/launch_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values-night/styles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/https/payment/top_up_wallet_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/https/payment/top_up_wallet_response.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/https/users/profile_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/https/users/profile_data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/podos/selection_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/podos/selection_data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/forget_password_screen/components/otp_field.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/forget_password_screen/components/otp_field.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/forget_password_screen/forget_password_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/forget_password_screen/forget_password_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/forget_password_screen/reset_code_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/forget_password_screen/reset_code_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_screen/fund_wallet_screen/components/add_new_card_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_screen/fund_wallet_screen/components/add_new_card_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_screen/fund_wallet_screen/components/credit_card_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_screen/fund_wallet_screen/components/credit_card_tile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_screen/fund_wallet_screen/fund_wallet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_screen/fund_wallet_screen/fund_wallet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_screen/notifications_screen/components/notification_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_screen/notifications_screen/components/notification_tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/fragments/spacers/app_selection_full_sheet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/fragments/spacers/app_selection_full_sheet.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/history_screen/components/track_package_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/history_screen/components/track_package_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_screen/components/tab_views/operations_list_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_screen/components/tab_views/operations_list_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_screen/components/tab_views/transactions_list_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_screen/components/tab_views/transactions_list_view.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/home_screen/notifications_screen/notifications_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_screen/notifications_screen/notifications_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_screen/withdrawal_screen/components/add_new_bank.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_screen/withdrawal_screen/components/add_new_bank.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/login_screen/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/login_screen/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/more_screen/components/linked_card_bottom_sheet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/more_screen/components/linked_card_bottom_sheet.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/more_screen/more_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/more_screen/more_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/onboarding_screen/onboarding_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/onboarding_screen/onboarding_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/sign_up_screen/sign_up_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/sign_up_screen/sign_up_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/http/hub/hub_http_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/http/hub/hub_http_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_screen/request_to_deliver_screen/components/package_available_for_delivery.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_screen/request_to_deliver_screen/components/package_available_for_delivery.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_screen/send_packages_screen/send_packages_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_screen/send_packages_screen/send_packages_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/manage_hub_screen/manage_hub_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/manage_hub_screen/manage_hub_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/more_screen/components/inventory/inventory_delivery_screen/component/tabviews/picked_up_tabview.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/more_screen/components/inventory/inventory_delivery_screen/component/tabviews/picked_up_tabview.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/more_screen/components/inventory/inventory_delivery_screen/component/tabviews/to_be_picked_up_tabview.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/more_screen/components/inventory/inventory_delivery_screen/component/tabviews/to_be_picked_up_tabview.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/more_screen/components/inventory/inventory_delivery_screen/component/tabviews/to_be_received_tabview.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/more_screen/components/inventory/inventory_delivery_screen/component/tabviews/to_be_received_tabview.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/more_screen/components/packages_to_pickup_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/more_screen/components/packages_to_pickup_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/transaction_screen/transaction_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/transaction_screen/transaction_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/state/profile/auth_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/state/profile/auth_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/routes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/image_utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/image_utils.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/trava_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/trava_dropdown.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,8 +54,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -96,6 +91,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -140,7 +137,7 @@
     <frame x="0" y="25" width="1280" height="739" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.33441034" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.3457189" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />

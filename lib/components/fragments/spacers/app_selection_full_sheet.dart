@@ -90,7 +90,7 @@ class _FullSelectionBottomSheetState<T>
                         bottom: 1.0,
                       ),
                       child: Text(
-                        item.title ?? "",
+                        item.title,
                         style: TravaTextStyle.medium,
                       ),
                     ),

@@ -32,15 +32,16 @@ class OperationsListView extends StatelessWidget {
                   snapshot.error,
                   "We could not fetch sent history",
                 ),
-                onRetry: () {model.sent = ValueNotifier(model.geSentHistory());},
+                onRetry: () =>
+                    model.sent = ValueNotifier(model.geSentHistory()),
               );
             }
             return snapshot.data!.data!.isNotEmpty
                 ? Column(
-                  children: [
-                     SizedBox(height: 24.0.h),
-                    Expanded(
-                      child: ListView.builder(
+                    children: [
+                      SizedBox(height: 24.0.h),
+                      Expanded(
+                        child: ListView.builder(
                           itemCount: snapshot.data?.data?.length ?? 0,
                           itemBuilder: (context, index) {
                             Data packageDetails = snapshot.data!.data![index];
@@ -68,9 +69,9 @@ class OperationsListView extends StatelessWidget {
                             );
                           },
                         ),
-                    ),
-                  ],
-                )
+                      ),
+                    ],
+                  )
                 : const EmptyListState();
           },
         );

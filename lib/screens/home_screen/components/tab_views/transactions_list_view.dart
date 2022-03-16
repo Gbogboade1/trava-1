@@ -38,10 +38,10 @@ class TransactionsListView extends StatelessWidget {
                     snapshot.error,
                     "We could not fetch sent history",
                   ),
-                  onRetry: () {},
+                  onRetry: () => model.transactions =
+                      ValueNotifier(model.getTransactions()),
                 );
               }
-              log("length --- ${snapshot.data!.data} ");
               return snapshot.data!.data!.isNotEmpty
                   ? Column(
                       children: [

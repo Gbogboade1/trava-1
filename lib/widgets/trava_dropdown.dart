@@ -126,8 +126,8 @@ class TravaDropdownInputState extends State<TravaDropdown> {
                         builder: (context) => FullSelectionBottomSheet(
                           title: widget.hintText,
                           onSelect: (SelectionData s) {
-                            widget.controller.text = s.title ?? "";
-                            _localCtrl.text = s.title ?? "";
+                            widget.controller.text = s.title;
+                            _localCtrl.text = s.title;
                             if (widget.onChanged != null &&
                                 widget.items != null) {
                               widget.onChanged!(s);

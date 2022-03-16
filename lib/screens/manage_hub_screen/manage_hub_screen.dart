@@ -57,7 +57,8 @@ class ManageHubScreen extends HookWidget {
                     task.error,
                     "We could not fetch profile",
                   ),
-                  onRetry: () {},
+                  onRetry: () =>
+                      model.myHubs = ValueNotifier(model.getMyHubsFromOnline()),
                 );
               }
               log(task.data!.data![0].toJson().toString());

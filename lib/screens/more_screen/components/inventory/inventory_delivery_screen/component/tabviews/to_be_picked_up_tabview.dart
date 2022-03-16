@@ -46,7 +46,8 @@ class ToBePickedUpTabView extends HookWidget {
                           snapshot.error,
                           "We could not fetch sent history",
                         ),
-                        onRetry: () {},
+                        onRetry: () => model.toBePickedInventory =
+                            ValueNotifier(model.getToBePickedInventory()),
                       );
                     }
                     return ListView.builder(

@@ -66,7 +66,8 @@ class TransactionScreen extends StatelessWidget {
                               snapshot.error,
                               "We could not fetch sent history",
                             ),
-                            onRetry: () {},
+                            onRetry: () => model.transactions =
+                                ValueNotifier(model.getTransactions()),
                           );
                         }
                         return snapshot.data!.data!.isNotEmpty

@@ -34,7 +34,8 @@ class ToBeReceivedTabView extends HookWidget {
                         snapshot.error,
                         "We could not fetch to be received",
                       ),
-                      onRetry: () {},
+                      onRetry: () => model.toBeReceived =
+                          ValueNotifier(model.getPackagesToBeReceived()),
                     );
                   }
                   return ListView.builder(

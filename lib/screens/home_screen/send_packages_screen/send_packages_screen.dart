@@ -42,7 +42,8 @@ class SendPackagesScreen extends HookWidget {
                     data.error,
                     "We could not fetch hubs",
                   ),
-                  onRetry: () {},
+                  onRetry: () =>
+                      model.hubs = ValueNotifier(model.getHubsFromOnline()),
                 );
               }
               return SafeArea(

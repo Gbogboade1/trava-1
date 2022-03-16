@@ -71,21 +71,21 @@ class AuthState extends ChangeNotifier {
       ValueNotifier(null);
   final ValueNotifier<Future<AvailablePackages?>?> _availablePackages =
       ValueNotifier(null);
-  final ValueNotifier<Future<Hubs?>?> _hubs = ValueNotifier(null);
-  final ValueNotifier<Future<Hubs?>?> _myHubs = ValueNotifier(null);
-  final ValueNotifier<Future<TransactionHistory?>?> _transactions =
+  ValueNotifier<Future<Hubs?>?> _hubs = ValueNotifier(null);
+  ValueNotifier<Future<Hubs?>?> _myHubs = ValueNotifier(null);
+  ValueNotifier<Future<TransactionHistory?>?> _transactions =
       ValueNotifier(null);
-  final ValueNotifier<Future<ItemsToPickUpResponse?>?> _itemsToBePicked =
+  ValueNotifier<Future<ItemsToPickUpResponse?>?> _itemsToBePicked =
       ValueNotifier(null);
   ValueNotifier<Future<HistorySentResponse?>?> _sentHistory =
       ValueNotifier(null);
   ValueNotifier<Future<HistoryTBDResponse?>?> _toBeDeliveredHistory =
       ValueNotifier(null);
-  final ValueNotifier<Future<HistorySentResponse?>?> _itemsToBePickedInventory =
+  ValueNotifier<Future<HistorySentResponse?>?> _itemsToBePickedInventory =
       ValueNotifier(null);
-  final ValueNotifier<Future<HistorySentResponse?>?> _receivedInventory =
+  ValueNotifier<Future<HistorySentResponse?>?> _receivedInventory =
       ValueNotifier(null);
-  final ValueNotifier<Future<HistorySentResponse?>?> _pickedInventory =
+  ValueNotifier<Future<HistorySentResponse?>?> _pickedInventory =
       ValueNotifier(null);
   ValueNotifier<Future<HistoryDeliveredResponse?>?> _deliveriedHistory =
       ValueNotifier(null);
@@ -113,6 +113,7 @@ class AuthState extends ChangeNotifier {
     return _hubs;
   }
 
+  set hubs(ValueNotifier<Future<Hubs?>?> v) => _hubs = v;
   ValueNotifier<Future<Hubs?>?> get myHubs {
     log("here --- ");
     _myHubs.value = getMyHubsFromOnline();
@@ -121,6 +122,7 @@ class AuthState extends ChangeNotifier {
     return _myHubs;
   }
 
+  set myHubs(ValueNotifier<Future<Hubs?>?> v) => _myHubs = v;
   startTracking() {
     if (socket == null) {
       log("socket ooooo");
@@ -264,6 +266,8 @@ class AuthState extends ChangeNotifier {
     return _transactions;
   }
 
+  set transactions(ValueNotifier<Future<TransactionHistory?>?> v) =>
+      _transactions = v;
   Future<TransactionHistory?> getTransactions() async {
     if (_transactions.value != null) {
       return _transactions.value;
@@ -287,6 +291,9 @@ class AuthState extends ChangeNotifier {
 
     return _itemsToBePicked;
   }
+
+  set toBePicked(ValueNotifier<Future<ItemsToPickUpResponse?>?> v) =>
+      _itemsToBePicked = v;
 
   Future<ItemsToPickUpResponse?> getPackagesToBePicked() async {
     if (_itemsToBePicked.value != null) {
@@ -363,6 +370,8 @@ class AuthState extends ChangeNotifier {
     return _receivedInventory;
   }
 
+  set toBeReceived(ValueNotifier<Future<HistorySentResponse?>?> v) =>
+      _receivedInventory = v;
   Future<HistorySentResponse?> getPackagesToBeReceived() async {
     if (_receivedInventory.value != null) {
       return _receivedInventory.value;
@@ -394,6 +403,9 @@ class AuthState extends ChangeNotifier {
     return _itemsToBePickedInventory;
   }
 
+  set toBePickedInventory(ValueNotifier<Future<HistorySentResponse?>?> v) =>
+      _itemsToBePickedInventory = v;
+
   Future<HistorySentResponse?> getToBePickedInventory() async {
     if (_itemsToBePickedInventory.value != null) {
       return _itemsToBePickedInventory.value;
@@ -424,6 +436,9 @@ class AuthState extends ChangeNotifier {
 
     return _pickedInventory;
   }
+
+  set pickedUpInventory(ValueNotifier<Future<HistorySentResponse?>?> v) =>
+      _pickedInventory = v;
 
   Future<HistorySentResponse?> getPackagesPickedUpInventory() async {
     if (_pickedInventory.value != null) {
