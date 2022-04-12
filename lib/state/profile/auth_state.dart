@@ -637,7 +637,7 @@ class AuthState extends ChangeNotifier {
    await  _profileStatus.then((v){
 
   return _hubHttp.manageHub(
-      v.?.user?.hubs?[0]?? "",
+      v?.user?.hubs?[0]?? "",
       town,
       name,
       description,
