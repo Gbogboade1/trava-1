@@ -226,7 +226,7 @@ class SendPackageInfoPage extends HookWidget {
             SizedBox(height: 24.h),
             //Pickup Location
             Text(
-              "select Package Pickup Hub",
+              "Pickup Location At Origin",
               style:
                   Theme.of(context).textTheme.button!.copyWith(color: kBlack),
             ),
@@ -240,11 +240,11 @@ class SendPackageInfoPage extends HookWidget {
                   .map((e) => SelectionData(e.name ?? "", e.sId ?? "",
                       description: e.description))
                   .toList(),
-              hintText: "e,g DHL Hub, 22 Ilesha road",
+              hintText: "Where should the deliverer come pickup the package?",
             ),
             SizedBox(height: 24.h),
             Text(
-              "Delivery Hub At Package Destination",
+              "Preferred Delivery Hub At Destination",
               style:
                   Theme.of(context).textTheme.button!.copyWith(color: kBlack),
             ),
@@ -262,7 +262,7 @@ class SendPackageInfoPage extends HookWidget {
                     ),
                   )
                   .toList(),
-              hintText: "e,g FX Hub, 22 Ajegunle, Ore",
+              hintText: "e,g DHL Hub, 22 Ajegunle, Ore",
             ),
             SizedBox(height: 24.h),
             Text(
