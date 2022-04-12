@@ -628,20 +628,25 @@ class AuthState extends ChangeNotifier {
   }
 
   Future manageHub(
-    hubId,
+    
     town,
     name,
     description,
     stateDes,
   ) async {
-    return _hubHttp.manageHub(
-      hubId,
+   await  _profileStatus.then((v){
+
+  return _hubHttp.manageHub(
+      v.?.user?.hubs?[0]?? "",
       town,
       name,
       description,
       stateDes,
       image.value!,
     );
+
+    });
+  
   }
 
   Future withdraw(String bankId, int amt) async {

@@ -279,16 +279,17 @@ class ManageHubScreen extends HookWidget {
                               model.image.value != null) {
                             final register = await formSubmitDialog(
                                 context: context,
-                                future: model. manageHub(
+                                future: model.manageHub(
                                   town.text,
                                   name.text,
                                   description.text,
                                   stateDrop.text,
                                 ),
-                                prompt: "Managing your hub.");
+                                prompt: "Managing your hub...");
 
                             if (register != null) {
                               model.status.value = null;
+                              model.image.value = null;
                               showNotificationBottomSheet(
                                 context,
                                 title: "Hub Successful Managed",
