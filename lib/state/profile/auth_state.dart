@@ -634,10 +634,13 @@ class AuthState extends ChangeNotifier {
     description,
     stateDes,
   ) async {
-   await  _profileStatus.then((v){
-
-  return _hubHttp.manageHub(
-      v?.user?.hubs?[0]?? "",
+  ProfileData? user;
+    await status.value?.then((value) {
+      user = value;
+    });
+    if (user?.user?.hubs?.isNotEmpty ?? false) {
+      
+  return _hubHttp.manageHub(user!.user!.hubs!.first,
       town,
       name,
       description,
@@ -645,7 +648,11 @@ class AuthState extends ChangeNotifier {
       image.value!,
     );
 
-    });
+    
+       else {
+      return null;
+    }
+
   
   }
 
