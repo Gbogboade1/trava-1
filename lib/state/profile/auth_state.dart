@@ -649,7 +649,7 @@ class AuthState extends ChangeNotifier {
     );
 
     
-       else {
+    }   else {
       return null;
     }
 
@@ -680,6 +680,30 @@ class AuthState extends ChangeNotifier {
     return _http.removeBank(s);
   }
 
+  Future<SendPackageResponse> getPackageCost(SendControllers element) async {
+    SendPackageRequest data = SendPackageRequest(
+      deliveryDate:
+          "${TravaFormatter.formatDateNormalForSend(element.leaveDate.text)}",
+      deliveryHub: element.preferredHub.text,
+      destState: element.destinationState.text,
+      description: element.packageDescription.text,
+      quantity: element.capacity.text,
+      sendState: element.departureState.text,
+      destTown: element.destinationTown.text,
+      images: await MultipartFile.fromFile(
+        element.image.value!.path,
+      ),
+      pickupLocation: element.location.text,
+      type: element.weightLevel.text,
+      sendTown: element.departureTown.text,
+      deliveryMode: element.transportMode.text,
+      pickupTime:
+          "${TravaFormatter.formatDateNormalForSend(element.leaveTime.text)}",
+    );
+
+
+    return await _requestHttp.getPackageCost(data);
+  }
   Future<SendPackageResponse> sendPackage(SendControllers element) async {
     SendPackageRequest data = SendPackageRequest(
       deliveryDate:
@@ -701,11 +725,9 @@ class AuthState extends ChangeNotifier {
           "${TravaFormatter.formatDateNormalForSend(element.leaveTime.text)}",
     );
 
-    log("send package --- ${data.toJson()}");
 
     return await _requestHttp.sendPackage(data);
   }
-
   Future<CancelDeliveryResponse> turnOffDeliveryRequest() async {
     return _requestHttp.cancelRequest();
   }

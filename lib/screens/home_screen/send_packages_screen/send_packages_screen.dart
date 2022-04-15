@@ -9,6 +9,7 @@ import 'package:trava/components/fragments/state/app_error_state.dart';
 import 'package:trava/models/https/hubs/hubs.dart';
 import 'package:trava/models/podos/send_package_controllers.dart';
 import 'package:trava/screens/home_screen/send_packages_screen/components/send_package_info_page.dart';
+import 'package:trava/utils/intl_formatter.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/helpers.dart';
@@ -134,12 +135,33 @@ class SendPackagesScreen extends HookWidget {
                                   Navigator.pop(context);
                                   final result = await formSubmitDialog(
                                     context: context,
+                                    future: model.getPackageCost(
+                                      controllers.value,
+                                    ),
+                                    prompt: "Getting cost of delivery...",
+                                  );
+                                  if (result != null) {
+                                    // showNotificationBottomSheet(context,
+                                    //     title: "Request Successful",
+                                    //     message:
+                                    //         "You’ll be notified to make payment when someone accepts to deliver.",
+                                    //     gif:
+                                    //         "assets/images/congratulation_icon.gif",
+                                    //     buttonLabel: "Okay");
+                                      showAreYouSureBottomSheet(
+                                context,
+                                description: "You will be charge ${TravaFormatter.formatCurrency(result.data.toString())}, do you want to continue?",
+                                onNoTap: () => Navigator.pop(context),
+                                onYesTap: () async {
+                                  Navigator.pop(context);
+                                  final finalRes = await formSubmitDialog(
+                                    context: context,
                                     future: model.sendPackage(
                                       controllers.value,
                                     ),
                                     prompt: "Sending request to deliverers.",
                                   );
-                                  if (result != null) {
+                                  if (finalRes != null) {
                                     showNotificationBottomSheet(context,
                                         title: "Request Successful",
                                         message:
@@ -147,6 +169,9 @@ class SendPackagesScreen extends HookWidget {
                                         gif:
                                             "assets/images/congratulation_icon.gif",
                                         buttonLabel: "Okay");
+                                  }
+                                },
+                              );
                                   }
                                 },
                               );

@@ -26,6 +26,25 @@ class RequestHttpService extends HttpService {
   Future<SendPackageResponse> sendPackage(SendPackageRequest data) async {
     try {
       var formData = FormData.fromMap(data.toJson());
+      final req = await http.put(
+        "/cost",
+        data: formData,
+      );
+      // final data =
+
+      return SendPackageResponse.fromJson(req.data);
+    } on DioError catch (e) {
+      throw {
+        "statusCode": e.response?.statusCode,
+        "data": e.response?.data ?? {"message": e.error ?? e}
+      };
+    }
+  }
+
+  
+  Future<SendPackageResponse> getPackageCost(SendPackageRequest data) async {
+    try {
+      var formData = FormData.fromMap(data.toJson());
       final req = await http.post(
         "/send",
         data: formData,
