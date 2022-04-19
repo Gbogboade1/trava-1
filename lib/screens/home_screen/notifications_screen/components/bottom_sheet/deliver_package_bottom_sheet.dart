@@ -5,12 +5,11 @@ import 'package:trava/models/enums/is_bloody.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/screens/home_screen/notifications_screen/components/notification_button.dart';
 import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
+import 'package:trava/state/profile/auth_state.dart';
+import 'package:trava/style/colors.dart';
 import 'package:trava/utils/intl_formatter.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/widgets/package_details_view.dart';
-import 'package:trava/style/colors.dart';
-import 'package:trava/widgets/buttons/default_button.dart';
-import 'package:trava/state/profile/auth_state.dart';
 
 class DeliverPackageBottomSheet extends StatelessWidget {
   const DeliverPackageBottomSheet(

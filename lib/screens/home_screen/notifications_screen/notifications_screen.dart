@@ -1,9 +1,8 @@
-import 'dart:math';
 import 'dart:developer' as d;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:trava/components/fragments/indicators/app_loader.dart';
 import 'package:trava/components/fragments/state/app_error_state.dart';
 import 'package:trava/models/https/users/notifications.dart';

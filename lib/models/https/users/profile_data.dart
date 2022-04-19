@@ -3,7 +3,7 @@ class ProfileData {
   String? message;
   User? user;
 
-  ProfileData({this.status, this.message, this.user});
+  ProfileData({status, message, user});
 
   ProfileData.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -45,26 +45,26 @@ class User {
   List<String>? hubs;
 
   User(
-      {this.sId,
-      this.isVerified,
-      this.method,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.phone,
-      this.profileImg,
-      this.password,
-      this.packages,
-      this.deliveries,
-      this.wallet,
-      this.joinDate,
-      this.banks,
-      this.cards,
-      this.createdAt,
-      this.updatedAt,
-      this.iV,
-      this.request,
-      this.hubs});
+      {sId,
+      isVerified,
+      method,
+      firstName,
+      lastName,
+      email,
+      phone,
+      profileImg,
+      password,
+      packages,
+      deliveries,
+      wallet,
+      joinDate,
+      banks,
+      cards,
+      createdAt,
+      updatedAt,
+      iV,
+      request,
+      hubs});
 
   User.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -183,40 +183,40 @@ class Packages {
   bool? isDroped;
 
   Packages(
-      {this.sId,
-      this.sendState,
-      this.sendTown,
-      this.sender,
-      this.isActive,
-      this.type,
-      this.description,
-      this.quantity,
-      this.deliveryMode,
-      this.pickupTime,
-      this.pickupLocation,
-      this.dropspot,
-      this.deliveryHub,
-      this.hub,
-      this.deliveryDate,
-      this.isDelivered,
-      this.isPickuped,
-      this.isDropped,
-      this.isReceived,
-      this.destState,
-      this.destTown,
-      this.insurance,
-      this.hasPaid,
-      this.amount,
-      this.paymentId,
-      this.deliveryCode,
-      this.pickupCode,
-      this.iV,
-      this.createdAt,
-      this.updatedAt,
-      this.deliverer,
-      this.images,
-      this.isPickeduped,
-      this.isDroped});
+      {sId,
+      sendState,
+      sendTown,
+      sender,
+      isActive,
+      type,
+      description,
+      quantity,
+      deliveryMode,
+      pickupTime,
+      pickupLocation,
+      dropspot,
+      deliveryHub,
+      hub,
+      deliveryDate,
+      isDelivered,
+      isPickuped,
+      isDropped,
+      isReceived,
+      destState,
+      destTown,
+      insurance,
+      hasPaid,
+      amount,
+      paymentId,
+      deliveryCode,
+      pickupCode,
+      iV,
+      createdAt,
+      updatedAt,
+      deliverer,
+      images,
+      isPickeduped,
+      isDroped});
 
   Packages.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -303,11 +303,11 @@ class Banks {
   String? sId;
 
   Banks(
-      {this.bankId,
-      this.accountNumber,
-      this.accountName,
-      this.bankName,
-      this.sId});
+      {bankId,
+      accountNumber,
+      accountName,
+      bankName,
+      sId});
 
   Banks.fromJson(Map<String, dynamic> json) {
     bankId = json['bankId'];
@@ -339,14 +339,14 @@ class Request {
   String? transportMode;
 
   Request(
-      {this.fromState,
-      this.fromTown,
-      this.capacity,
-      this.toState,
-      this.toTown,
-      this.travelTime,
-      this.packageType,
-      this.transportMode});
+      {fromState,
+      fromTown,
+      capacity,
+      toState,
+      toTown,
+      travelTime,
+      packageType,
+      transportMode});
 
   Request.fromJson(Map<String, dynamic> json) {
     fromState = json['fromState'];
@@ -382,12 +382,12 @@ class Cards {
   String? token;
 
   Cards(
-      {this.sId,
-      this.brand,
-      this.last4,
-      this.expyear,
-      this.expmonth,
-      this.token});
+      {sId,
+      brand,
+      last4,
+      expyear,
+      expmonth,
+      token});
 
   Cards.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -399,13 +399,13 @@ class Cards {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['brand'] = this.brand;
-    data['last4'] = this.last4;
-    data['expyear'] = this.expyear;
-    data['expmonth'] = this.expmonth;
-    data['token'] = this.token;
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['_id'] = sId;
+    data['brand'] = brand;
+    data['last4'] = last4;
+    data['expyear'] = expyear;
+    data['expmonth'] = expmonth;
+    data['token'] = token;
     return data;
   }
 }

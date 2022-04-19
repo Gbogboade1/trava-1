@@ -1,16 +1,10 @@
-import 'package:trava/components/fragments/spacers/app_sized_box.dart';
-import 'package:trava/components/fragments/spacers/app_text_field.dart';
-import 'package:trava/components/fragments/spacers/text_styles.dart';
-import 'package:trava/style/colors.dart';
-
-import 'package:trava/utils/extensions.dart';
-import 'package:trava/utils/helpers.dart';
-import 'package:trava/utils/typedefs.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
+import 'package:trava/components/fragments/spacers/app_sized_box.dart';
+import 'package:trava/components/fragments/spacers/text_styles.dart';
 import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/state/profile/auth_state.dart';
+import 'package:trava/style/colors.dart';
 import 'package:trava/utils/extensions.dart';
 import 'package:trava/utils/typedefs.dart';
 

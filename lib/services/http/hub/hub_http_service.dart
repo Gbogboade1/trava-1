@@ -1,5 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:trava/models/https/hubs/hubs.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
@@ -8,7 +8,6 @@ import 'package:trava/models/https/users/profile_data.dart';
 import 'package:trava/models/https/users/sign_in_request.dart';
 import 'package:trava/models/https/users/sign_in_response.dart';
 import 'package:trava/models/https/users/sign_out_response.dart';
-import 'package:trava/models/https/users/sign_up.dart';
 import 'package:trava/models/https/users/sign_up_response.dart';
 
 import '../base_http.dart';

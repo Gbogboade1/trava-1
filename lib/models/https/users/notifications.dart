@@ -4,7 +4,7 @@ class Notifications {
   List<User>? user;
   String? token;
 
-  Notifications({this.status, this.message, this.user, this.token});
+  Notifications({status, message, user, token});
 
   Notifications.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -12,20 +12,20 @@ class Notifications {
     if (json['user'] != null) {
       user = [];
       json['user'].forEach((v) {
-        user!.add(new User.fromJson(v));
+        user!.add(User.fromJson(v));
       });
     }
     token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.user != null) {
-      data['user'] = this.user!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
+    if (user != null) {
+      data['user'] = user!.map((v) => v.toJson()).toList();
     }
-    data['token'] = this.token;
+    data['token'] = token;
     return data;
   }
 }
@@ -41,38 +41,38 @@ class User {
   String? updatedAt;
 
   User(
-      {this.sId,
-      this.hasRead,
-      this.category,
-      this.description,
-      this.owner,
-      this.iV,
-      this.createdAt,
-      this.updatedAt});
+      {sId,
+      hasRead,
+      category,
+      description,
+      owner,
+      iV,
+      createdAt,
+      updatedAt});
 
   User.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     hasRead = json['hasRead'];
     category = json['category'];
     description = json['description'];
-    owner = json['owner'] != null ? new Owner.fromJson(json['owner']) : null;
+    owner = json['owner'] != null ? Owner.fromJson(json['owner']) : null;
     iV = json['__v'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['hasRead'] = this.hasRead;
-    data['category'] = this.category;
-    data['description'] = this.description;
-    if (this.owner != null) {
-      data['owner'] = this.owner!.toJson();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['_id'] = sId;
+    data['hasRead'] = hasRead;
+    data['category'] = category;
+    data['description'] = description;
+    if (owner != null) {
+      data['owner'] = owner!.toJson();
     }
-    data['__v'] = this.iV;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
+    data['__v'] = iV;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
     return data;
   }
 }
@@ -102,26 +102,26 @@ class Owner {
   String? longitude;
 
   Owner(
-      {this.sId,
-      this.isVerified,
-      this.method,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.phone,
-      this.profileImg,
-      this.password,
-      this.packages,
-      this.wallet,
-      this.joinDate,
-      this.banks,
-      this.createdAt,
-      this.updatedAt,
-      this.iV,
-      this.request,
-      this.hubs,
-      this.latitude,
-      this.longitude});
+      {sId,
+      isVerified,
+      method,
+      firstName,
+      lastName,
+      email,
+      phone,
+      profileImg,
+      password,
+      packages,
+      wallet,
+      joinDate,
+      banks,
+      createdAt,
+      updatedAt,
+      iV,
+      request,
+      hubs,
+      latitude,
+      longitude});
 
   Owner.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -140,7 +140,7 @@ class Owner {
     if (json['banks'] != null) {
       banks = [];
       json['banks'].forEach((v) {
-        banks!.add(new Banks.fromJson(v));
+        banks!.add(Banks.fromJson(v));
       });
     }
 
@@ -155,32 +155,32 @@ class Owner {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['isVerified'] = this.isVerified;
-    data['method'] = this.method;
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['profileImg'] = this.profileImg;
-    data['password'] = this.password;
-    data['packages'] = this.packages;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['_id'] = sId;
+    data['isVerified'] = isVerified;
+    data['method'] = method;
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['profileImg'] = profileImg;
+    data['password'] = password;
+    data['packages'] = packages;
 
-    data['wallet'] = this.wallet;
-    data['joinDate'] = this.joinDate;
-    if (this.banks != null) {
-      data['banks'] = this.banks!.map((v) => v.toJson()).toList();
+    data['wallet'] = wallet;
+    data['joinDate'] = joinDate;
+    if (banks != null) {
+      data['banks'] = banks!.map((v) => v.toJson()).toList();
     }
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    if (this.request != null) {
-      data['request'] = this.request!.toJson();
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
+    if (request != null) {
+      data['request'] = request!.toJson();
     }
-    data['hubs'] = this.hubs;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
+    data['hubs'] = hubs;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
     return data;
   }
 }
@@ -193,11 +193,11 @@ class Banks {
   String? sId;
 
   Banks(
-      {this.bankId,
-      this.accountNumber,
-      this.accountName,
-      this.bankName,
-      this.sId});
+      {bankId,
+      accountNumber,
+      accountName,
+      bankName,
+      sId});
 
   Banks.fromJson(Map<String, dynamic> json) {
     bankId = json['bankId'];
@@ -208,12 +208,12 @@ class Banks {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['bankId'] = this.bankId;
-    data['accountNumber'] = this.accountNumber;
-    data['accountName'] = this.accountName;
-    data['bankName'] = this.bankName;
-    data['_id'] = this.sId;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['bankId'] = bankId;
+    data['accountNumber'] = accountNumber;
+    data['accountName'] = accountName;
+    data['bankName'] = bankName;
+    data['_id'] = sId;
     return data;
   }
 }
@@ -229,14 +229,14 @@ class Request {
   String? transportMode;
 
   Request(
-      {this.fromState,
-      this.fromTown,
-      this.capacity,
-      this.toState,
-      this.toTown,
-      this.travelTime,
-      this.packageType,
-      this.transportMode});
+      {fromState,
+      fromTown,
+      capacity,
+      toState,
+      toTown,
+      travelTime,
+      packageType,
+      transportMode});
 
   Request.fromJson(Map<String, dynamic> json) {
     fromState = json['fromState'];
@@ -250,15 +250,15 @@ class Request {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['fromState'] = this.fromState;
-    data['fromTown'] = this.fromTown;
-    data['capacity'] = this.capacity;
-    data['toState'] = this.toState;
-    data['toTown'] = this.toTown;
-    data['travelTime'] = this.travelTime;
-    data['packageType'] = this.packageType;
-    data['transportMode'] = this.transportMode;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['fromState'] = fromState;
+    data['fromTown'] = fromTown;
+    data['capacity'] = capacity;
+    data['toState'] = toState;
+    data['toTown'] = toTown;
+    data['travelTime'] = travelTime;
+    data['packageType'] = packageType;
+    data['transportMode'] = transportMode;
     return data;
   }
 }

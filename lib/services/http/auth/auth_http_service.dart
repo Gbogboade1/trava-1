@@ -1,5 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:trava/models/https/users/notifications.dart';

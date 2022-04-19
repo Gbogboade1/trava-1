@@ -1,30 +1,23 @@
-import 'dart:async';
-import 'package:trava/state/profile/auth_state.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:trava/state/splash/splash_state.dart';
+import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/scroll_behaviour.dart';
-import 'package:trava/utils/token_manager.dart';
-
-import '../utils/locator.dart';
 
 class StateWrapper extends StatefulWidget {
   final Widget child;
 
   StateWrapper({
     required this.child,
+    Key? key,
     bool isMock = true,
-  });
+  }): super(key: key);
 
   @override
   _StateWrapperState createState() => _StateWrapperState();
 }
 
 class _StateWrapperState extends State<StateWrapper> {
-  GlobalKey<NavigatorState> _dignityFinanceNavKey =
-      GlobalKey(debugLabel: "navGenerale");
-  TravaTokenManager _tokenManager = TravaTokenManager.instance;
 
   @override
   void initState() {

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:flutterwave_standard/core/flutterwave.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 import 'package:flutterwave_standard/view/flutterwave_style.dart';
 import 'package:provider/provider.dart';
 import 'package:trava/models/https/payment/top_up.dart';
 import 'package:trava/models/https/payment/top_up_wallet_response.dart' as top;
-
-import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/utils/helpers.dart';
@@ -16,7 +13,6 @@ import 'package:trava/utils/intl_formatter.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/validators.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
-import 'package:trava/widgets/trava_dropdown.dart';
 
 class AddNewCardButton extends StatelessWidget {
   const AddNewCardButton({
@@ -283,9 +279,9 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
       ),
       isTestMode: !true,
     );
-    final ChargeResponse response = await flutterwave.charge();
+    final ChargeResponse? response = await flutterwave.charge();
     if (response != null) {
-      print(response.toJson());
+      // print(response.toJson());
       if (response.success ?? false) {
         showNotificationBottomSheet(
           context,

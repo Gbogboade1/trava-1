@@ -58,7 +58,7 @@ String parseError(
   String? defaultMessage, [
   bool ignore401 = false,
 ]) {
-  print("xxxx: $errorResponse");
+  // print("xxxx: $errorResponse");
   try {
     final fallbackMessage = defaultMessage != null && defaultMessage.isNotEmpty
         ? defaultMessage
@@ -67,7 +67,7 @@ String parseError(
       final int statusCode = errorResponse["statusCode"] ?? 400;
       final dynamic error = errorResponse["data"];
 
-      print("error: $error");
+      // print("error: $error");
 
       if (error is Map) {
         if (error["message"] != null &&

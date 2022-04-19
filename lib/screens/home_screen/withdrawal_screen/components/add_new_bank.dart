@@ -50,7 +50,6 @@ class AddNewBankButton extends StatelessWidget {
 }
 
 class _AddNewBankBottomSheetState extends State<AddNewBankBottomSheet> {
-  final ValueNotifier<SelectionData?> _chosenValue = ValueNotifier(null);
   final TextEditingController bankName = TextEditingController();
   final TextEditingController accountName = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();

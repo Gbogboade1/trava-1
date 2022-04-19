@@ -35,7 +35,7 @@ class LocalStorage {
       await _db.delete(key);
       return true;
     } catch (e) {
-      print(e);
+      // print(e);
       return false;
     }
   }
@@ -45,7 +45,7 @@ class LocalStorage {
       final value = _db.get(key, defaultValue: defaultValue);
       return value;
     } catch (e) {
-      print(e);
+      // print(e);
       return false;
     }
   }
@@ -56,7 +56,7 @@ class LocalStorage {
       await _db.put(key, value);
       return true;
     } catch (e) {
-      print(e);
+      // print(e);
       return false;
     }
   }
@@ -66,7 +66,7 @@ class LocalStorage {
       await _db.putAll(data);
       return true;
     } catch (e) {
-      print(e);
+      // print(e);
       return false;
     }
   }
@@ -76,7 +76,7 @@ class LocalStorage {
       await _db.deleteAll(keys);
       return true;
     } catch (e) {
-      print(e);
+      // print(e);
       return false;
     }
   }

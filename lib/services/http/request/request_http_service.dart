@@ -1,10 +1,10 @@
-import 'dart:developer';
+
 import 'package:dio/dio.dart';
-import 'package:trava/models/https/payment/tranaction_history.dart';
 import 'package:trava/models/https/request/availabale_packages.dart';
 import 'package:trava/models/https/request/cancel_delivery_response.dart';
 import 'package:trava/models/https/request/deliever_request_response.dart';
 import 'package:trava/models/https/request/delivered_response.dart';
+import 'package:trava/models/https/request/delivery_cost_response.dart';
 import 'package:trava/models/https/request/items_to_pick_up_response.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/models/https/request/pick_package_request.dart';
@@ -13,7 +13,6 @@ import 'package:trava/models/https/request/send_package_response.dart';
 import 'package:trava/models/https/request/sent_response.dart';
 import 'package:trava/models/https/request/tbd_response.dart';
 import 'package:trava/models/https/users/profile_data.dart';
-import 'package:trava/models/https/users/sign_out_response.dart';
 
 import '../base_http.dart';
 
@@ -26,8 +25,8 @@ class RequestHttpService extends HttpService {
   Future<SendPackageResponse> sendPackage(SendPackageRequest data) async {
     try {
       var formData = FormData.fromMap(data.toJson());
-      final req = await http.put(
-        "/cost",
+      final req = await http.post(
+        "/send",
         data: formData,
       );
       // final data =
@@ -42,16 +41,16 @@ class RequestHttpService extends HttpService {
   }
 
   
-  Future<SendPackageResponse> getPackageCost(SendPackageRequest data) async {
+  Future<DeliveryCostResponse> getPackageCost(SendPackageRequest data) async {
     try {
       var formData = FormData.fromMap(data.toJson());
       final req = await http.post(
-        "/send",
+        "/cost",
         data: formData,
       );
       // final data =
 
-      return SendPackageResponse.fromJson(req.data);
+      return DeliveryCostResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,

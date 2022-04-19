@@ -3,7 +3,7 @@ class Hubs {
   String? message;
   List<Data>? data;
 
-  Hubs({this.status, this.message, this.data});
+  Hubs({status, message, data});
 
   Hubs.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -11,15 +11,15 @@ class Hubs {
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add( Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -41,17 +41,17 @@ class Data {
   int? iV;
 
   Data(
-      {this.sId,
-      this.name,
-      this.description,
-      this.state,
-      this.town,
-      this.images,
-      this.owner,
-      this.isVerified,
-      this.createdAt,
-      this.updatedAt,
-      this.iV});
+      {sId,
+      name,
+      description,
+      state,
+      town,
+      images,
+      owner,
+      isVerified,
+      createdAt,
+      updatedAt,
+      iV});
 
   Data.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -68,18 +68,18 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['state'] = this.state;
-    data['town'] = this.town;
-    data['images'] = this.images;
-    data['owner'] = this.owner;
-    data['isVerified'] = this.isVerified;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    final Map<String, dynamic> data =  Map<String, dynamic>();
+    data['_id'] = sId;
+    data['name'] = name;
+    data['description'] = description;
+    data['state'] = state;
+    data['town'] = town;
+    data['images'] = images;
+    data['owner'] = owner;
+    data['isVerified'] = isVerified;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
     return data;
   }
 }

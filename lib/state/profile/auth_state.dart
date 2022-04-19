@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
@@ -17,6 +16,7 @@ import 'package:trava/models/https/payment/tranaction_history.dart';
 import 'package:trava/models/https/request/availabale_packages.dart';
 import 'package:trava/models/https/request/cancel_delivery_response.dart';
 import 'package:trava/models/https/request/delivered_response.dart';
+import 'package:trava/models/https/request/delivery_cost_response.dart';
 import 'package:trava/models/https/request/items_to_pick_up_response.dart';
 import 'package:trava/models/https/request/pick_a_package_response.dart';
 import 'package:trava/models/https/request/pick_package_request.dart';
@@ -116,9 +116,10 @@ class AuthState extends ChangeNotifier {
   set hubs(ValueNotifier<Future<Hubs?>?> v) => _hubs = v;
   ValueNotifier<Future<Hubs?>?> get myHubs {
     log("here --- ");
-    _myHubs.value = getMyHubsFromOnline();
-    log("there --- ");
-
+    if (_myHubs.value == null) {
+      _myHubs.value = getMyHubsFromOnline();
+      log("there --- ");
+    }
     return _myHubs;
   }
 
@@ -628,32 +629,27 @@ class AuthState extends ChangeNotifier {
   }
 
   Future manageHub(
-    
     town,
     name,
     description,
     stateDes,
   ) async {
-  ProfileData? user;
+    ProfileData? user;
     await status.value?.then((value) {
       user = value;
     });
     if (user?.user?.hubs?.isNotEmpty ?? false) {
-      
-  return _hubHttp.manageHub(user!.user!.hubs!.first,
-      town,
-      name,
-      description,
-      stateDes,
-      image.value!,
-    );
-
-    
-    }   else {
+      return _hubHttp.manageHub(
+        user!.user!.hubs!.first,
+        town,
+        name,
+        description,
+        stateDes,
+        image.value!,
+      );
+    } else {
       return null;
     }
-
-  
   }
 
   Future withdraw(String bankId, int amt) async {
@@ -680,7 +676,7 @@ class AuthState extends ChangeNotifier {
     return _http.removeBank(s);
   }
 
-  Future<SendPackageResponse> getPackageCost(SendControllers element) async {
+  Future<DeliveryCostResponse> getPackageCost(SendControllers element) async {
     SendPackageRequest data = SendPackageRequest(
       deliveryDate:
           "${TravaFormatter.formatDateNormalForSend(element.leaveDate.text)}",
@@ -701,9 +697,9 @@ class AuthState extends ChangeNotifier {
           "${TravaFormatter.formatDateNormalForSend(element.leaveTime.text)}",
     );
 
-
     return await _requestHttp.getPackageCost(data);
   }
+
   Future<SendPackageResponse> sendPackage(SendControllers element) async {
     SendPackageRequest data = SendPackageRequest(
       deliveryDate:
@@ -725,9 +721,9 @@ class AuthState extends ChangeNotifier {
           "${TravaFormatter.formatDateNormalForSend(element.leaveTime.text)}",
     );
 
-
     return await _requestHttp.sendPackage(data);
   }
+
   Future<CancelDeliveryResponse> turnOffDeliveryRequest() async {
     return _requestHttp.cancelRequest();
   }

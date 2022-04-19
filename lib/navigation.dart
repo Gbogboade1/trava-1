@@ -1,13 +1,12 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:trava/screens/history_screen/history_screen.dart';
 import 'package:trava/screens/home_screen/home_screen.dart';
 import 'package:trava/screens/more_screen/more_screen.dart';
 import 'package:trava/screens/transaction_screen/transaction_screen.dart';
 import 'package:trava/state/profile/auth_state.dart';
-import 'package:provider/provider.dart';
 
 class Navigation extends StatefulWidget {
   static const String routeName = "/navigation";

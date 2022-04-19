@@ -22,7 +22,6 @@ class VerifyPickUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<AuthState>();
     return Scaffold(
       body: SafeArea(
         child: Padding(

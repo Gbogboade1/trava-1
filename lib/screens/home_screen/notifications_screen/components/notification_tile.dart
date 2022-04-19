@@ -2,9 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:trava/screens/home_screen/notifications_screen/components/bottom_sheet/deliver_package_bottom_sheet.dart';
-import 'package:trava/screens/home_screen/notifications_screen/components/bottom_sheet/ready_to_pick_up_bottom_sheet.dart';
-import 'package:trava/screens/home_screen/notifications_screen/components/notification_button.dart';
 import 'package:trava/style/colors.dart';
 
 class PaidNotificationTile extends StatelessWidget {

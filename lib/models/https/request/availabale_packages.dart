@@ -6,7 +6,7 @@ class AvailablePackages {
   List<Data>? data;
   String? token;
 
-  AvailablePackages({this.status, this.message, this.data, this.token});
+  AvailablePackages({status, message, data, token});
 
   AvailablePackages.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -14,19 +14,19 @@ class AvailablePackages {
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
     token = json['token'];
   }
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    data['token'] = this.token;
+    data['token'] = token;
     return data;
   }
 }

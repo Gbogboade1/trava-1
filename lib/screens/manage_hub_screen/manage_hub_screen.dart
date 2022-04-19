@@ -6,15 +6,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:trava/components/fragments/indicators/app_loader.dart';
 import 'package:trava/components/fragments/spacers/app_sized_box.dart';
 import 'package:trava/components/fragments/state/app_error_state.dart';
-import 'package:trava/components/hooks/profile_data_listening_widget.dart';
 import 'package:trava/models/https/hubs/hubs.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/style/colors.dart';
 import 'package:trava/utils/constants.dart';
+import 'package:trava/utils/extensions.dart';
 import 'package:trava/utils/helpers.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/validators.dart';
@@ -22,7 +22,6 @@ import 'package:trava/widgets/buttons/back_button.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/custom_scaffold.dart';
 import 'package:trava/widgets/trava_dropdown.dart';
-import 'package:trava/utils/extensions.dart';
 
 class ManageHubScreen extends HookWidget {
   static const routeName = '/manage-hub';
@@ -61,12 +60,22 @@ class ManageHubScreen extends HookWidget {
                       model.myHubs = ValueNotifier(model.getMyHubsFromOnline()),
                 );
               }
-              log(task.data!.data![0].toJson().toString());
-              description.text = task.data!.data![0].description!;
-              town.text = task.data!.data![0].town!;
-              stateDrop.text = task.data!.data![0].state!;
-              state.value = task.data!.data![0].state!;
-              name.text = task.data!.data![0].name!;
+              if (description.text.isEmpty) {
+                description.text = task.data!.data![0].description!;
+              }
+
+              if (town.text.isEmpty) {
+                town.text = task.data!.data![0].town!;
+              }
+              if (stateDrop.text.isEmpty) {
+                stateDrop.text = task.data!.data![0].state!;
+              }
+              if (state.value.isEmpty) {
+                state.value = task.data!.data![0].state!;
+              }
+              if (name.text.isEmpty) {
+                name.text = task.data!.data![0].name!;
+              }
               try {
                 //
                 model.networkToFile(task.data!.data![0].images?[0]);
@@ -275,6 +284,8 @@ class ManageHubScreen extends HookWidget {
                         isActive: true,
                         buttonLabel: "Manage Hub",
                         onTap: () async {
+                          // print(
+                          //     "data here --- ${town.text}, ${name.text} ${description.text} ${stateDrop.text}");
                           if (formKey.currentState!.validate() &&
                               model.image.value != null) {
                             final register = await formSubmitDialog(
@@ -289,6 +300,7 @@ class ManageHubScreen extends HookWidget {
 
                             if (register != null) {
                               model.status.value = null;
+                              model.myHubs.value = null;
                               model.image.value = null;
                               showNotificationBottomSheet(
                                 context,

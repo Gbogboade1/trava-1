@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'dart:developer';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:trava/components/fragments/indicators/app_loader.dart';
@@ -148,30 +147,35 @@ class SendPackagesScreen extends HookWidget {
                                     //     gif:
                                     //         "assets/images/congratulation_icon.gif",
                                     //     buttonLabel: "Okay");
-                                      showAreYouSureBottomSheet(
-                                context,
-                                description: "You will be charge ${TravaFormatter.formatCurrency(result.data.toString())}, do you want to continue?",
-                                onNoTap: () => Navigator.pop(context),
-                                onYesTap: () async {
-                                  Navigator.pop(context);
-                                  final finalRes = await formSubmitDialog(
-                                    context: context,
-                                    future: model.sendPackage(
-                                      controllers.value,
-                                    ),
-                                    prompt: "Sending request to deliverers.",
-                                  );
-                                  if (finalRes != null) {
-                                    showNotificationBottomSheet(context,
-                                        title: "Request Successful",
-                                        message:
-                                            "You’ll be notified to make payment when someone accepts to deliver.",
-                                        gif:
-                                            "assets/images/congratulation_icon.gif",
-                                        buttonLabel: "Okay");
-                                  }
-                                },
-                              );
+                                    showAreYouSureBottomSheet(
+                                      context,
+                                      description:
+                                          "You will be charge ${TravaFormatter.formatCurrency(result.data.toString())}, do you want to continue?",
+                                      onNoTap: () => Navigator.pop(context),
+                                      onYesTap: () async {
+                                        Navigator.pop(context);
+                                        final finalRes = await formSubmitDialog(
+                                          context: context,
+                                          future: model.sendPackage(
+                                            controllers.value,
+                                          ),
+                                          prompt:
+                                              "Sending request to deliverers.",
+                                        );
+                                        if (finalRes != null) {
+                                          showNotificationBottomSheet(context,
+                                              title: "Request Successful",
+                                              onTap: () {
+                                            model.status.value = null;
+                                          },
+                                              message:
+                                                  "You’ll be notified to make payment when someone accepts to deliver.",
+                                              gif:
+                                                  "assets/images/congratulation_icon.gif",
+                                              buttonLabel: "Okay");
+                                        }
+                                      },
+                                    );
                                   }
                                 },
                               );

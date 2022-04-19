@@ -9,7 +9,7 @@ import 'package:trava/screens/forget_password_screen/new_password_screen.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/services/http/auth/auth_http_service.dart';
 import 'package:trava/state/profile/auth_state.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:trava/widgets/buttons/default_button.dart';
 import 'package:trava/widgets/custom_scaffold.dart';
 
@@ -78,7 +78,6 @@ class ResetCodeScreen extends HookWidget {
                         text: "Resend code",
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
-                            //TODO: Implement resend code
                             if (!animationController.isAnimating ||
                                 animationController.isCompleted) {
                               animationController.forward();

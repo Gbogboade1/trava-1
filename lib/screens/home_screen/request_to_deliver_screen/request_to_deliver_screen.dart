@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -8,8 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:trava/components/fragments/spacers/app_date_input.dart';
 import 'package:trava/models/https/request/pick_package_request.dart';
 import 'package:trava/models/podos/selection_data.dart';
-import 'package:trava/screens/home_screen/request_to_deliver_screen/components/package_available_for_delivery.dart';
-
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/constants.dart';
 import 'package:trava/utils/validators.dart';

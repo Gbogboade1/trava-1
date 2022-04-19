@@ -32,7 +32,7 @@ class TownDropDownInputState extends State<TownDropDownInput> {
     final json = county.where(
       (it) => '${it["state"]}'.toLowerCase() == widget.state!.toLowerCase(),
     );
-    log("here=  ${json}");
+    log("here=  $json");
     return json
         .map((it) => SelectionData(it['city'].toString().toLowerCase(),
             it['city'].toString().toLowerCase()))
@@ -126,11 +126,11 @@ class TravaDropdownInputState extends State<TravaDropdown> {
                         builder: (context) => FullSelectionBottomSheet(
                           title: widget.hintText,
                           onSelect: (SelectionData s) {
-                            widget.controller.text = s.title;
+                            widget.controller.text = s.selectedData;
                             _localCtrl.text = s.title;
                             if (widget.onChanged != null &&
                                 widget.items != null) {
-                              widget.onChanged!(s);
+                              widget.onChanged!(SelectionData(s.title,s.selectedData, description: s.description));
                             }
                           },
                           items: widget.items ?? [],

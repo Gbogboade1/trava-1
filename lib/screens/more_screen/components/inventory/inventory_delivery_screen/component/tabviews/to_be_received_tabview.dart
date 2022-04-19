@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:trava/components/fragments/indicators/app_loader.dart';
 import 'package:trava/components/fragments/state/app_error_state.dart';
 import 'package:trava/models/https/request/sent_response.dart';
-import 'package:trava/screens/history_screen/components/history_tiles.dart';
 import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/component/inventory_tile.dart';
 import 'package:trava/state/profile/auth_state.dart';
 import 'package:trava/utils/helpers.dart';

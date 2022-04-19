@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:trava/components/hooks/profile_data_listening_widget.dart';
 import 'package:trava/screens/manage_hub_screen/manage_hub_screen.dart';
 import 'package:trava/screens/more_screen/components/edit_profile_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/inventory/inventory_delivery_screen/inventory_delivery_screen.dart';
-import 'package:trava/screens/more_screen/components/inventory/inventory_drop_off_screen/inventory_drop_off_screen.dart';
-
 import 'package:trava/screens/more_screen/components/linked_bank_account_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/linked_card_bottom_sheet.dart';
 import 'package:trava/screens/more_screen/components/more_list_tile.dart';
 import 'package:trava/screens/more_screen/components/packages_to_pickup_screen.dart';
-import 'package:trava/screens/register_hub_screen/register_hub_screen.dart';
 import 'package:trava/screens/more_screen/components/password_settings_bottom_sheet.dart';
+import 'package:trava/screens/register_hub_screen/register_hub_screen.dart';
 import 'package:trava/state/profile/auth_state.dart';
-import 'package:trava/utils/constants.dart';
 import 'package:trava/widgets/buttons/outlined_button.dart';
-import 'package:trava/widgets/custom_bottom_sheet.dart';
-import 'package:provider/provider.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
