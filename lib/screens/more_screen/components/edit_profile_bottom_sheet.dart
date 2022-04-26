@@ -31,10 +31,18 @@ class EditProfileBottomSheet extends HookWidget {
       context,
       data,
     ) {
-      emailController.text = data?.user?.email ?? '';
-      firstNameController.text = data?.user?.firstName ?? '';
-      lastNameController.text = data?.user?.lastName ?? '';
-      phoneNumberController.text = data?.user?.phone ?? '';
+      if (emailController.text.isEmpty) {
+        emailController.text = data?.user?.email ?? '';
+      }
+      if (firstNameController.text.isEmpty) {
+        firstNameController.text = data?.user?.firstName ?? '';
+      }
+      if (lastNameController.text.isEmpty) {
+        lastNameController.text = data?.user?.lastName ?? '';
+      }
+      if (phoneNumberController.text.isEmpty) {
+        phoneNumberController.text = data?.user?.phone ?? '';
+      }
       return CustomBottomSheet(
         title: "Edit Profile",
         content: Form(

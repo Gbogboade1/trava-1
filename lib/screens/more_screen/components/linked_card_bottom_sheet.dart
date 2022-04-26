@@ -81,10 +81,13 @@ class _CardSettingsBottomSheetState extends State<CardSettingsBottomSheet> {
                   if (groupValue == "$index") {
                     groupValue = null;
                   }
-                  await formSubmitDialog(
+                  final result = await formSubmitDialog(
                       context: context,
                       prompt: "removing card, please wait...",
-                      future: model.deleteCard("${data.user!.cards![index]}"));
+                      future: model.deleteCard("${data.user!.cards![index].sId}"));
+                  if (result != null) {
+                    model.status.value = Future.value(result);
+                  }
                 },
               );
             }),

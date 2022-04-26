@@ -13,6 +13,7 @@ import 'package:trava/models/https/users/sign_out_response.dart';
 import 'package:trava/models/https/users/sign_up.dart';
 import 'package:trava/models/https/users/sign_up_response.dart';
 import 'package:trava/models/https/users/update_password_request.dart';
+import 'package:trava/models/https/users/update_password_response.dart';
 import 'package:trava/services/storage/storage.dart';
 import 'package:trava/utils/token_manager.dart';
 
@@ -173,7 +174,7 @@ class AuthHttpService extends HttpService {
     }
   }
 
-  Future<ProfileData> updatePassword(UpdatePasswordRequest data) async {
+  Future<PasswordResponse> updatePassword(UpdatePasswordRequest data) async {
     try {
       final req = await http.patch(
         "/update_password",
@@ -181,7 +182,7 @@ class AuthHttpService extends HttpService {
       );
       // final data =
 
-      return ProfileData.fromJson(req.data);
+      return PasswordResponse.fromJson(req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,

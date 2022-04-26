@@ -5,19 +5,80 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trava/components/fragments/spacers/app_selection_full_sheet.dart';
 
 import 'package:trava/components/fragments/spacers/app_text_field.dart';
+import 'package:trava/models/https/hubs/hubs.dart';
 import 'package:trava/models/podos/selection_data.dart';
 import 'package:trava/utils/county_list.dart';
 import 'package:trava/utils/modals.dart';
 import 'package:trava/utils/typedefs.dart';
 
+class HubDropDownInput extends StatefulWidget {
+  final String? state;
+  final String? hintText;
+  final String? town;
+  final List<Data> hubs;
+  final OnValidate<String>? validator;
+  final TextEditingController? controller;
+
+  const HubDropDownInput({
+    Key? key,
+    this.state,
+    this.hintText,
+    this.town,
+    required this.hubs,
+    this.validator,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => HubDropDownInputState();
+}
+
+class HubDropDownInputState extends State<HubDropDownInput> {
+  List<SelectionData> get specificHubs {
+    if (widget.state == null || (widget.state?.isEmpty ?? true)) return [];
+    if (widget.town == null || (widget.town?.isEmpty ?? true)) return [];
+    final json = widget.hubs.where(
+      (it) => ('${it.state}'.trim().toLowerCase() == widget.state!.trim().toLowerCase() &&
+          '${it.town}'.trim().toLowerCase() == widget.town!.trim().toLowerCase()),
+    );
+    return json
+        .map((e) => SelectionData(e.name ?? "", e.sId ?? "",
+            description: e.description))
+        .toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // if (lgas.isEmpty) return const Offstage();
+
+    return TravaDropdown(
+      widget.controller!,
+      isHub: true,
+      validator: widget.validator,
+      hintText: widget.hintText ?? "Where should the deliverer come pickup the package?",
+      items: specificHubs,
+    );
+  }
+
+  @override
+  void didUpdateWidget(HubDropDownInput oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.state!.trim() != oldWidget.state!.trim()) {
+      widget.controller!.clear();
+    }
+  }
+}
+
 class TownDropDownInput extends StatefulWidget {
   final String? state;
   final OnValidate<String>? validator;
+  final OnChanged<SelectionData>? onChanged;
   final TextEditingController? controller;
 
   const TownDropDownInput({
     Key? key,
     this.state,
+    this.onChanged,
     this.validator,
     required this.controller,
   }) : super(key: key);
@@ -46,6 +107,7 @@ class TownDropDownInputState extends State<TownDropDownInput> {
     return TravaDropdown(
       widget.controller!,
       validator: widget.validator,
+      onChanged: widget.onChanged,
       hintText: "e.g Ibadan",
       items: lgas,
     );
@@ -130,7 +192,9 @@ class TravaDropdownInputState extends State<TravaDropdown> {
                             _localCtrl.text = s.title;
                             if (widget.onChanged != null &&
                                 widget.items != null) {
-                              widget.onChanged!(SelectionData(s.title,s.selectedData, description: s.description));
+                              widget.onChanged!(SelectionData(
+                                  s.title, s.selectedData,
+                                  description: s.description));
                             }
                           },
                           items: widget.items ?? [],

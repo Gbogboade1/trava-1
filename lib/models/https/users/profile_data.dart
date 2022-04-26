@@ -154,7 +154,7 @@ class Packages {
   bool? isActive;
   String? type;
   String? description;
-  int? quantity;
+  num? quantity;
   String? deliveryMode;
   String? pickupTime;
   String? pickupLocation;
@@ -377,8 +377,8 @@ class Cards {
   String? sId;
   String? brand;
   String? last4;
-  int? expyear;
-  int? expmonth;
+  num? expyear;
+  num? expmonth;
   String? token;
 
   Cards(

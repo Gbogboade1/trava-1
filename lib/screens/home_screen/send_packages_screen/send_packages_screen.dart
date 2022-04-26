@@ -140,13 +140,6 @@ class SendPackagesScreen extends HookWidget {
                                     prompt: "Getting cost of delivery...",
                                   );
                                   if (result != null) {
-                                    // showNotificationBottomSheet(context,
-                                    //     title: "Request Successful",
-                                    //     message:
-                                    //         "You’ll be notified to make payment when someone accepts to deliver.",
-                                    //     gif:
-                                    //         "assets/images/congratulation_icon.gif",
-                                    //     buttonLabel: "Okay");
                                     showAreYouSureBottomSheet(
                                       context,
                                       description:

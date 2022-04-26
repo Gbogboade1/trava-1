@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -33,6 +32,8 @@ class SendPackageInfoPage extends HookWidget {
   Widget build(BuildContext context) {
     final departureStateValue = useState("");
     final destinationStateValue = useState("");
+    final destinationTownValue = useState("");
+    final departureTownValue = useState("");
     final model = context.watch<AuthState>();
 
     return SingleChildScrollView(
@@ -69,6 +70,8 @@ class SendPackageInfoPage extends HookWidget {
               controller: controllers.departureTown,
               state: departureStateValue.value,
               validator: TravaValidators.required,
+              
+              onChanged: (s) => departureTownValue.value = s.selectedData, 
             ),
             SizedBox(height: 24.h),
             //Type of package
@@ -194,6 +197,7 @@ class SendPackageInfoPage extends HookWidget {
               controller: controllers.destinationTown,
               state: destinationStateValue.value,
               validator: TravaValidators.required,
+              onChanged: (s) => destinationTownValue.value = s.selectedData,              
             ),
             SizedBox(height: 24.h),
             //Package Delivery Date
@@ -230,14 +234,12 @@ class SendPackageInfoPage extends HookWidget {
             ),
             SizedBox(height: 8.h),
 
-            TravaDropdown(
-              controllers.location,
+            HubDropDownInput(
+              controller: controllers.location,
               validator: TravaValidators.required,
-              isHub: true,
-              items: hubs.data!
-                  .map((e) => SelectionData(e.name ?? "", e.sId ?? "",
-                      description: e.description))
-                  .toList(),
+              state: departureStateValue.value,
+              town: departureTownValue.value,
+              hubs: hubs.data!,
               hintText: "Where should the deliverer come pickup the package?",
             ),
             SizedBox(height: 24.h),
@@ -247,19 +249,12 @@ class SendPackageInfoPage extends HookWidget {
                   Theme.of(context).textTheme.button!.copyWith(color: kBlack),
             ),
             SizedBox(height: 8.h),
-            TravaDropdown(
-              controllers.preferredHub,
-              isHub: true,
+            HubDropDownInput(
+              controller: controllers.preferredHub,
               validator: TravaValidators.required,
-              items: hubs.data!
-                  .map(
-                    (e) => SelectionData(
-                      e.name ?? "",
-                      e.sId ?? "",
-                      description: e.description,
-                    ),
-                  )
-                  .toList(),
+              state: destinationStateValue.value,
+               town: destinationTownValue.value,
+              hubs: hubs.data!,
               hintText: "e,g DHL Hub, 22 Ajegunle, Ore",
             ),
             SizedBox(height: 24.h),

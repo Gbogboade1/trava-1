@@ -50,53 +50,66 @@ class DeliveredTabView extends StatelessWidget {
                             Data? packageDetails = snapshot.data?.data?[index];
                             return Padding(
                               padding: EdgeInsets.only(bottom: 15.0.h),
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/baggage.svg',
-                                    ),
-                                    SizedBox(width: 17.w),
-                                    Flexible(
-                                      child: RichText(
-                                        text: TextSpan(
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2!
-                                              .copyWith(
-                                                color: const Color(0xff171718),
-                                              ),
-                                          children: [
-                                            TextSpan(
-                                                text:
-                                                    "Your package (${packageDetails?.deliveryCode ?? ''})  to be delivered at ${packageDetails?.deliveryHub ?? ''}, ${packageDetails?.destTown ?? ''}, ${packageDetails?.destState ?? ''} State by ${packageDetails?.sender?.lastName ?? ''} ${packageDetails?.sender?.firstName ?? ''}. "),
-                                            TextSpan(
-                                              text: "See Details",
-                                              recognizer: TapGestureRecognizer()
-                                                ..onTap = () {
-                                                  Navigator.pushNamed(
-                                                    context,
-                                                    DeliveredPackageDetailsScreen
-                                                        .routeName,
-                                                    arguments: snapshot
-                                                        .data!.data![index],
-                                                  );
-                                                },
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline4!
-                                                  .copyWith(
-                                                    color:
-                                                        const Color(0xff171718),
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    DeliveredPackageDetailsScreen.routeName,
+                                    arguments: snapshot.data!.data![index],
+                                  );
+                                },
+                                child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/baggage.svg',
                                       ),
-                                    )
-                                  ]),
+                                      SizedBox(width: 17.w),
+                                      Flexible(
+                                        child: RichText(
+                                          text: TextSpan(
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .copyWith(
+                                                  color:
+                                                      const Color(0xff171718),
+                                                ),
+                                            children: [
+                                              TextSpan(
+                                                  text:
+                                                      "Your package (${packageDetails?.deliveryCode ?? ''})  to be delivered at ${packageDetails?.deliveryHub ?? ''}, ${packageDetails?.destTown ?? ''}, ${packageDetails?.destState ?? ''} State by ${packageDetails?.deliverer?.lastName ?? ''} ${packageDetails?.deliverer?.firstName ?? ''}. "),
+                                              TextSpan(
+                                                text: "See Details",
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        Navigator.pushNamed(
+                                                          context,
+                                                          DeliveredPackageDetailsScreen
+                                                              .routeName,
+                                                          arguments: snapshot
+                                                              .data!
+                                                              .data![index],
+                                                        );
+                                                      },
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline4!
+                                                    .copyWith(
+                                                      color: const Color(
+                                                          0xff171718),
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ]),
+                              ),
                             );
                           },
                         )

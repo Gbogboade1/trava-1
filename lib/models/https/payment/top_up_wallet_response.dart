@@ -27,7 +27,7 @@ class TopUpWalletResponse {
 
 class Data {
   String? method;
-  double? paymentFee;
+  num? paymentFee;
   num? amount;
   Config? config;
 

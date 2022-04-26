@@ -145,6 +145,7 @@ class AuthState extends ChangeNotifier {
         socket!.on(
           "send location",
           (msg) {
+            log("jjj--- $msg");
             positions.value = LatLng(
               double.parse("${msg["latitude"]}"),
               double.parse("${msg["longitude"]}"),

@@ -89,7 +89,7 @@ class Owner {
   String? password;
   List<String>? packages;
 
-  double? wallet;
+  num? wallet;
   String? joinDate;
   List<Banks>? banks;
 
