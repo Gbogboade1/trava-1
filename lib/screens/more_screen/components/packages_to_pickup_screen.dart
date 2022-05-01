@@ -78,60 +78,72 @@ class PackagesToPickUpScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          itemBuilder: (context, Data element) => Padding(
-                            padding:
-                                EdgeInsets.only(bottom: 16.0.h, top: 14.0.h),
-                            child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/baggage.svg',
-                                  ),
-                                  SizedBox(width: 17.w),
-                                  Flexible(
-                                    child: RichText(
-                                      text: TextSpan(
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                              color: const Color(0xff171718),
+                          itemBuilder: (context, Data element) => InkWell(
+                            onTap: () async {
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                builder: (context) => PickUpDetailsBottomSheet(
+                                  element,
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding:
+                                  EdgeInsets.only(bottom: 16.0.h, top: 14.0.h),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/baggage.svg',
+                                    ),
+                                    SizedBox(width: 17.w),
+                                    Flexible(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(
+                                                color: const Color(0xff171718),
+                                              ),
+                                          children: [
+                                            TextSpan(
+                                              text:
+                                                  "You’re to pickup Package (${element.deliveryCode}) to be delivered at ${element.deliveryHub}, ${element.destTown}, ${element.destState} State  on ${TravaFormatter.formatDate(element.deliveryDate ?? DateTime.now().toString())}. by  ${TravaFormatter.formatTime(element.deliveryDate ?? DateTime.now().toString())} today. pickup code is ${element.pickupCode}.",
                                             ),
-                                        children: [
-                                          TextSpan(
-                                            text:
-                                                "You’re to pickup Package (${element.deliveryCode}) to be delivered at ${element.deliveryHub}, ${element.destTown}, ${element.destState} State  on ${TravaFormatter.formatDate(element.deliveryDate ?? DateTime.now().toString())}. by  ${TravaFormatter.formatTime(element.deliveryDate ?? DateTime.now().toString())} today. pickup code is ${element.pickupCode}.",
-                                          ),
-                                          TextSpan(
-                                            text: "See Package Details",
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () async {
-                                                await showModalBottomSheet(
-                                                  isScrollControlled: true,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      PickUpDetailsBottomSheet(
-                                                    element,
+                                            TextSpan(
+                                              text: "See Package Details",
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () async {
+                                                  await showModalBottomSheet(
+                                                    isScrollControlled: true,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        PickUpDetailsBottomSheet(
+                                                      element,
+                                                    ),
+                                                  );
+                                                },
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline4!
+                                                  .copyWith(
+                                                    color:
+                                                        const Color(0xff171718),
+                                                    decoration: TextDecoration
+                                                        .underline,
                                                   ),
-                                                );
-                                              },
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline4!
-                                                .copyWith(
-                                                  color:
-                                                      const Color(0xff171718),
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                          ),
-                                        ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ]),
+                                  ]),
+                            ),
                           ),
 
                           itemComparator: (Data item1, Data item2) =>

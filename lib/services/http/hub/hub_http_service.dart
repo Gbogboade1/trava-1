@@ -18,7 +18,7 @@ class HubHttpService extends HttpService {
           collectionUrl: "/hub",
         );
 
-  Future<SignUpResponse> register(
+  Future register(
       String town, String name, description, state, File file) async {
     try {
       var formData = FormData.fromMap({
@@ -36,7 +36,7 @@ class HubHttpService extends HttpService {
       );
       // final data =
 
-      return SignUpResponse.fromJson(req.data);
+      return (req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,

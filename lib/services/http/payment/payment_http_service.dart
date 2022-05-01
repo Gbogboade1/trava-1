@@ -32,7 +32,7 @@ class PaymentHttpService extends HttpService {
     }
   }
 
-  Future<SignUpResponse> withdrawal(int amt, String bankId) async {
+  Future withdrawal(int amt, String bankId) async {
     try {
       final req = await http.post(
         "/withdraw",
@@ -40,7 +40,7 @@ class PaymentHttpService extends HttpService {
       );
       // final data =
 
-      return SignUpResponse.fromJson(req.data);
+      return (req.data);
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,

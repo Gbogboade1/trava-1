@@ -130,16 +130,6 @@ class ToBePickedUpTabView extends HookWidget {
                                           SizedBox(height: 16.h),
                                           InkWell(
                                             onTap: () {
-                                              showModalBottomSheet(
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                context: context,
-                                                builder: (context) =>
-                                                    VerifyPackageBottomSheet(
-                                                        snapshot.data!
-                                                            .data![index]),
-                                              );
                                               showAreYouSureBottomSheet(context,
                                                   description:
                                                       "Are you sure Package(${snapshot.data!.data![index].deliveryCode}) has been picked up from your hub?",
@@ -147,6 +137,17 @@ class ToBePickedUpTabView extends HookWidget {
                                                       Navigator.pop(context),
                                                   onYesTap: () {
                                                     Navigator.pop(context);
+                                                    showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          VerifyPackageBottomSheet(
+                                                              snapshot.data!
+                                                                      .data![
+                                                                  index]),
+                                                    );
                                                   });
                                               // showModalBottomSheet(
                                               //   isScrollControlled: true,

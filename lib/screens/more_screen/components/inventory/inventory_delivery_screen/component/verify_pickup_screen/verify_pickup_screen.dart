@@ -73,6 +73,7 @@ class VerifyPackageBottomSheet extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final codeController = useTextEditingController();
+    final active = useState(false);
     final model = context.watch<AuthState>();
     return CustomBottomSheet(
       title: "Verify Package Pickup",
@@ -94,6 +95,9 @@ class VerifyPackageBottomSheet extends HookWidget {
                   return "Invalid code";
                 }
               },
+              onChanged: (s) {
+                active.value = codeController.text.isNotEmpty ? true : false;
+              },
               keyboardType: TextInputType.number,
               decoration: kTextFieldDecoration.copyWith(
                 hintText: "The deliverer will supply this",
@@ -101,7 +105,7 @@ class VerifyPackageBottomSheet extends HookWidget {
             ),
             SizedBox(height: 40.h),
             DefaultButton(
-              isActive: codeController.text.isNotEmpty ? true : false,
+              isActive: active.value,
               buttonLabel: "Confirm verification",
               onTap: () async {
                 if (_formKey.currentState!.validate()) {

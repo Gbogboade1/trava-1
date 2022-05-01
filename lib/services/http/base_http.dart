@@ -7,7 +7,7 @@ class Transformer extends DefaultTransformer {
   Transformer() : super(jsonDecodeCallback: parseJson);
 }
 
-const baseUrl = "https://travaapp.herokuapp.com";
+const baseUrl = "http://travaapp.herokuapp.com";
 
 class HttpService {
   // final NavigationService _navigationService = locator<NavigationService>();

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -33,7 +34,23 @@ class AuthHttpService extends HttpService {
       );
       // final data =
 
-      return SignUpResponse.fromJson(req.data);
+
+      await Hive.box("user_data").clear();
+
+      SignUpResponse result = SignUpResponse.fromJson(req.data);
+      await Hive.box("user_data").clear();
+      final tokenManager = TravaTokenManager.instance;
+      tokenManager.setToken(
+        accessToken: result.token ,
+        email: result.user.email,
+      );
+
+      log("Data is here --- ${tokenManager.tokens.toJson()}");
+
+      LocalStorage.setItem(key: LocalStorage.userData, value: req.data);
+
+      return result;
+
     } on DioError catch (e) {
       throw {
         "statusCode": e.response?.statusCode,

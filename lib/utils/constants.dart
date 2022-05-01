@@ -118,3 +118,11 @@ final banking = [
       { "Code": '033', "Name": 'United Bank for Africa' },
       { "Code": '044', "Name": 'Access Bank' },
     ];
+
+
+    const boardImages = 
+    [
+       'assets/images/send_package.png',
+        'assets/images/earn.png',
+         'assets/images/drop_off.png'
+    ];

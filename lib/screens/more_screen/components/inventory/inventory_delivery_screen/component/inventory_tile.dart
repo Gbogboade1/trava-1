@@ -93,7 +93,7 @@ class ToBeReceivedTile extends StatelessWidget {
                                 prompt: "Verifying pick up by recipient...",
                               );
                               if (result != null) {
-                                Navigator.of(context).pop();
+                                // Navigator.of(context).pop();
                                 model.toBeReceived.value = null;
                                 model.toBePickedInventory.value = null;
                                 showNotificationBottomSheet(context,

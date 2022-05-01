@@ -171,7 +171,7 @@ class _VerifyDeliveryDetailsState extends State<VerifyDeliveryDetails> {
             ),
           ],
         ),
-        SizedBox(height: 24.h),
+        SizedBox(height: 34.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
